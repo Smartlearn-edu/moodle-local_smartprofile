@@ -27,6 +27,23 @@ require_once($CFG->dirroot . '/user/lib.php');
 require_once($CFG->dirroot . '/user/profile/lib.php');
 
 $userid = optional_param('id', 0, PARAM_INT);
+$username = optional_param('username', '', PARAM_RAW);
+if (empty($username)) {
+    $username = optional_param('u', '', PARAM_RAW);
+}
+
+// Check slasharguments (e.g. /local/smartprofile/index.php/username or /local/smartprofile/index.php/7).
+if (empty($userid) && empty($username)) {
+    $pathinfo = get_file_argument();
+    if (!empty($pathinfo)) {
+        $patharg = trim($pathinfo, '/');
+        if (is_numeric($patharg)) {
+            $userid = (int)$patharg;
+        } else if (!empty($patharg)) {
+            $username = $patharg;
+        }
+    }
+}
 
 // Force login check if configured.
 if (!empty($CFG->forceloginforprofiles)) {
@@ -47,13 +64,15 @@ if (!empty($CFG->forceloginforprofiles)) {
     require_login();
 }
 
-$userid = $userid ?: ($USER->id ?? 0);
-if (empty($userid)) {
-    require_login();
-    $userid = $USER->id;
+$profileuser = null;
+if (!empty($userid)) {
+    $profileuser = $DB->get_record('user', ['id' => $userid, 'deleted' => 0]);
+} else if (!empty($username)) {
+    $profileuser = $DB->get_record('user', ['username' => $username, 'deleted' => 0]);
+} else if (isloggedin() && !isguestuser()) {
+    $profileuser = $DB->get_record('user', ['id' => $USER->id, 'deleted' => 0]);
 }
 
-$profileuser = $DB->get_record('user', ['id' => $userid, 'deleted' => 0]);
 if (!$profileuser) {
     $PAGE->set_context(context_system::instance());
     $PAGE->set_title(get_string('user'));

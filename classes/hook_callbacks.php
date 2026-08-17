@@ -44,12 +44,20 @@ class hook_callbacks {
             require_once($CFG->dirroot . '/local/smartprofile/lib.php');
 
             if (local_smartprofile_should_redirect()) {
-                $userid = optional_param('id', $USER->id ?? 0, PARAM_INT);
-                if ($userid > 0) {
-                    $url = new \moodle_url('/local/smartprofile/index.php', ['id' => $userid]);
-                } else {
-                    $url = new \moodle_url('/local/smartprofile/index.php');
+                $userid = optional_param('id', 0, PARAM_INT);
+                $username = optional_param('username', '', PARAM_RAW);
+                if (empty($username)) {
+                    $username = optional_param('u', '', PARAM_RAW);
                 }
+
+                $params = [];
+                if ($userid > 0) {
+                    $params['id'] = $userid;
+                } else if (!empty($username)) {
+                    $params['username'] = $username;
+                }
+
+                $url = new \moodle_url('/local/smartprofile/index.php', $params);
                 \redirect($url);
             }
         }
