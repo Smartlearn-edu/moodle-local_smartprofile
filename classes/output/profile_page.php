@@ -285,7 +285,8 @@ class profile_page implements renderable, templatable {
     }
 
     /**
-     * Gets user roles formatted as badges.
+     * Gets user roles formatted as badges and sorted by priority:
+     * admin (100) > manager (90) > teacher (80) > student (50) > parent (30)
      *
      * @return array
      */
@@ -295,12 +296,13 @@ class profile_page implements renderable, templatable {
 
         if (is_siteadmin($this->profileuser)) {
             $roles[] = [
-                'name'  => get_string('administrator'),
-                'class' => 'badge-admin',
+                'name'     => get_string('administrator'),
+                'class'    => 'badge-admin',
+                'priority' => 100,
             ];
         }
 
-        $sql = "SELECT DISTINCT r.id, r.name, r.shortname
+        $sql = "SELECT DISTINCT r.id, r.name, r.shortname, r.archetype
                   FROM {role_assignments} ra
                   JOIN {role} r ON r.id = ra.roleid
                  WHERE ra.userid = :userid";
@@ -309,19 +311,36 @@ class profile_page implements renderable, templatable {
         foreach ($assignedroles as $r) {
             $displayname = role_get_name($r);
             $class = 'badge-role';
-            if ($r->shortname === 'editingteacher' || $r->shortname === 'teacher') {
-                $class = 'badge-teacher';
-            } else if ($r->shortname === 'manager') {
+            $priority = 10;
+
+            if ($r->shortname === 'manager' || $r->archetype === 'manager') {
                 $class = 'badge-manager';
-            } else if ($r->shortname === 'student') {
+                $priority = 90;
+            } else if ($r->shortname === 'editingteacher' || $r->shortname === 'teacher' || $r->archetype === 'editingteacher' || $r->archetype === 'teacher') {
+                $class = 'badge-teacher';
+                $priority = 80;
+            } else if ($r->shortname === 'coursecreator') {
+                $class = 'badge-teacher';
+                $priority = 75;
+            } else if ($r->shortname === 'student' || $r->archetype === 'student') {
                 $class = 'badge-student';
+                $priority = 50;
+            } else if (in_array($r->shortname, ['parent', 'mentor', 'guardian', 'supervisor'])) {
+                $class = 'badge-role';
+                $priority = 30;
             }
 
             $roles[] = [
-                'name'  => $displayname,
-                'class' => $class,
+                'name'     => $displayname,
+                'class'    => $class,
+                'priority' => $priority,
             ];
         }
+
+        // Sort roles descending by priority (highest first).
+        usort($roles, function($a, $b) {
+            return $b['priority'] <=> $a['priority'];
+        });
 
         return $roles;
     }

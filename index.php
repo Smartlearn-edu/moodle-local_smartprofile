@@ -82,10 +82,12 @@ if (!user_can_view_profile($profileuser, null, $usercontext)) {
 // Page setup.
 $PAGE->set_context($usercontext);
 $PAGE->set_url(new moodle_url('/local/smartprofile/index.php', ['id' => $profileuser->id]));
-$PAGE->set_pagelayout('mypublic');
-$PAGE->set_pagetype('user-profile');
+$PAGE->set_pagelayout('report');
+$PAGE->set_pagetype('local-smartprofile-index');
+$PAGE->add_body_class('path-local-smartprofile');
+$PAGE->add_body_class('smartprofile-active');
 $PAGE->set_title(fullname($profileuser) . ' - ' . get_string('pluginname', 'local_smartprofile'));
-$PAGE->set_heading(fullname($profileuser));
+$PAGE->set_heading('');
 
 // Init AMD JS module.
 $isown = ($USER->id == $profileuser->id);
