@@ -1,0 +1,397 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_smartprofile/profile_page
+
+    Smart Profile main template.
+
+    Context variables:
+    * fullname - User full name
+    * avatarurl - URL to avatar image
+    * rolebadges - List of user roles
+    * isownprofile - Boolean if viewer is owner
+    * canedit - Boolean if viewer can edit profile
+    * editurl - Edit profile URL
+    * preferencesurl - Preferences URL
+    * gradesurl - Grades URL
+    * lastaccess - Formatted last access string
+    * contactinfo - Array of contact items
+    * description - Formatted bio
+    * interests - Array of interests tags
+    * courses - Array of enrolled courses
+    * badges - Array of badges
+    * gamification - Quest data
+    * activityinfo - Activity timestamps
+    * toggles - Privacy toggle items
+}}
+
+<div class="smartprofile-container" data-sp-theme="{{thememode}}">
+
+    <!-- 1. Hero Card -->
+    <div class="sp-hero-card">
+        <div class="sp-banner">
+            <div class="sp-banner-pattern"></div>
+        </div>
+        <div class="sp-hero-body">
+            <div class="sp-hero-main">
+                <div class="d-flex align-items-end flex-wrap" style="gap: 20px;">
+                    <div class="sp-avatar-wrapper">
+                        <img src="{{avatarurl}}" alt="{{fullname}}" class="sp-avatar" loading="lazy" />
+                    </div>
+                    <div class="sp-user-details">
+                        <h1 class="sp-user-name">{{fullname}}</h1>
+                        <div class="sp-role-badges">
+                            {{#rolebadges}}
+                                <span class="sp-badge {{class}}">{{name}}</span>
+                            {{/rolebadges}}
+                        </div>
+                        <div class="sp-lastseen-chip">
+                            <span class="sp-dot"></span>
+                            <span>{{#str}}lastseen, local_smartprofile{{/str}}: {{lastaccess}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sp-hero-actions">
+                    {{#showmessage}}
+                        <a href="{{messageurl}}" class="sp-btn sp-btn-primary">
+                            <i class="fa fa-comment" aria-hidden="true"></i> {{#str}}message, core_message{{/str}}
+                        </a>
+                    {{/showmessage}}
+                    {{#canedit}}
+                        <a href="{{editurl}}" class="sp-btn sp-btn-primary">
+                            <i class="fa fa-pen" aria-hidden="true"></i> {{#str}}editprofile, local_smartprofile{{/str}}
+                        </a>
+                    {{/canedit}}
+                    {{#preferencesurl}}
+                        <a href="{{preferencesurl}}" class="sp-btn sp-btn-outline">
+                            <i class="fa fa-cog" aria-hidden="true"></i> {{#str}}preferences, local_smartprofile{{/str}}
+                        </a>
+                    {{/preferencesurl}}
+                    {{#gradesurl}}
+                        <a href="{{gradesurl}}" class="sp-btn sp-btn-outline">
+                            <i class="fa fa-graduation-cap" aria-hidden="true"></i> {{#str}}viewgrades, local_smartprofile{{/str}}
+                        </a>
+                    {{/gradesurl}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Quick Stats Ribbon -->
+    <div class="sp-stats-ribbon">
+        <div class="sp-stat-box">
+            <div class="sp-stat-icon icon-blue">
+                <i class="fa fa-book-open" aria-hidden="true"></i>
+            </div>
+            <div>
+                <div class="sp-stat-value">{{courses_count}}</div>
+                <div class="sp-stat-label">{{#str}}field_courses, local_smartprofile{{/str}}</div>
+            </div>
+        </div>
+
+        {{#showbadges}}
+        <div class="sp-stat-box sp-stat-badges-box">
+            {{#has_badges}}
+                <div class="sp-badge-preview-pills">
+                    {{#badges_preview}}
+                        <img src="{{imageurl}}" alt="{{name}}" title="{{name}}" class="sp-stat-badge-thumb" />
+                    {{/badges_preview}}
+                </div>
+                <div>
+                    <div class="sp-stat-value">{{badges_count}}</div>
+                    <div class="sp-stat-label">{{#str}}field_badges, local_smartprofile{{/str}}</div>
+                </div>
+            {{/has_badges}}
+            {{^has_badges}}
+                <div class="sp-stat-icon icon-amber">
+                    <i class="fa fa-award" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <div class="sp-stat-value">0</div>
+                    <div class="sp-stat-label">{{#str}}field_badges, local_smartprofile{{/str}}</div>
+                </div>
+            {{/has_badges}}
+        </div>
+        {{/showbadges}}
+
+        {{#showgamification}}
+        {{#gamification}}
+        <div class="sp-stat-box">
+            <div class="sp-stat-icon icon-purple">
+                <i class="fa fa-gamepad" aria-hidden="true"></i>
+            </div>
+            <div>
+                <div class="sp-stat-value">{{level}}</div>
+                <div class="sp-stat-label">{{#str}}field_gamelevel, local_smartprofile{{/str}}</div>
+            </div>
+        </div>
+        {{/gamification}}
+        {{/showgamification}}
+    </div>
+
+    <!-- 3. Main Grid -->
+    <div class="sp-grid">
+
+        <!-- Left Column: Bio, Contact, Privacy Toggles -->
+        <div class="sp-sidebar">
+
+            <!-- About Card -->
+            {{#has_about}}
+            <div class="sp-card">
+                <div class="sp-card-header">
+                    <h2 class="sp-card-title">
+                        <i class="fa fa-user" aria-hidden="true"></i> {{#str}}section_about, local_smartprofile{{/str}}
+                    </h2>
+                </div>
+                {{#has_description}}
+                    <div class="sp-bio-text">{{{description}}}</div>
+                {{/has_description}}
+                {{#has_interests}}
+                    <div class="sp-interests-cloud">
+                        {{#interests}}
+                            <a href="{{url}}" class="sp-interest-tag">{{name}}</a>
+                        {{/interests}}
+                    </div>
+                {{/has_interests}}
+            </div>
+            {{/has_about}}
+
+            <!-- Contact Card -->
+            {{#has_contact}}
+            <div class="sp-card">
+                <div class="sp-card-header">
+                    <h2 class="sp-card-title">
+                        <i class="fa fa-address-card" aria-hidden="true"></i> {{#str}}section_contact, local_smartprofile{{/str}}
+                    </h2>
+                </div>
+                <ul class="sp-contact-list">
+                    {{#contactinfo}}
+                        <li class="sp-contact-item">
+                            <div class="sp-contact-icon">
+                                <i class="fa {{icon}}" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <div class="sp-contact-label">{{label}}</div>
+                                <div class="sp-contact-val">
+                                    {{#islink}}
+                                        <a href="{{link}}">{{value}}</a>
+                                    {{/islink}}
+                                    {{^islink}}
+                                        {{value}}
+                                    {{/islink}}
+                                </div>
+                            </div>
+                        </li>
+                    {{/contactinfo}}
+
+                    {{#has_customfields}}
+                        {{#customfields}}
+                            <li class="sp-contact-item">
+                                <div class="sp-contact-icon">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                </div>
+                                <div>
+                                    <div class="sp-contact-label">{{name}}</div>
+                                    <div class="sp-contact-val">{{{value}}}</div>
+                                </div>
+                            </li>
+                        {{/customfields}}
+                    {{/has_customfields}}
+                </ul>
+            </div>
+            {{/has_contact}}
+
+            <!-- Privacy Controls (Visible only to profile owner) -->
+            {{#isownprofile}}
+            <div class="sp-card sp-privacy-widget">
+                <div class="sp-card-header">
+                    <h2 class="sp-card-title">
+                        <i class="fa fa-shield-alt" aria-hidden="true"></i> {{#str}}section_privacy, local_smartprofile{{/str}}
+                    </h2>
+                </div>
+                <div class="sp-privacy-info">
+                    {{#str}}privacy_info, local_smartprofile{{/str}}
+                </div>
+                <div class="sp-toggle-list" id="sp-toggles-container">
+                    {{#toggles}}
+                        <div class="sp-toggle-item" data-field="{{field}}">
+                            <div class="sp-toggle-name">
+                                <i class="fa {{icon}}" aria-hidden="true"></i>
+                                <span>{{title}}</span>
+                            </div>
+                            <button type="button"
+                                    class="sp-toggle-btn {{#ispublic}}btn-public{{/ispublic}}{{^ispublic}}btn-private{{/ispublic}}"
+                                    data-action="toggle-visibility"
+                                    data-field="{{field}}"
+                                    data-status="{{#ispublic}}public{{/ispublic}}{{^ispublic}}private{{/ispublic}}"
+                                    title="{{#str}}visibility_toggle_help, local_smartprofile{{/str}}">
+                                {{#ispublic}}
+                                    <i class="fa fa-eye" aria-hidden="true"></i> {{#str}}status_public, local_smartprofile{{/str}}
+                                {{/ispublic}}
+                                {{^ispublic}}
+                                    <i class="fa fa-eye-slash" aria-hidden="true"></i> {{#str}}status_private, local_smartprofile{{/str}}
+                                {{/ispublic}}
+                            </button>
+                        </div>
+                    {{/toggles}}
+                </div>
+            </div>
+            {{/isownprofile}}
+
+        </div>
+
+        <!-- Right Column: Courses, Badges, Gamification, Activity -->
+        <div class="sp-main-content">
+
+            <!-- Gamification Card -->
+            {{#showgamification}}
+            {{#gamification}}
+            <div class="sp-card sp-gamification-card">
+                <div class="sp-quest-banner">
+                    <div class="sp-quest-level-badge">
+                        <div class="sp-level-circle">{{level}}</div>
+                        <div class="sp-level-info">
+                            <div class="sp-level-title">{{#str}}section_gamification, local_smartprofile{{/str}}</div>
+                            <div class="sp-xp-text">{{totalxp}} XP • {{completedquests}} {{#str}}completed, local_smartprofile{{/str}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/gamification}}
+            {{/showgamification}}
+
+            <!-- Courses Section -->
+            {{#showcourses}}
+            <div class="sp-card">
+                <div class="sp-card-header">
+                    <h2 class="sp-card-title">
+                        <i class="fa fa-book-open" aria-hidden="true"></i> {{#str}}section_courses, local_smartprofile{{/str}} ({{courses_count}})
+                    </h2>
+                </div>
+
+                {{#has_courses}}
+                <div class="sp-courses-grid">
+                    {{#courses}}
+                        <a href="{{url}}" class="sp-course-card">
+                            <div class="sp-course-thumb" {{#imageurl}}style="background-image: url('{{imageurl}}');"{{/imageurl}}></div>
+                            <div class="sp-course-content">
+                                <h3 class="sp-course-title">{{fullname}}</h3>
+                                {{#hasprogress}}
+                                <div class="sp-progress-wrapper">
+                                    <div class="sp-progress-meta">
+                                        <span>{{#str}}progress, local_smartprofile{{/str}}</span>
+                                        <span>{{progress}}%</span>
+                                    </div>
+                                    <div class="sp-progress-bar-bg">
+                                        <div class="sp-progress-bar-fill {{#iscomplete}}complete{{/iscomplete}}" style="width: {{progress}}%;"></div>
+                                    </div>
+                                </div>
+                                {{/hasprogress}}
+                            </div>
+                        </a>
+                    {{/courses}}
+                </div>
+                {{/has_courses}}
+
+                {{^has_courses}}
+                <div class="sp-empty-state">
+                    <i class="fa fa-folder-open" aria-hidden="true"></i>
+                    <p>{{#str}}nocourses, local_smartprofile{{/str}}</p>
+                </div>
+                {{/has_courses}}
+            </div>
+            {{/showcourses}}
+
+            <!-- Badges Section -->
+            {{#showbadges}}
+            <div class="sp-card">
+                <div class="sp-card-header">
+                    <h2 class="sp-card-title">
+                        <i class="fa fa-award" aria-hidden="true"></i> {{#str}}section_badges, local_smartprofile{{/str}} ({{badges_count}})
+                    </h2>
+                </div>
+
+                {{#has_badges}}
+                <div class="sp-badges-grid">
+                    {{#badges}}
+                        <a href="{{badgeurl}}" class="sp-badge-item" title="{{description}}">
+                            <img src="{{imageurl}}" alt="{{name}}" class="sp-badge-img" loading="lazy" />
+                            <div class="sp-badge-name">{{name}}</div>
+                            <div class="sp-badge-date">{{dateissued}}</div>
+                        </a>
+                    {{/badges}}
+                </div>
+                {{/has_badges}}
+
+                {{^has_badges}}
+                <div class="sp-empty-state">
+                    <i class="fa fa-medal" aria-hidden="true"></i>
+                    <p>{{#str}}nobadges, local_smartprofile{{/str}}</p>
+                </div>
+                {{/has_badges}}
+            </div>
+            {{/showbadges}}
+
+            <!-- Activity Section -->
+            {{#showactivity}}
+            {{#activityinfo}}
+            <div class="sp-card">
+                <div class="sp-card-header">
+                    <h2 class="sp-card-title">
+                        <i class="fa fa-chart-line" aria-hidden="true"></i> {{#str}}section_activity, local_smartprofile{{/str}}
+                    </h2>
+                </div>
+                <div class="sp-activity-grid">
+                    <div class="sp-activity-item">
+                        <i class="fa fa-calendar-check sp-activity-icon" aria-hidden="true"></i>
+                        <div>
+                            <div class="sp-activity-label">{{#str}}firstaccess, local_smartprofile{{/str}}</div>
+                            <div class="sp-activity-val">{{firstaccess}}</div>
+                        </div>
+                    </div>
+                    <div class="sp-activity-item">
+                        <i class="fa fa-clock sp-activity-icon" aria-hidden="true"></i>
+                        <div>
+                            <div class="sp-activity-label">{{#str}}lastaccess, local_smartprofile{{/str}}</div>
+                            <div class="sp-activity-val">{{lastaccess}}</div>
+                        </div>
+                    </div>
+                    {{#lastip}}
+                    <div class="sp-activity-item">
+                        <i class="fa fa-network-wired sp-activity-icon" aria-hidden="true"></i>
+                        <div>
+                            <div class="sp-activity-label">{{#str}}ipaddress, local_smartprofile{{/str}}</div>
+                            <div class="sp-activity-val">{{lastip}}</div>
+                        </div>
+                    </div>
+                    {{/lastip}}
+                </div>
+            </div>
+            {{/activityinfo}}
+            {{/showactivity}}
+
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="sp-toast" class="sp-toast" role="alert" aria-live="polite">
+        <i class="fa fa-check-circle" aria-hidden="true"></i>
+        <span id="sp-toast-msg"></span>
+    </div>
+
+</div>
