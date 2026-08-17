@@ -66,22 +66,43 @@ $string['justnow'] = 'الآن';
 $string['minutesago'] = 'منذ {$a} د';
 $string['hoursago'] = 'منذ {$a} س';
 $string['daysago'] = 'منذ {$a} ي';
+$string['membersince'] = 'عضو منذ';
+$string['joined'] = 'تاريخ الانضمام';
 
+// --- Metrics & Facts Ribbon ---
+$string['coursesenrolled'] = 'المقررات المسجلة';
+$string['coursescompleted'] = 'المقررات المكتملة';
+$string['overallprogress'] = 'نسبة الإنجاز الكلية';
+$string['certificates'] = 'الشهادات المكتسبة';
+$string['badgesearned'] = 'الأوسمة المكتسبة';
+$string['currentstreak'] = 'سلسلة النشاط المستمر';
+
+// --- Performance & Cards ---
+$string['learningperformance'] = 'الأداء والإنجاز التعليمي';
+$string['viewfullanalytics'] = 'عرض التحليلات الكاملة';
+$string['averagegrade'] = 'معدل الدرجات العام';
+$string['activitiescompleted'] = 'الأنشطة المكتملة';
+$string['assessmentscompleted'] = 'التقييمات المنجزة';
+$string['timespentlearning'] = 'الوقت المستغرق في التعلم';
+
+$string['achievements'] = 'الأوسمة والإنجازات';
+$string['learningjourney'] = 'مسيرة التعلم';
 $string['section_about'] = 'نبذة عني';
 $string['section_contact'] = 'معلومات التواصل';
-$string['section_courses'] = 'المقررات المسجلة';
-$string['section_badges'] = 'الأوسمة المكتسبة';
-$string['section_gamification'] = 'المغامرة والإنجازات';
-$string['section_activity'] = 'نشاط الحساب';
-$string['section_privacy'] = 'إعدادات الخصوصية الشخصية';
+$string['profilevisibility'] = 'إعدادات الخصوصية والظهور';
 $string['privacy_info'] = 'اضغط على الشارات أدناه للتبديل بين إظهار أو إخفاء معلوماتك عن زملائك الطلاب.';
+$string['recentactivity'] = 'النشاط الأخير';
+$string['skills'] = 'المهارات والخبرات';
+$string['connect'] = 'التواصل والشبكات';
+$string['issued'] = 'تاريخ الإصدار';
+$string['footertagline'] = 'تمكين المتعلمين وإبراز الإنجازات الأكاديمية.';
 
 $string['interests'] = 'الاهتمامات';
 $string['nocourses'] = 'لا توجد مقررات دراسية لعرضها حالياً.';
 $string['nobadges'] = 'لم يتم الحصول على أوسمة بعد.';
 $string['completed'] = 'مكتمل';
 $string['progress'] = 'نسبة الإنجاز';
-$string['dateissued'] = 'تاريخ الحصول: {$a}';
+$string['dateissued'] = 'تاريخ الإنجاز';
 $string['firstaccess'] = 'أول دخول للنظام';
 $string['lastaccess'] = 'آخر نشاط';
 $string['ipaddress'] = 'عنوان IP';
@@ -101,8 +122,12 @@ $string['field_timezone'] = 'المنطقة الزمنية';
 $string['field_description'] = 'النبذة الشخصية';
 $string['field_interests'] = 'الاهتمامات';
 $string['field_courses'] = 'المقررات';
+$string['field_performance'] = 'الأداء الأكاديمي';
+$string['field_certificates'] = 'الشهادات';
 $string['field_badges'] = 'الأوسمة';
 $string['field_gamelevel'] = 'المستوى ونقاط الخبرة';
+$string['field_skills'] = 'المهارات والخبرات';
+$string['field_social'] = 'روابط التواصل';
 $string['field_activity'] = 'إحصائيات النشاط';
 
 // --- AJAX & Feedback ---

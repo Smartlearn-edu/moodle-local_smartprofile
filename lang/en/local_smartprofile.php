@@ -66,22 +66,43 @@ $string['justnow'] = 'Just now';
 $string['minutesago'] = '{$a}m ago';
 $string['hoursago'] = '{$a}h ago';
 $string['daysago'] = '{$a}d ago';
+$string['membersince'] = 'Member since';
+$string['joined'] = 'Joined';
 
+// --- Metrics & Facts Ribbon ---
+$string['coursesenrolled'] = 'Courses Enrolled';
+$string['coursescompleted'] = 'Courses Completed';
+$string['overallprogress'] = 'Overall Progress';
+$string['certificates'] = 'Certificates';
+$string['badgesearned'] = 'Badges Earned';
+$string['currentstreak'] = 'Current Streak';
+
+// --- Performance & Cards ---
+$string['learningperformance'] = 'Learning Performance';
+$string['viewfullanalytics'] = 'View full analytics';
+$string['averagegrade'] = 'Average Grade';
+$string['activitiescompleted'] = 'Activities Completed';
+$string['assessmentscompleted'] = 'Assessments Completed';
+$string['timespentlearning'] = 'Time Spent Learning';
+
+$string['achievements'] = 'Achievements';
+$string['learningjourney'] = 'Learning Journey';
 $string['section_about'] = 'About Me';
 $string['section_contact'] = 'Contact Information';
-$string['section_courses'] = 'Enrolled Courses';
-$string['section_badges'] = 'Earned Badges';
-$string['section_gamification'] = 'Quest & Achievements';
-$string['section_activity'] = 'Account Activity';
-$string['section_privacy'] = 'Privacy Controls';
+$string['profilevisibility'] = 'Profile Visibility';
 $string['privacy_info'] = 'Click the badges below to toggle what other students can see on your profile.';
+$string['recentactivity'] = 'Recent Activity';
+$string['skills'] = 'Skills & Expertise';
+$string['connect'] = 'Connect';
+$string['issued'] = 'Issued';
+$string['footertagline'] = 'Empowering learners, showcasing achievements.';
 
 $string['interests'] = 'Interests';
 $string['nocourses'] = 'No enrolled courses to display.';
 $string['nobadges'] = 'No badges earned yet.';
 $string['completed'] = 'Completed';
 $string['progress'] = 'Progress';
-$string['dateissued'] = 'Earned on: {$a}';
+$string['dateissued'] = 'Earned';
 $string['firstaccess'] = 'First access';
 $string['lastaccess'] = 'Last access';
 $string['ipaddress'] = 'IP Address';
@@ -101,8 +122,12 @@ $string['field_timezone'] = 'Timezone';
 $string['field_description'] = 'Biography';
 $string['field_interests'] = 'Interests';
 $string['field_courses'] = 'Courses';
+$string['field_performance'] = 'Learning Performance';
+$string['field_certificates'] = 'Certificates';
 $string['field_badges'] = 'Badges';
 $string['field_gamelevel'] = 'Game Level & XP';
+$string['field_skills'] = 'Skills & Expertise';
+$string['field_social'] = 'Social Links';
 $string['field_activity'] = 'Activity Stats';
 
 // --- AJAX & Feedback ---

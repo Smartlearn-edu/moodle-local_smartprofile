@@ -1,36 +1,41 @@
-/* SmartProfile CSS */
+/* SmartProfile - Digital Learner Identity & Academic Portfolio */
 /* All rules strictly scoped under .path-local-smartprofile */
 
 .path-local-smartprofile {
     --sp-primary: #3b82f6;
     --sp-primary-hover: #2563eb;
-    --sp-primary-light: rgba(59, 130, 246, 0.1);
-    --sp-secondary: #6366f1;
+    --sp-primary-light: rgba(59, 130, 246, 0.08);
     --sp-success: #10b981;
     --sp-warning: #f59e0b;
     --sp-danger: #ef4444;
+    --sp-purple: #8b5cf6;
+    --sp-indigo: #6366f1;
+    --sp-amber: #d97706;
+    --sp-rose: #f43f5e;
     --sp-bg: #f8fafc;
     --sp-card-bg: #ffffff;
     --sp-card-border: #e2e8f0;
-    --sp-text: #1e293b;
+    --sp-text: #0f172a;
     --sp-text-muted: #64748b;
-    --sp-radius: 16px;
-    --sp-radius-sm: 10px;
-    --sp-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-    --sp-shadow-hover: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
-    --sp-banner-gradient: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e1b4b 100%);
+    --sp-text-subtle: #94a3b8;
+    --sp-radius: 18px;
+    --sp-radius-sm: 12px;
+    --sp-radius-pill: 9999px;
+    --sp-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+    --sp-shadow-hover: 0 12px 30px -4px rgba(15, 23, 42, 0.12);
 }
 
 .path-local-smartprofile[data-sp-theme="dark"],
 .path-local-smartprofile.theme-dark {
-    --sp-bg: #0f172a;
-    --sp-card-bg: #1e293b;
-    --sp-card-border: #334155;
+    --sp-bg: #0b0f19;
+    --sp-card-bg: #131b2e;
+    --sp-card-border: #1e293b;
     --sp-text: #f8fafc;
     --sp-text-muted: #94a3b8;
-    --sp-primary-light: rgba(59, 130, 246, 0.2);
-    --sp-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
-    --sp-banner-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+    --sp-text-subtle: #64748b;
+    --sp-primary-light: rgba(59, 130, 246, 0.18);
+    --sp-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+    --sp-shadow-hover: 0 12px 30px -4px rgba(0, 0, 0, 0.6);
 }
 
 /* Suppress duplicate theme page header so only SmartProfile hero is shown */
@@ -42,15 +47,15 @@
 }
 
 .smartprofile-container {
-    max-width: 1300px;
+    max-width: 1240px;
     margin: 0 auto;
-    padding: 10px 15px 40px;
+    padding: 10px 16px 50px;
     font-family: inherit;
     color: var(--sp-text);
 }
 
 /* ==========================================================================
-   Hero Section & Banner
+   1. Hero Identity Card & Cover Banner
    ========================================================================== */
 .sp-hero-card {
     background: var(--sp-card-bg);
@@ -62,275 +67,379 @@
     position: relative;
 }
 
-.sp-banner {
-    height: 180px;
-    background: var(--sp-banner-gradient);
+.sp-cover-banner {
+    height: 220px;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 40%, #1e1b4b 100%);
     position: relative;
-    overflow: hidden;
+    background-image: 
+        radial-gradient(at 80% 20%, rgba(99, 102, 241, 0.35) 0px, transparent 50%),
+        radial-gradient(at 20% 80%, rgba(59, 130, 246, 0.3) 0px, transparent 50%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='rgba(255,255,255,0.06)' d='M0,192L48,197.3C96,203,192,213,288,192C384,171,480,117,576,112C672,107,768,149,864,170.7C960,192,1056,192,1152,170.7C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: cover, cover, cover;
+    background-position: center;
 }
 
-.sp-banner-pattern {
+.sp-cover-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-    background-size: 20px 20px;
-    opacity: 0.6;
+    background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.4) 100%);
 }
 
-.sp-hero-body {
-    padding: 0 28px 28px;
-    position: relative;
-}
-
-.sp-hero-main {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-top: -65px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.sp-avatar-wrapper {
-    position: relative;
-    display: inline-block;
-}
-
-.sp-avatar {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    border: 4px solid var(--sp-card-bg);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    object-fit: cover;
-    background-color: #cbd5e1;
-    display: block;
-}
-
-.sp-user-details {
-    margin-top: 15px;
-}
-
-.sp-user-name {
-    font-size: 1.85rem;
-    font-weight: 700;
-    color: var(--sp-text);
-    margin: 0 0 6px 0;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.sp-role-badges {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.sp-badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    text-transform: capitalize;
-    letter-spacing: 0.3px;
-}
-
-.sp-badge.badge-admin {
-    background: #fef3c7;
-    color: #92400e;
-    border: 1px solid #fde68a;
-}
-.sp-badge.badge-teacher {
-    background: #dbeafe;
-    color: #1e40af;
-    border: 1px solid #bfdbfe;
-}
-.sp-badge.badge-manager {
-    background: #f3e8ff;
-    color: #6b21a8;
-    border: 1px solid #e9d5ff;
-}
-.sp-badge.badge-student,
-.sp-badge.badge-role {
-    background: #e2e8f0;
-    color: #334155;
-    border: 1px solid #cbd5e1;
-}
-
-.sp-lastseen-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.85rem;
-    color: var(--sp-text-muted);
-}
-
-.sp-lastseen-chip .sp-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--sp-success);
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.sp-hero-actions {
+.sp-banner-actions {
+    position: absolute;
+    top: 20px;
+    right: 24px;
     display: flex;
     gap: 10px;
-    flex-wrap: wrap;
-    align-self: flex-end;
-    margin-bottom: 5px;
+    z-index: 10;
 }
 
-.sp-btn {
+.sp-hero-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 20px;
-    border-radius: var(--sp-radius-sm);
+    padding: 8px 18px;
+    border-radius: var(--sp-radius-pill);
+    font-size: 0.88rem;
     font-weight: 600;
-    font-size: 0.9rem;
     text-decoration: none;
     transition: all 0.2s ease;
-    cursor: pointer;
-    border: 1px solid transparent;
+    backdrop-filter: blur(8px);
 }
 
-.sp-btn-primary {
-    background-color: var(--sp-primary);
+.sp-hero-btn-primary {
+    background: #3b82f6;
     color: #ffffff !important;
+    border: none;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
 }
 
-.sp-btn-primary:hover {
-    background-color: var(--sp-primary-hover);
+.sp-hero-btn-primary:hover {
+    background: #2563eb;
     transform: translateY(-1px);
     color: #ffffff !important;
 }
 
-.sp-btn-outline {
-    background-color: transparent;
-    color: var(--sp-text) !important;
-    border-color: var(--sp-card-border);
+.sp-hero-btn-light {
+    background: rgba(255, 255, 255, 0.9);
+    color: #1e293b !important;
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-.sp-btn-outline:hover {
-    background-color: var(--sp-primary-light);
-    border-color: var(--sp-primary);
-    color: var(--sp-primary) !important;
+.sp-hero-btn-light:hover {
+    background: #ffffff;
+    transform: translateY(-1px);
+}
+
+.sp-hero-btn-icon {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    color: #1e293b !important;
+}
+
+.sp-hero-content {
+    padding: 0 32px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: -65px;
+    position: relative;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.sp-hero-left {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+    flex: 1;
+    min-width: 300px;
+}
+
+.sp-avatar-holder {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    flex-shrink: 0;
+}
+
+.sp-hero-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 5px solid var(--sp-card-bg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+    object-fit: cover;
+    background-color: #e2e8f0;
+    display: block;
+}
+
+.sp-status-indicator {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--sp-success);
+    border: 3px solid var(--sp-card-bg);
+}
+
+.sp-identity-details {
+    margin-bottom: 4px;
+}
+
+.sp-name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.sp-hero-name {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--sp-text);
+    margin: 0;
+    line-height: 1.15;
+}
+
+.sp-verified-badge {
+    color: #3b82f6;
+    font-size: 1.3rem;
+}
+
+.sp-headline-text {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--sp-text-muted);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sp-headline-text i {
+    color: var(--sp-primary);
+}
+
+.sp-bio-quote {
+    font-style: italic;
+    color: var(--sp-text);
+    font-size: 0.93rem;
+    margin-bottom: 12px;
+    line-height: 1.45;
+    max-width: 600px;
+}
+
+.sp-status-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.sp-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: var(--sp-radius-pill);
+    background: var(--sp-bg);
+    border: 1px solid var(--sp-card-border);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--sp-text-muted);
+}
+
+.sp-pill-active {
+    background: #ecfdf5;
+    color: #059669;
+    border-color: #a7f3d0;
+}
+
+.sp-pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #059669;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+}
+
+/* Gamification Shield Widget in Hero */
+.sp-hero-right {
+    flex-shrink: 0;
+    min-width: 220px;
+}
+
+.sp-shield-widget {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #4338ca 100%);
+    border-radius: var(--sp-radius-sm);
+    padding: 20px;
+    color: #ffffff;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(49, 46, 129, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.sp-shield-emblem {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.sp-shield-bg {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1e1b4b;
+    box-shadow: 0 4px 14px rgba(251, 191, 36, 0.4);
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.sp-shield-level-num {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+}
+
+.sp-shield-level-label {
+    font-size: 0.55rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.sp-shield-digit {
+    font-size: 1.6rem;
+    font-weight: 900;
+}
+
+.sp-shield-xp-text {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+}
+
+.sp-shield-progress-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.sp-shield-bar-fill {
+    height: 100%;
+    background: #fbbf24;
+    border-radius: 10px;
+}
+
+.sp-shield-subtext {
+    font-size: 0.72rem;
+    color: #c7d2fe;
+    font-weight: 500;
 }
 
 /* ==========================================================================
-   Quick Stats Ribbon
+   2. Profile Facts Ribbon (6-Card Strip)
    ========================================================================== */
-.sp-stats-ribbon {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
-}
-
-.sp-stat-box {
+.sp-facts-ribbon {
     background: var(--sp-card-bg);
     border: 1px solid var(--sp-card-border);
     border-radius: var(--sp-radius);
-    padding: 18px 20px;
-    display: flex;
-    align-items: center;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
     gap: 16px;
     box-shadow: var(--sp-shadow);
-    transition: transform 0.2s ease;
+    margin-bottom: 24px;
 }
 
-.sp-stat-box:hover {
-    transform: translateY(-2px);
+@media (max-width: 992px) {
+    .sp-facts-ribbon {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
-.sp-stat-icon {
-    width: 48px;
-    height: 48px;
+@media (max-width: 576px) {
+    .sp-facts-ribbon {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.sp-fact-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 6px 4px;
+}
+
+.sp-fact-icon {
+    width: 44px;
+    height: 44px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    flex-shrink: 0;
 }
 
-.sp-stat-icon.icon-blue { background: #eff6ff; color: #2563eb; }
-.sp-stat-icon.icon-purple { background: #f5f3ff; color: #7c3aed; }
-.sp-stat-icon.icon-amber { background: #fffbeb; color: #d97706; }
-.sp-stat-icon.icon-green { background: #ecfdf5; color: #059669; }
+.sp-fact-blue { background: #eff6ff; color: #2563eb; }
+.sp-fact-purple { background: #f5f3ff; color: #7c3aed; }
+.sp-fact-indigo { background: #eef2ff; color: #4f46e5; }
+.sp-fact-amber { background: #fffbeb; color: #d97706; }
+.sp-fact-rose { background: #fff1f2; color: #e11d48; }
+.sp-fact-orange { background: #fff7ed; color: #ea580c; }
 
-.sp-stat-value {
-    font-size: 1.4rem;
-    font-weight: 700;
+.sp-fact-val {
+    font-size: 1.25rem;
+    font-weight: 800;
     color: var(--sp-text);
     line-height: 1.1;
 }
 
-.sp-stat-label {
-    font-size: 0.82rem;
+.sp-fact-lbl {
+    font-size: 0.74rem;
+    font-weight: 600;
     color: var(--sp-text-muted);
     margin-top: 2px;
 }
 
-.sp-stat-badges-box {
-    cursor: pointer;
-}
-
-.sp-badge-preview-pills {
-    display: flex;
-    align-items: center;
-}
-
-.sp-stat-badge-thumb {
-    width: 42px;
-    height: 42px;
-    object-fit: contain;
-    border-radius: 50%;
-    border: 2px solid var(--sp-card-bg);
-    background: var(--sp-bg);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    transition: transform 0.2s ease, z-index 0.2s ease;
-    margin-right: -12px;
-}
-
-.sp-stat-badge-thumb:hover {
-    transform: scale(1.3);
-    z-index: 10;
-    position: relative;
-}
-
-[dir="rtl"] .sp-stat-badge-thumb {
-    margin-right: 0;
-    margin-left: -12px;
-}
-
 /* ==========================================================================
-   Main Grid Layout (Sidebar & Main Content)
+   3. Main Two-Column Layout (68% Main / 32% Sidebar)
    ========================================================================== */
-.sp-grid {
+.sp-layout-grid {
     display: grid;
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: 1fr 350px;
     gap: 24px;
     align-items: start;
 }
 
 @media (max-width: 992px) {
-    .sp-grid {
+    .sp-layout-grid {
         grid-template-columns: 1fr;
     }
 }
 
-.sp-card {
+.sp-portfolio-card {
     background: var(--sp-card-bg);
     border: 1px solid var(--sp-card-border);
     border-radius: var(--sp-radius);
@@ -339,16 +448,16 @@
     margin-bottom: 24px;
 }
 
-.sp-card-header {
+.sp-card-title-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--sp-card-border);
 }
 
-.sp-card-title {
+.sp-card-heading {
     font-size: 1.15rem;
     font-weight: 700;
     color: var(--sp-text);
@@ -358,35 +467,423 @@
     gap: 10px;
 }
 
-.sp-card-title i {
+.sp-card-heading-sm {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--sp-text);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sp-head-icon {
     color: var(--sp-primary);
 }
 
+.sp-card-action-link {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--sp-primary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sp-card-action-link:hover {
+    text-decoration: underline;
+}
+
 /* ==========================================================================
-   Contact List & About
+   Learning Performance Card
    ========================================================================== */
-.sp-contact-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.sp-contact-item {
+.sp-performance-body {
     display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 12px 0;
-    border-bottom: 1px dashed var(--sp-card-border);
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
 }
 
-.sp-contact-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+.sp-gauge-column {
+    flex-shrink: 0;
 }
 
-.sp-contact-icon {
-    width: 34px;
-    height: 34px;
+.sp-progress-ring-circle {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    background: conic-gradient(#3b82f6 var(--overall-progress, 74%), #e2e8f0 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.sp-progress-ring-inner {
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    background: var(--sp-card-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.sp-ring-percent {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--sp-text);
+    line-height: 1;
+}
+
+.sp-ring-subtext {
+    font-size: 0.65rem;
+    color: var(--sp-text-muted);
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.sp-perf-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    flex: 1;
+    min-width: 280px;
+}
+
+@media (max-width: 600px) {
+    .sp-perf-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.sp-perf-stat {
+    text-align: left;
+}
+
+.sp-perf-stat-label {
+    font-size: 0.76rem;
+    color: var(--sp-text-muted);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.sp-perf-stat-num {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--sp-text);
+    line-height: 1.1;
+}
+
+/* ==========================================================================
+   Achievements (Badges) Card
+   ========================================================================== */
+.sp-achievements-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 16px;
+    align-items: start;
+}
+
+.sp-achievement-token {
+    background: var(--sp-bg);
+    border: 1px solid var(--sp-card-border);
+    border-radius: var(--sp-radius-sm);
+    padding: 16px 10px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sp-achievement-token:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sp-shadow-hover);
+    color: inherit;
+}
+
+.sp-badge-token-frame {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    margin-bottom: 10px;
+}
+
+.sp-token-badge-img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.sp-token-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--sp-text);
+    line-height: 1.25;
+    margin-bottom: 4px;
+}
+
+.sp-token-earned {
+    font-size: 0.7rem;
+    color: var(--sp-text-muted);
+}
+
+.sp-badge-more-token {
+    background: var(--sp-bg);
+    border: 1px dashed var(--sp-card-border);
+    border-radius: var(--sp-radius-sm);
+    padding: 16px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 120px;
+}
+
+.sp-more-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--sp-card-bg);
+    color: var(--sp-text-muted);
+    font-size: 1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+}
+
+.sp-more-label {
+    font-size: 0.75rem;
+    color: var(--sp-text-muted);
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Certificates Cards Grid
+   ========================================================================== */
+.sp-certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.sp-cert-card {
+    background: var(--sp-bg);
+    border: 1px solid var(--sp-card-border);
+    border-radius: var(--sp-radius-sm);
+    padding: 18px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: block;
+}
+
+.sp-cert-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--sp-shadow-hover);
+    color: inherit;
+}
+
+.sp-cert-border {
+    border: 1px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 14px;
+    background: #ffffff;
+}
+
+.sp-cert-seal {
+    font-size: 1.3rem;
+    color: #d97706;
+    margin-bottom: 8px;
+}
+
+.sp-cert-institution {
+    font-size: 0.72rem;
+    color: var(--sp-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+}
+
+.sp-cert-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--sp-text);
+    margin: 4px 0 8px 0;
+    line-height: 1.3;
+}
+
+.sp-cert-date {
+    font-size: 0.75rem;
+    color: var(--sp-text-muted);
+}
+
+/* ==========================================================================
+   Learning Journey (Courses) List Rows
+   ========================================================================== */
+.sp-journey-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sp-journey-item {
+    background: var(--sp-bg);
+    border: 1px solid var(--sp-card-border);
+    border-radius: var(--sp-radius-sm);
+    padding: 14px 18px;
+    display: grid;
+    grid-template-columns: 44px 1fr 180px 110px;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+}
+
+@media (max-width: 650px) {
+    .sp-journey-item {
+        grid-template-columns: 44px 1fr;
+        gap: 10px;
+    }
+    .sp-journey-progress-col, .sp-journey-status-col {
+        grid-column: span 2;
+    }
+}
+
+.sp-journey-item:hover {
+    background: var(--sp-card-bg);
+    transform: translateX(3px);
+    box-shadow: var(--sp-shadow);
+    color: inherit;
+}
+
+.sp-journey-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.1rem;
+    background-size: cover;
+    background-position: center;
+}
+
+.sp-journey-course-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--sp-text);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.sp-journey-progress-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sp-journey-pct {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--sp-text-muted);
+}
+
+.sp-journey-bar-bg {
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.sp-journey-bar-fill {
+    height: 100%;
+    background: var(--sp-primary);
+    border-radius: 10px;
+}
+
+.sp-journey-bar-fill.complete {
+    background: var(--sp-success);
+}
+
+.sp-journey-status-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: var(--sp-radius-pill);
+    justify-self: end;
+}
+
+.sp-journey-status-tag.status-completed {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.sp-journey-status-tag.status-inprogress {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.sp-tag-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+/* ==========================================================================
+   About Card & Metadata Grid
+   ========================================================================== */
+.sp-about-bio-text {
+    line-height: 1.65;
+    color: var(--sp-text);
+    font-size: 0.94rem;
+    margin-bottom: 20px;
+}
+
+.sp-about-metadata-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--sp-card-border);
+}
+
+@media (max-width: 576px) {
+    .sp-about-metadata-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.sp-meta-entry {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sp-meta-icon {
+    width: 36px;
+    height: 36px;
     border-radius: 8px;
     background: var(--sp-primary-light);
     color: var(--sp-primary);
@@ -397,366 +894,222 @@
     flex-shrink: 0;
 }
 
-.sp-contact-label {
-    font-size: 0.78rem;
+.sp-meta-k {
+    font-size: 0.75rem;
     color: var(--sp-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
 }
 
-.sp-contact-val {
+.sp-meta-v {
     font-size: 0.92rem;
+    font-weight: 600;
     color: var(--sp-text);
-    font-weight: 500;
-    word-break: break-word;
 }
 
-.sp-contact-val a {
+.sp-meta-v a {
     color: var(--sp-primary);
     text-decoration: none;
 }
 
-.sp-contact-val a:hover {
+.sp-meta-v a:hover {
     text-decoration: underline;
 }
 
-.sp-bio-text {
-    line-height: 1.65;
-    color: var(--sp-text);
-    font-size: 0.94rem;
-}
-
-.sp-interests-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 14px;
-}
-
-.sp-interest-tag {
-    background: var(--sp-primary-light);
-    color: var(--sp-primary);
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.sp-interest-tag:hover {
-    background: var(--sp-primary);
-    color: #ffffff;
-}
-
 /* ==========================================================================
-   Privacy Toggles Widget (Inline Controls)
+   Sidebar: Profile Visibility Controls
    ========================================================================== */
-.sp-privacy-widget {
-    background: linear-gradient(to bottom right, var(--sp-card-bg), var(--sp-bg));
+.sp-privacy-card {
+    background: linear-gradient(to bottom, var(--sp-card-bg), var(--sp-bg));
 }
 
-.sp-privacy-info {
-    font-size: 0.82rem;
+.sp-privacy-explainer {
+    font-size: 0.8rem;
     color: var(--sp-text-muted);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     line-height: 1.4;
 }
 
-.sp-toggle-list {
+.sp-toggles-vertical-list {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.sp-toggle-item {
+.sp-toggle-pill-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 9px 12px;
+    padding: 8px 12px;
     background: var(--sp-card-bg);
     border: 1px solid var(--sp-card-border);
     border-radius: var(--sp-radius-sm);
-    font-size: 0.88rem;
 }
 
-.sp-toggle-name {
+.sp-toggle-pill-label {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-weight: 500;
-}
-
-.sp-toggle-name i {
-    color: var(--sp-text-muted);
     font-size: 0.85rem;
+    font-weight: 600;
 }
 
-.sp-toggle-btn {
+.sp-toggle-pill-label i {
+    color: var(--sp-text-muted);
+}
+
+.sp-toggle-badge {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     padding: 4px 10px;
-    border-radius: 14px;
-    font-size: 0.78rem;
-    font-weight: 600;
+    border-radius: var(--sp-radius-pill);
+    font-size: 0.75rem;
+    font-weight: 700;
     cursor: pointer;
     border: none;
     transition: all 0.2s ease;
 }
 
-.sp-toggle-btn.btn-public {
+.sp-toggle-badge.badge-public {
     background: #ecfdf5;
     color: #059669;
 }
 
-.sp-toggle-btn.btn-public:hover {
+.sp-toggle-badge.badge-public:hover {
     background: #d1fae5;
 }
 
-.sp-toggle-btn.btn-private {
+.sp-toggle-badge.badge-private {
     background: #fef2f2;
     color: #dc2626;
 }
 
-.sp-toggle-btn.btn-private:hover {
+.sp-toggle-badge.badge-private:hover {
     background: #fee2e2;
 }
 
 /* ==========================================================================
-   Gamification Card (format_quest)
+   Sidebar: Skills & Social
    ========================================================================== */
-.sp-gamification-card {
-    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-    color: #ffffff;
-    border: none;
-}
-
-.sp-gamification-card .sp-card-title {
-    color: #ffffff;
-}
-
-.sp-gamification-card .sp-card-title i {
-    color: #fbbf24;
-}
-
-.sp-quest-banner {
+.sp-skills-cloud {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 8px;
 }
 
-.sp-quest-level-badge {
+.sp-skill-bubble {
+    background: #eff6ff;
+    color: #2563eb;
+    padding: 6px 14px;
+    border-radius: var(--sp-radius-pill);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.sp-skill-bubble:hover {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.sp-social-buttons-row {
     display: flex;
-    align-items: center;
-    gap: 14px;
+    gap: 10px;
 }
 
-.sp-level-circle {
-    width: 60px;
-    height: 60px;
+.sp-social-btn {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: #fbbf24;
-    color: #1e1b4b;
-    font-size: 1.6rem;
-    font-weight: 800;
+    background: #eff6ff;
+    color: #2563eb;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 14px rgba(251, 191, 36, 0.4);
-}
-
-.sp-level-info .sp-level-title {
-    font-size: 1.15rem;
-    font-weight: 700;
-}
-
-.sp-level-info .sp-xp-text {
-    font-size: 0.85rem;
-    color: #c7d2fe;
-}
-
-/* ==========================================================================
-   Courses Grid
-   ========================================================================== */
-.sp-courses-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 18px;
-}
-
-.sp-course-card {
-    background: var(--sp-card-bg);
-    border: 1px solid var(--sp-card-border);
-    border-radius: var(--sp-radius-sm);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-size: 1.1rem;
     text-decoration: none;
-    color: inherit;
+    transition: all 0.2s ease;
 }
 
-.sp-course-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--sp-shadow-hover);
-    color: inherit;
-}
-
-.sp-course-thumb {
-    height: 120px;
-    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-    background-size: cover;
-    background-position: center;
-    position: relative;
-}
-
-.sp-course-content {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    justify-content: space-between;
-}
-
-.sp-course-title {
-    font-size: 0.98rem;
-    font-weight: 700;
-    color: var(--sp-text);
-    margin: 0 0 12px 0;
-    line-height: 1.35;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.sp-progress-wrapper {
-    margin-top: auto;
-}
-
-.sp-progress-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--sp-text-muted);
-    margin-bottom: 6px;
-}
-
-.sp-progress-bar-bg {
-    height: 7px;
-    background: var(--sp-card-border);
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.sp-progress-bar-fill {
-    height: 100%;
-    background: var(--sp-primary);
-    border-radius: 10px;
-    transition: width 0.4s ease;
-}
-
-.sp-progress-bar-fill.complete {
-    background: var(--sp-success);
+.sp-social-btn:hover {
+    background: #2563eb;
+    color: #ffffff;
+    transform: translateY(-2px);
 }
 
 /* ==========================================================================
-   Badges Grid
+   Sidebar: Recent Activity Timeline
    ========================================================================== */
-.sp-badges-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 16px;
-}
-
-.sp-badge-item {
-    background: var(--sp-bg);
-    border: 1px solid var(--sp-card-border);
-    border-radius: var(--sp-radius-sm);
-    padding: 16px 12px;
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.sp-activity-timeline-list {
     display: flex;
     flex-direction: column;
+    gap: 14px;
+}
+
+.sp-timeline-entry {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.sp-timeline-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
     align-items: center;
-    text-decoration: none;
-    color: inherit;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
 }
 
-.sp-badge-item:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--sp-shadow-hover);
-    color: inherit;
-}
+.activity-gold { background: #fffbeb; color: #d97706; }
+.activity-green { background: #ecfdf5; color: #059669; }
+.activity-blue { background: #eff6ff; color: #2563eb; }
+.activity-purple { background: #f5f3ff; color: #7c3aed; }
 
-.sp-badge-img {
-    width: 68px;
-    height: 68px;
-    object-fit: contain;
-    margin-bottom: 10px;
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
-}
-
-.sp-badge-name {
-    font-size: 0.82rem;
+.sp-timeline-title {
+    font-size: 0.84rem;
     font-weight: 600;
     color: var(--sp-text);
     line-height: 1.25;
-    margin-bottom: 4px;
 }
 
-.sp-badge-date {
+.sp-timeline-time {
     font-size: 0.72rem;
     color: var(--sp-text-muted);
 }
 
 /* ==========================================================================
-   Activity Stats
+   Empty Notice & Toast
    ========================================================================== */
-.sp-activity-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-}
-
-.sp-activity-item {
-    background: var(--sp-bg);
-    border-radius: var(--sp-radius-sm);
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.sp-activity-icon {
-    font-size: 1.2rem;
-    color: var(--sp-primary);
-}
-
-.sp-activity-label {
-    font-size: 0.78rem;
+.sp-empty-notice {
+    text-align: center;
+    padding: 30px 20px;
     color: var(--sp-text-muted);
 }
 
-.sp-activity-val {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--sp-text);
+.sp-empty-notice i {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    opacity: 0.5;
 }
 
-/* ==========================================================================
-   Toast Notification & Utilities
-   ========================================================================== */
+.sp-portfolio-footer {
+    text-align: center;
+    padding: 20px 0;
+    color: var(--sp-text-muted);
+    font-size: 0.82rem;
+}
+
 .sp-toast {
     position: fixed;
     bottom: 24px;
     right: 24px;
-    background: #1e293b;
+    background: #0f172a;
     color: #ffffff;
     padding: 12px 20px;
     border-radius: 10px;
@@ -779,26 +1132,17 @@
     pointer-events: auto;
 }
 
-.sp-empty-state {
-    text-align: center;
-    padding: 36px 20px;
-    color: var(--sp-text-muted);
-}
-
-.sp-empty-state i {
-    font-size: 2.4rem;
-    margin-bottom: 12px;
-    opacity: 0.5;
-}
-
 /* RTL Support */
-[dir="rtl"] .path-local-smartprofile .sp-hero-main {
+[dir="rtl"] .path-local-smartprofile .sp-hero-content,
+[dir="rtl"] .path-local-smartprofile .sp-fact-item,
+[dir="rtl"] .path-local-smartprofile .sp-journey-item,
+[dir="rtl"] .path-local-smartprofile .sp-meta-entry,
+[dir="rtl"] .path-local-smartprofile .sp-toggle-pill-row,
+[dir="rtl"] .path-local-smartprofile .sp-timeline-entry {
     direction: rtl;
 }
 
-[dir="rtl"] .path-local-smartprofile .sp-stat-box,
-[dir="rtl"] .path-local-smartprofile .sp-contact-item,
-[dir="rtl"] .path-local-smartprofile .sp-toggle-item,
-[dir="rtl"] .path-local-smartprofile .sp-activity-item {
-    direction: rtl;
+[dir="rtl"] .path-local-smartprofile .sp-banner-actions {
+    right: auto;
+    left: 24px;
 }

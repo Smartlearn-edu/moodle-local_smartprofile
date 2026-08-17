@@ -97,6 +97,18 @@ class visibility_manager {
                 'icon'     => 'fa-book-open',
                 'title'    => 'field_courses',
             ],
+            'performance' => [
+                'category' => 'academic',
+                'default'  => self::VISIBILITY_PUBLIC,
+                'icon'     => 'fa-chart-pie',
+                'title'    => 'field_performance',
+            ],
+            'certificates' => [
+                'category' => 'academic',
+                'default'  => self::VISIBILITY_PUBLIC,
+                'icon'     => 'fa-certificate',
+                'title'    => 'field_certificates',
+            ],
             'badges' => [
                 'category' => 'gamification',
                 'default'  => self::VISIBILITY_PUBLIC,
@@ -108,6 +120,18 @@ class visibility_manager {
                 'default'  => self::VISIBILITY_PUBLIC,
                 'icon'     => 'fa-gamepad',
                 'title'    => 'field_gamelevel',
+            ],
+            'skills' => [
+                'category' => 'about',
+                'default'  => self::VISIBILITY_PUBLIC,
+                'icon'     => 'fa-lightbulb',
+                'title'    => 'field_skills',
+            ],
+            'social' => [
+                'category' => 'contact',
+                'default'  => self::VISIBILITY_PUBLIC,
+                'icon'     => 'fa-share-nodes',
+                'title'    => 'field_social',
             ],
             'activity' => [
                 'category' => 'academic',
