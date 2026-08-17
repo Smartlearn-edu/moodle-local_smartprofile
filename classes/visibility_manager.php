@@ -32,7 +32,6 @@ use context_user;
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class visibility_manager {
-
     /** @var string User preference key */
     const PREFERENCE_KEY = 'local_smartprofile_visibility';
 
@@ -270,8 +269,10 @@ class visibility_manager {
         // ==========================================
         // LAYER 2: Staff Override Gate
         // ==========================================
-        if ($isadmin || ($usercontext && has_capability('local/smartprofile:viewallfields', $usercontext, $viewer)) ||
-            has_capability('local/smartprofile:viewallfields', $systemcontext, $viewer)) {
+        if (
+            $isadmin || ($usercontext && has_capability('local/smartprofile:viewallfields', $usercontext, $viewer)) ||
+            has_capability('local/smartprofile:viewallfields', $systemcontext, $viewer)
+        ) {
             return true;
         }
 

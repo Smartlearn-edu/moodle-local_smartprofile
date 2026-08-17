@@ -31,7 +31,6 @@ use core_privacy\local\request\transform;
 class provider implements
     \core_privacy\local\metadata\provider,
     user_preference_provider {
-
     /**
      * Describe the metadata stored by this plugin.
      *

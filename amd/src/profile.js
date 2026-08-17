@@ -118,10 +118,10 @@ define(['core/ajax', 'core/str', 'core/notification'], function(ajax, str, notif
             // Optimistic UI update.
             btn.setAttribute('data-status', newStatus);
             if (newStatus === 'public') {
-                btn.className = 'sp-toggle-btn btn-public';
+                btn.className = 'sp-toggle-badge badge-public';
                 btn.innerHTML = '<i class="fa fa-eye" aria-hidden="true"></i> ' + publicText;
             } else {
-                btn.className = 'sp-toggle-btn btn-private';
+                btn.className = 'sp-toggle-badge badge-private';
                 btn.innerHTML = '<i class="fa fa-eye-slash" aria-hidden="true"></i> ' + privateText;
             }
 

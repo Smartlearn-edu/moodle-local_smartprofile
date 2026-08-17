@@ -34,7 +34,6 @@ use moodle_url;
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class profile_data extends external_api {
-
     /**
      * Parameters for save_visibility_prefs.
      *

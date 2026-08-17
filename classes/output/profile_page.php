@@ -34,7 +34,6 @@ use local_smartprofile\visibility_manager;
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class profile_page implements renderable, templatable {
-
     /** @var object The user whose profile is being viewed */
     protected $profileuser;
 
@@ -338,7 +337,7 @@ class profile_page implements renderable, templatable {
         }
 
         // Sort roles descending by priority (highest first).
-        usort($roles, function($a, $b) {
+        usort($roles, function ($a, $b) {
             return $b['priority'] <=> $a['priority'];
         });
 
