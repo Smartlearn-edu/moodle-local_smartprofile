@@ -135,5 +135,12 @@ $string['pref_saved'] = 'Privacy preference updated successfully.';
 $string['pref_error'] = 'Could not save privacy preference.';
 $string['error_access_denied'] = 'Access denied.';
 
+// --- Rewards & Trophies ---
+$string['points_label'] = 'Points';
+$string['trophies'] = 'Trophies';
+$string['trophy_singular'] = '1 Trophy';
+$string['trophies_plural'] = '{$a} Trophies';
+$string['wallet'] = 'View Wallet';
+
 // --- Privacy API ---
 $string['privacy:metadata:preference:visibility'] = 'Stores the user\'s public/private visibility preferences for profile fields.';

@@ -330,49 +330,67 @@
     border: 3px solid rgba(255, 255, 255, 0.3);
 }
 
-.sp-shield-level-num {
+.sp-shield-trophy-box {
     display: flex;
     flex-direction: column;
     align-items: center;
-    line-height: 1;
+    justify-content: center;
+    line-height: 1.1;
 }
 
-.sp-shield-level-label {
-    font-size: 0.55rem;
-    font-weight: 800;
-    letter-spacing: 0.5px;
+.sp-shield-trophy-icon {
+    font-size: 1.35rem;
+    line-height: 1;
+    margin-bottom: 2px;
 }
 
 .sp-shield-digit {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     font-weight: 900;
+    line-height: 1;
+}
+
+.sp-shield-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fbbf24;
+    margin-top: 4px;
+    margin-bottom: 3px;
+    letter-spacing: 0.2px;
 }
 
 .sp-shield-xp-text {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     font-weight: 800;
+    color: #ffffff;
     margin-bottom: 6px;
     letter-spacing: 0.3px;
 }
 
-.sp-shield-progress-bar {
-    height: 6px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 6px;
-}
-
-.sp-shield-bar-fill {
-    height: 100%;
-    background: #fbbf24;
-    border-radius: 10px;
-}
-
 .sp-shield-subtext {
-    font-size: 0.72rem;
-    color: #c7d2fe;
-    font-weight: 500;
+    margin-top: 4px;
+}
+
+.sp-shield-wallet-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px;
+    background: rgba(251, 191, 36, 0.2);
+    border: 1px solid rgba(251, 191, 36, 0.45);
+    border-radius: 16px;
+    color: #fbbf24;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.sp-shield-wallet-link:hover {
+    background: #fbbf24;
+    color: #1e1b4b;
+    text-decoration: none;
+    box-shadow: 0 3px 10px rgba(251, 191, 36, 0.4);
 }
 
 /* ==========================================================================

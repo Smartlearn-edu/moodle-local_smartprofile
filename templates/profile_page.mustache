@@ -87,25 +87,27 @@
                 </div>
             </div>
 
-            <!-- Hero Right: Gamification Level Shield -->
+            <!-- Hero Right: Gamification & Rewards Shield -->
             <div class="sp-hero-right">
                 {{#gamification}}
                 <div class="sp-shield-widget">
                     <div class="sp-shield-emblem">
                         <div class="sp-shield-bg">
-                            <div class="sp-shield-laurel-left"></div>
-                            <div class="sp-shield-level-num">
-                                <span class="sp-shield-level-label">LEVEL</span>
-                                <span class="sp-shield-digit">{{level}}</span>
+                            <div class="sp-shield-trophy-box">
+                                <span class="sp-shield-trophy-icon">🏆</span>
+                                <span class="sp-shield-digit">{{totaltrophies}}</span>
                             </div>
-                            <div class="sp-shield-laurel-right"></div>
                         </div>
                     </div>
-                    <div class="sp-shield-xp-text">{{totalxp}} XP</div>
-                    <div class="sp-shield-progress-bar">
-                        <div class="sp-shield-bar-fill" style="width: {{progress_pct}}%;"></div>
+                    <div class="sp-shield-title">{{trophies_label}}</div>
+                    <div class="sp-shield-xp-text">🪙 {{points_display}}</div>
+                    {{#walleturl}}
+                    <div class="sp-shield-subtext">
+                        <a href="{{walleturl}}" class="sp-shield-wallet-link" title="{{#str}}wallet, local_smartprofile{{/str}}">
+                            <i class="fa fa-wallet" aria-hidden="true"></i> {{#str}}wallet, local_smartprofile{{/str}}
+                        </a>
                     </div>
-                    <div class="sp-shield-subtext">{{xp_needed_text}}</div>
+                    {{/walleturl}}
                 </div>
                 {{/gamification}}
             </div>

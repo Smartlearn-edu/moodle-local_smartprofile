@@ -135,5 +135,12 @@ $string['pref_saved'] = 'تم تحديث خيار الخصوصية بنجاح.';
 $string['pref_error'] = 'تعذر حفظ إعدادات الخصوصية.';
 $string['error_access_denied'] = 'تم رفض الوصول.';
 
+// --- Rewards & Trophies ---
+$string['points_label'] = 'نقطة';
+$string['trophies'] = 'الجوائز والكؤوس';
+$string['trophy_singular'] = 'كأس واحد 🏆';
+$string['trophies_plural'] = '{$a} كؤوس وجوائز 🏆';
+$string['wallet'] = 'عرض المحفظة';
+
 // --- Privacy API ---
 $string['privacy:metadata:preference:visibility'] = 'تخزين تفضيلات المستخدم الخاصة بظهور الحقول (عام / خاص).';

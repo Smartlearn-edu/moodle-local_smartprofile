@@ -473,7 +473,7 @@ class profile_page implements renderable, templatable {
     }
 
     /**
-     * Gets gamification metrics (Level, XP, Streak, Shield data).
+     * Gets gamification & rewards metrics (Trophies, Points, Shield data).
      *
      * @param int $coursescount
      * @param int $completedcourses
@@ -481,44 +481,76 @@ class profile_page implements renderable, templatable {
      * @return array
      */
     protected function get_gamification_stats(int $coursescount, int $completedcourses, int $badgescount): array {
-        // 1. Check format_quest if installed.
-        if (class_exists('\format_quest\api') && method_exists('\format_quest\api', 'get_user_level_summary')) {
-            try {
-                $data = \format_quest\api::get_user_level_summary($this->profileuser->id);
-                if (!empty($data) && isset($data['level'])) {
-                    return [
-                        'level'          => $data['level'],
-                        'totalxp'        => number_format($data['totalxp'] ?? ($data['level'] * 1000)),
-                        'rawxp'          => $data['totalxp'] ?? ($data['level'] * 1000),
-                        'xp_next'        => number_format(($data['level'] + 1) * 1000),
-                        'xp_needed_text' => '2,150 XP to reach Level ' . ($data['level'] + 1),
-                        'progress_pct'   => 70,
-                        'streak'         => 14,
-                    ];
+        global $CFG, $DB;
+
+        $totaltrophiesearned = 0;
+        $totalpointsearned = 0;
+
+        // 1. Fetch lifetime rewards earned from enrol_credit_rewards table.
+        if ($DB->get_manager()->table_exists('enrol_credit_rewards')) {
+            $totaltrophiesearned = (int)$DB->count_records('enrol_credit_rewards', [
+                'userid'     => $this->profileuser->id,
+                'rewardtype' => 'medal',
+            ]);
+
+            $totalpointsearned = (int)$DB->get_field_sql(
+                "SELECT SUM(credits) FROM {enrol_credit_rewards} WHERE userid = :uid AND rewardtype = 'points'",
+                ['uid' => $this->profileuser->id]
+            );
+        }
+
+        // 2. Query current wallet balances to ensure at least current balance is honored.
+        $currpoints = 0;
+        $currtrophies = 0;
+        if ($DB->get_manager()->table_exists('enrol_credit_balances')) {
+            $currpoints = (int)$DB->get_field_sql(
+                "SELECT SUM(balance) FROM {enrol_credit_balances} WHERE userid = :uid AND currencytype = 'points'",
+                ['uid' => $this->profileuser->id]
+            );
+            $currtrophies = (int)$DB->get_field_sql(
+                "SELECT SUM(balance) FROM {enrol_credit_balances} WHERE userid = :uid AND currencytype != 'points'",
+                ['uid' => $this->profileuser->id]
+            );
+        }
+
+        // Check fallback user profile field for credits.
+        if ($currpoints === 0 && $totalpointsearned === 0) {
+            $field = $DB->get_record('user_info_field', ['shortname' => 'my_credit']);
+            if ($field) {
+                $raw = $DB->get_field('user_info_data', 'data', [
+                    'userid' => $this->profileuser->id,
+                    'fieldid' => $field->id,
+                ]);
+                if (is_numeric($raw)) {
+                    $currpoints = (int)$raw;
                 }
-            } catch (\Throwable $e) {
-                // Fallback below.
             }
         }
 
-        // 2. Dynamic formula based on activities, courses, badges.
-        $rawxp = ($completedcourses * 1000) + ($badgescount * 350) + ($coursescount * 150) + 1200;
-        $level = max(1, (int) floor($rawxp / 1000));
-        $nextlevelxp = ($level + 1) * 1000;
-        $xpneeded = max(0, $nextlevelxp - $rawxp);
-        $progresspct = min(95, max(15, (int) round((($rawxp % 1000) / 1000) * 100)));
+        // Showcase reflects total lifetime trophies and points obtained.
+        $totaltrophies = max($totaltrophiesearned, $currtrophies);
+        $totalpoints = max($totalpointsearned, $currpoints);
 
-        // Streak calculation (days since last login vs member date).
-        $streak = min(30, max(3, (int) floor((time() - ($this->profileuser->timecreated ?: (time() - 864000))) / (86400 * 5))));
+        $walleturl = '';
+        if (file_exists($CFG->dirroot . '/enrol/credit/wallet.php')) {
+            $walleturl = (new moodle_url('/enrol/credit/wallet.php', ['userid' => $this->profileuser->id]))->out(false);
+        }
+
+        $streak = min(30, max(1, (int)floor((time() - ($this->profileuser->timecreated ?: (time() - 864000))) / (86400 * 5))));
+
+        $trophies_label = ($totaltrophies === 1)
+            ? get_string('trophy_singular', 'local_smartprofile')
+            : get_string('trophies_plural', 'local_smartprofile', $totaltrophies);
+
+        $points_display = number_format($totalpoints) . ' ' . get_string('points_label', 'local_smartprofile');
 
         return [
-            'level'          => $level,
-            'totalxp'        => number_format($rawxp),
-            'rawxp'          => $rawxp,
-            'xp_next'        => number_format($nextlevelxp),
-            'xp_needed_text' => number_format($xpneeded) . ' XP to reach Level ' . ($level + 1),
-            'progress_pct'   => $progresspct,
+            'totaltrophies'  => $totaltrophies,
+            'totalpoints'    => $totalpoints,
+            'trophies_label' => $trophies_label,
+            'points_display' => $points_display,
             'streak'         => $streak,
+            'walleturl'      => $walleturl,
         ];
     }
 
