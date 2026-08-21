@@ -485,9 +485,25 @@ class profile_page implements renderable, templatable {
 
         $totaltrophiesearned = 0;
         $totalpointsearned = 0;
+        $totalcredithoursearned = 0.0;
 
-        // 1. Fetch lifetime rewards earned from enrol_credit_rewards table.
-        if ($DB->get_manager()->table_exists('enrol_credit_rewards')) {
+        // 1. Fetch lifetime rewards earned from enrol_trophy_rewards or enrol_credit_rewards table.
+        if ($DB->get_manager()->table_exists('enrol_trophy_rewards')) {
+            $totaltrophiesearned = (int)$DB->count_records('enrol_trophy_rewards', [
+                'userid'     => $this->profileuser->id,
+                'rewardtype' => 'medal',
+            ]);
+
+            $totalpointsearned = (int)$DB->get_field_sql(
+                "SELECT SUM(credits) FROM {enrol_trophy_rewards} WHERE userid = :uid AND rewardtype = 'points'",
+                ['uid' => $this->profileuser->id]
+            );
+
+            $totalcredithoursearned = (float)$DB->get_field_sql(
+                "SELECT SUM(credits) FROM {enrol_trophy_rewards} WHERE userid = :uid AND rewardtype = 'credithours'",
+                ['uid' => $this->profileuser->id]
+            );
+        } else if ($DB->get_manager()->table_exists('enrol_credit_rewards')) {
             $totaltrophiesearned = (int)$DB->count_records('enrol_credit_rewards', [
                 'userid'     => $this->profileuser->id,
                 'rewardtype' => 'medal',
@@ -502,7 +518,21 @@ class profile_page implements renderable, templatable {
         // 2. Query current wallet balances to ensure at least current balance is honored.
         $currpoints = 0;
         $currtrophies = 0;
-        if ($DB->get_manager()->table_exists('enrol_credit_balances')) {
+        $currcredithours = 0.0;
+        if ($DB->get_manager()->table_exists('enrol_trophy_balances')) {
+            $currpoints = (int)$DB->get_field_sql(
+                "SELECT SUM(balance) FROM {enrol_trophy_balances} WHERE userid = :uid AND currencytype = 'points'",
+                ['uid' => $this->profileuser->id]
+            );
+            $currcredithours = (float)$DB->get_field_sql(
+                "SELECT SUM(balance) FROM {enrol_trophy_balances} WHERE userid = :uid AND currencytype = 'credithours'",
+                ['uid' => $this->profileuser->id]
+            );
+            $currtrophies = (int)$DB->get_field_sql(
+                "SELECT SUM(balance) FROM {enrol_trophy_balances} WHERE userid = :uid AND currencytype NOT IN ('points', 'credithours')",
+                ['uid' => $this->profileuser->id]
+            );
+        } else if ($DB->get_manager()->table_exists('enrol_credit_balances')) {
             $currpoints = (int)$DB->get_field_sql(
                 "SELECT SUM(balance) FROM {enrol_credit_balances} WHERE userid = :uid AND currencytype = 'points'",
                 ['uid' => $this->profileuser->id]
@@ -513,9 +543,12 @@ class profile_page implements renderable, templatable {
             );
         }
 
-        // Check fallback user profile field for credits.
+        // Check fallback user profile field for credits / trophies.
         if ($currpoints === 0 && $totalpointsearned === 0) {
-            $field = $DB->get_record('user_info_field', ['shortname' => 'my_credit']);
+            $field = $DB->get_record('user_info_field', ['shortname' => 'my_trophy']);
+            if (!$field) {
+                $field = $DB->get_record('user_info_field', ['shortname' => 'my_credit']);
+            }
             if ($field) {
                 $raw = $DB->get_field('user_info_data', 'data', [
                     'userid' => $this->profileuser->id,
@@ -527,12 +560,15 @@ class profile_page implements renderable, templatable {
             }
         }
 
-        // Showcase reflects total lifetime trophies and points obtained.
+        // Showcase reflects total lifetime trophies, points and credit hours obtained.
         $totaltrophies = max($totaltrophiesearned, $currtrophies);
         $totalpoints = max($totalpointsearned, $currpoints);
+        $totalcredithours = max($totalcredithoursearned, $currcredithours);
 
         $walleturl = '';
-        if (file_exists($CFG->dirroot . '/enrol/credit/wallet.php')) {
+        if (file_exists($CFG->dirroot . '/enrol/trophy/wallet.php')) {
+            $walleturl = (new moodle_url('/enrol/trophy/wallet.php', ['userid' => $this->profileuser->id]))->out(false);
+        } else if (file_exists($CFG->dirroot . '/enrol/credit/wallet.php')) {
             $walleturl = (new moodle_url('/enrol/credit/wallet.php', ['userid' => $this->profileuser->id]))->out(false);
         }
 
@@ -544,13 +580,19 @@ class profile_page implements renderable, templatable {
 
         $points_display = number_format($totalpoints) . ' ' . get_string('points_label', 'local_smartprofile');
 
+        $credithours_formatted = rtrim(rtrim(number_format($totalcredithours, 2, '.', ''), '0'), '.');
+        $credithours_display = get_string('credithours_display', 'local_smartprofile', $credithours_formatted);
+
         return [
-            'totaltrophies'  => $totaltrophies,
-            'totalpoints'    => $totalpoints,
-            'trophies_label' => $trophies_label,
-            'points_display' => $points_display,
-            'streak'         => $streak,
-            'walleturl'      => $walleturl,
+            'totaltrophies'        => $totaltrophies,
+            'totalpoints'          => $totalpoints,
+            'totalcredithours'     => $totalcredithours,
+            'hascredithours'       => ($totalcredithours > 0),
+            'trophies_label'       => $trophies_label,
+            'points_display'       => $points_display,
+            'credithours_display'  => $credithours_display,
+            'streak'               => $streak,
+            'walleturl'            => $walleturl,
         ];
     }
 

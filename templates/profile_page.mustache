@@ -101,6 +101,9 @@
                     </div>
                     <div class="sp-shield-title">{{trophies_label}}</div>
                     <div class="sp-shield-xp-text">🪙 {{points_display}}</div>
+                    {{#hascredithours}}
+                    <div class="sp-shield-xp-text">🎓 {{credithours_display}}</div>
+                    {{/hascredithours}}
                     {{#walleturl}}
                     <div class="sp-shield-subtext">
                         <a href="{{walleturl}}" class="sp-shield-wallet-link" title="{{#str}}wallet, local_smartprofile{{/str}}">

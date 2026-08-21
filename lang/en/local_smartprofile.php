@@ -140,6 +140,8 @@ $string['points_label'] = 'Points';
 $string['trophies'] = 'Trophies';
 $string['trophy_singular'] = '1 Trophy';
 $string['trophies_plural'] = '{$a} Trophies';
+$string['credithours'] = 'Credit Hours';
+$string['credithours_display'] = '{$a} Credit Hours';
 $string['wallet'] = 'View Wallet';
 
 // --- Privacy API ---

@@ -140,6 +140,8 @@ $string['points_label'] = 'نقطة';
 $string['trophies'] = 'الجوائز والكؤوس';
 $string['trophy_singular'] = 'كأس واحد 🏆';
 $string['trophies_plural'] = '{$a} كؤوس وجوائز 🏆';
+$string['credithours'] = 'ساعات معتمدة';
+$string['credithours_display'] = '{$a} ساعة معتمدة';
 $string['wallet'] = 'عرض المحفظة';
 
 // --- Privacy API ---
