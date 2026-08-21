@@ -118,4 +118,39 @@ if ($hassiteconfig) {
         get_string('showgamification_desc', 'local_smartprofile'),
         1
     ));
+
+    // --- Social Media & LinkedIn Sharing Settings ---
+    $settings->add(new admin_setting_heading(
+        'local_smartprofile/sharing_heading',
+        get_string('sharing_heading', 'local_smartprofile'),
+        get_string('sharing_desc', 'local_smartprofile')
+    ));
+
+    $settings->add(new admin_setting_configselect(
+        'local_smartprofile/show_shareonlinkedin',
+        get_string('show_shareonlinkedin', 'local_smartprofile'),
+        get_string('show_shareonlinkedin_desc', 'local_smartprofile'),
+        1,
+        [
+            0 => get_string('share_disabled', 'local_smartprofile'),
+            1 => get_string('share_link_verification', 'local_smartprofile'),
+            2 => get_string('share_link_profile', 'local_smartprofile'),
+        ]
+    ));
+
+    $settings->add(new admin_setting_configtext(
+        'local_smartprofile/linkedin_org_id',
+        get_string('linkedin_org_id', 'local_smartprofile'),
+        get_string('linkedin_org_id_desc', 'local_smartprofile'),
+        '',
+        PARAM_ALPHANUMEXT
+    ));
+
+    $settings->add(new admin_setting_configtext(
+        'local_smartprofile/issuer_name',
+        get_string('issuer_name', 'local_smartprofile'),
+        get_string('issuer_name_desc', 'local_smartprofile'),
+        '',
+        PARAM_TEXT
+    ));
 }

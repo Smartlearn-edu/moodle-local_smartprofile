@@ -104,13 +104,20 @@
                     {{#hascredithours}}
                     <div class="sp-shield-xp-text">🎓 {{credithours_display}}</div>
                     {{/hascredithours}}
-                    {{#walleturl}}
-                    <div class="sp-shield-subtext">
+                    <div class="sp-shield-subtext d-flex align-items-center justify-content-center gap-2 flex-wrap">
+                        {{#walleturl}}
                         <a href="{{walleturl}}" class="sp-shield-wallet-link" title="{{#str}}wallet, local_smartprofile{{/str}}">
                             <i class="fa fa-wallet" aria-hidden="true"></i> {{#str}}wallet, local_smartprofile{{/str}}
                         </a>
+                        {{/walleturl}}
+                        {{#has_share}}
+                        {{#share}}
+                        <a href="{{linkedin_add_url}}" target="_blank" rel="noopener noreferrer" class="sp-shield-share-link" title="{{#str}}add_to_linkedin, local_smartprofile{{/str}}">
+                            <i class="fa-brands fa-linkedin" aria-hidden="true"></i> {{#str}}share_achievements, local_smartprofile{{/str}}
+                        </a>
+                        {{/share}}
+                        {{/has_share}}
                     </div>
-                    {{/walleturl}}
                 </div>
                 {{/gamification}}
             </div>
@@ -130,9 +137,19 @@
                     <p class="sp-ch-subtitle text-muted small mb-0">{{#str}}credithours_breakdown_desc, local_smartprofile{{/str}}</p>
                 </div>
             </div>
-            <div class="sp-ch-total-badge badge rounded-pill d-inline-flex align-items-center gap-2 py-2 px-3">
-                <span class="sp-ch-total-label opacity-75">{{#str}}totalcredithours, local_smartprofile{{/str}}:</span>
-                <span class="sp-ch-total-value fw-bold">{{gamification.credithours_display}}</span>
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+                <div class="sp-ch-total-badge badge rounded-pill d-inline-flex align-items-center gap-2 py-2 px-3">
+                    <span class="sp-ch-total-label opacity-75">{{#str}}totalcredithours, local_smartprofile{{/str}}:</span>
+                    <span class="sp-ch-total-value fw-bold">{{gamification.credithours_display}}</span>
+                </div>
+                {{#gamification.has_share}}
+                {{#gamification.share}}
+                <a href="{{linkedin_add_url}}" target="_blank" rel="noopener noreferrer" class="sp-header-linkedin-btn btn btn-sm rounded-pill d-inline-flex align-items-center gap-2 px-3 py-2 fw-semibold" title="{{#str}}add_to_linkedin, local_smartprofile{{/str}}">
+                    <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+                    <span>{{#str}}add_to_linkedin, local_smartprofile{{/str}}</span>
+                </a>
+                {{/gamification.share}}
+                {{/gamification.has_share}}
             </div>
         </div>
 
@@ -146,8 +163,26 @@
                         </span>
                         <span class="sp-ch-cat-name fw-bold">{{parent_name}}</span>
                     </div>
-                    <div class="sp-ch-cat-total-box">
+                    <div class="sp-ch-cat-total-box d-flex align-items-center justify-content-between gap-2 flex-wrap">
                         <span class="sp-ch-cat-total-pill badge rounded-pill px-3 py-2 fw-bold">{{total_hours}}</span>
+                        {{#has_share}}
+                        {{#share}}
+                        <div class="sp-ch-card-share-actions d-flex align-items-center gap-1">
+                            <a href="{{linkedin_add_url}}" target="_blank" rel="noopener noreferrer" class="sp-ch-share-icon-btn sp-share-linkedin" title="{{#str}}add_to_linkedin, local_smartprofile{{/str}}">
+                                <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                            <a href="{{x_url}}" target="_blank" rel="noopener noreferrer" class="sp-ch-share-icon-btn sp-share-x" title="{{#str}}share_to_x, local_smartprofile{{/str}}">
+                                <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+                            </a>
+                            <a href="{{whatsapp_url}}" target="_blank" rel="noopener noreferrer" class="sp-ch-share-icon-btn sp-share-whatsapp" title="{{#str}}share_to_whatsapp, local_smartprofile{{/str}}">
+                                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                            </a>
+                            <a href="{{verify_url}}" target="_blank" rel="noopener noreferrer" class="sp-ch-share-icon-btn sp-share-verify" title="{{#str}}copy_verify_link, local_smartprofile{{/str}}">
+                                <i class="fa fa-shield-halved" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        {{/share}}
+                        {{/has_share}}
                     </div>
                 </div>
 

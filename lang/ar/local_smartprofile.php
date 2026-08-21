@@ -149,3 +149,42 @@ $string['wallet'] = 'عرض المحفظة';
 
 // --- Privacy API ---
 $string['privacy:metadata:preference:visibility'] = 'تخزين تفضيلات المستخدم الخاصة بظهور الحقول (عام / خاص).';
+
+// --- Social & LinkedIn Sharing ---
+$string['sharing_heading'] = 'مشاركة الإنجازات والشهادات عبر LinkedIn ووسائل التواصل';
+$string['sharing_desc'] = 'السماح للطلاب بمشاركة إنجازاتهم وساعاتهم المعتمدة عبر LinkedIn وشبكات التواصل الاجتماعي.';
+$string['show_shareonlinkedin'] = 'إظهار خيار المشاركة على LinkedIn';
+$string['show_shareonlinkedin_desc'] = 'حدد الوجهة المستهدفة عند النقر على رابط التحقق من الشهادة المعتمدة.';
+$string['share_disabled'] = 'عدم الإظهار';
+$string['share_link_verification'] = 'إظهار رابط لصفحة التحقق العامة المعتمدة';
+$string['share_link_profile'] = 'إظهار رابط لملف الطالب الشخصي';
+$string['linkedin_org_id'] = 'معرّف المنظمة على LinkedIn (Organization ID)';
+$string['linkedin_org_id_desc'] = 'المعرّف الرقمي لصفحة المنظمة على LinkedIn (مثل 1234567). في حال تركه فارغاً سيتم التعرف عليه تلقائياً من إضافة tool_certificate إن وُجدت.';
+$string['issuer_name'] = 'اسم الجهة / الأكاديمية المصدرة';
+$string['issuer_name_desc'] = 'اسم المؤسسة الذي يظهر على الشهادات المعتمدة (الافتراضي: اسم الموقع).';
+
+$string['share_achievements'] = 'مشاركة الإنجازات';
+$string['share_on_linkedin'] = 'إضافة إلى ملف LinkedIn الشخصي';
+$string['share_to_linkedin_feed'] = 'مشاركة كمنشور على LinkedIn';
+$string['share_to_x'] = 'مشاركة عبر منصة X (تويتر)';
+$string['share_to_whatsapp'] = 'مشاركة عبر واتساب';
+$string['share_to_facebook'] = 'مشاركة عبر فيسبوك';
+$string['copy_verify_link'] = 'نسخ رابط التحقق المعتمد';
+$string['link_copied'] = 'تم نسخ الرابط إلى الحافظة بنجاح!';
+$string['share_modal_title'] = 'مشاركة الإنجاز الأكاديمي';
+$string['share_modal_subtitle'] = 'استعرض إنجازك المعتمد على LinkedIn وشبكات التواصل الاجتماعي.';
+$string['share_total_msg'] = '🎓 فخور بإتمام {$a->credits} و {$a->trophies} في {$a->site}! شاهد ملفي الأكاديمي المعتمد: {$a->url}';
+$string['share_cat_msg'] = '🎓 لقد أتممت بنجاح {$a->credits} في تخصص {$a->category} في {$a->site}! شاهد سجلي الأكاديمي المعتمد: {$a->url}';
+
+// --- Public Verification Page ---
+$string['verify_title'] = 'التحقق من الشهادة الأكاديمية المعتمدة';
+$string['verified_credential'] = 'سجل أكاديمي معتمد';
+$string['verified_seal'] = 'وثيقة أكاديمية موثقة ومعتمدة رسمياً';
+$string['verified_by'] = 'تم التوثيق والاعتماد بواسطة {$a}';
+$string['verified_recipient'] = 'ممنوحة إلى';
+$string['verified_subject'] = 'التخصص / القسم الأكاديمي';
+$string['verified_hours'] = 'إجمالي الساعات المعتمدة المكتسبة';
+$string['verified_code'] = 'رقم الوثيقة المعتمدة';
+$string['verified_date'] = 'تاريخ التحقق';
+$string['verified_subcats'] = 'المقررات والتخصصات الفرعية المكتملة';
+$string['invalid_verification'] = 'رابط التحقق غير صالح أو لم يتم العثور على السجل الأكاديمي.';

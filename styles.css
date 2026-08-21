@@ -589,11 +589,98 @@
     text-overflow: ellipsis;
 }
 
-.sp-ch-subcat-amount {
+.sp-shield-share-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px;
+    background: rgba(10, 102, 194, 0.25);
+    border: 1px solid rgba(10, 102, 194, 0.5);
+    border-radius: 16px;
+    color: #70b5f9 !important;
+    font-size: 0.76rem;
     font-weight: 700;
-    color: var(--sp-primary);
-    font-size: 0.8rem;
-    flex-shrink: 0;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.sp-shield-share-link:hover {
+    background: #0a66c2;
+    color: #ffffff !important;
+    text-decoration: none;
+    box-shadow: 0 3px 10px rgba(10, 102, 194, 0.4);
+}
+
+.sp-header-linkedin-btn {
+    background: #0a66c2 !important;
+    color: #ffffff !important;
+    border: none;
+    box-shadow: 0 2px 8px rgba(10, 102, 194, 0.3);
+    font-size: 0.82rem;
+    transition: all 0.2s ease;
+}
+
+.sp-header-linkedin-btn:hover {
+    background: #004182 !important;
+    color: #ffffff !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(10, 102, 194, 0.45);
+}
+
+.sp-ch-share-icon-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: 1px solid var(--sp-card-border);
+    background: var(--sp-card-bg);
+}
+
+.sp-ch-share-icon-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sp-share-linkedin { color: #0a66c2 !important; }
+.sp-share-linkedin:hover { background: #0a66c2; color: #ffffff !important; }
+
+.sp-share-x { color: var(--sp-text) !important; }
+.sp-share-x:hover { background: #000000; color: #ffffff !important; }
+
+.sp-share-whatsapp { color: #25d366 !important; }
+.sp-share-whatsapp:hover { background: #25d366; color: #ffffff !important; }
+
+.sp-share-verify { color: var(--sp-primary) !important; }
+.sp-share-verify:hover { background: var(--sp-primary); color: #ffffff !important; }
+
+/* ==========================================================================
+   Public Verification Page Styles
+   ========================================================================== */
+.sp-verify-container {
+    max-width: 720px;
+    margin: 0 auto;
+    font-family: var(--sp-font-body);
+}
+
+.sp-verify-card {
+    background: var(--sp-card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.sp-verify-banner {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+.sp-verify-highlight {
+    background: color-mix(in srgb, var(--sp-primary) 8%, var(--sp-card-bg));
+    border: 1px dashed color-mix(in srgb, var(--sp-primary) 30%, transparent);
 }
 
 /* ==========================================================================

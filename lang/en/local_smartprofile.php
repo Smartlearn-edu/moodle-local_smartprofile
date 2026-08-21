@@ -149,3 +149,42 @@ $string['wallet'] = 'View Wallet';
 
 // --- Privacy API ---
 $string['privacy:metadata:preference:visibility'] = 'Stores the user\'s public/private visibility preferences for profile fields.';
+
+// --- Social & LinkedIn Sharing ---
+$string['sharing_heading'] = 'Social Media & LinkedIn Credential Sharing';
+$string['sharing_desc'] = 'Allow learners to share their achievements and credit hours on LinkedIn and social networks.';
+$string['show_shareonlinkedin'] = 'Show share on LinkedIn';
+$string['show_shareonlinkedin_desc'] = 'Choose the target destination when learners or visitors click to verify the shared credential.';
+$string['share_disabled'] = 'Do not show';
+$string['share_link_verification'] = 'Show link to public verification page';
+$string['share_link_profile'] = 'Show link to profile page';
+$string['linkedin_org_id'] = 'LinkedIn Organization ID';
+$string['linkedin_org_id_desc'] = 'The numeric ID of your LinkedIn organization page (e.g. 1234567). If left empty, it will auto-detect from the tool_certificate plugin if available.';
+$string['issuer_name'] = 'Issuing Organization Name';
+$string['issuer_name_desc'] = 'The organization name displayed on shared credentials (defaults to site name).';
+
+$string['share_achievements'] = 'Share Achievements';
+$string['share_on_linkedin'] = 'Add to LinkedIn Profile';
+$string['share_to_linkedin_feed'] = 'Share to LinkedIn Feed';
+$string['share_to_x'] = 'Share on X (Twitter)';
+$string['share_to_whatsapp'] = 'Share via WhatsApp';
+$string['share_to_facebook'] = 'Share on Facebook';
+$string['copy_verify_link'] = 'Copy Verification Link';
+$string['link_copied'] = 'Link copied to clipboard!';
+$string['share_modal_title'] = 'Share Academic Achievement';
+$string['share_modal_subtitle'] = 'Showcase your verified accomplishment on LinkedIn and social media.';
+$string['share_total_msg'] = '🎓 Proud to announce that I have earned {$a->credits} and {$a->trophies} at {$a->site}! View my verified learning portfolio: {$a->url}';
+$string['share_cat_msg'] = '🎓 I have completed {$a->credits} in {$a->category} at {$a->site}! View my verified academic credential: {$a->url}';
+
+// --- Public Verification Page ---
+$string['verify_title'] = 'Academic Credential Verification';
+$string['verified_credential'] = 'Verified Academic Credential';
+$string['verified_seal'] = 'Officially Verified Credential';
+$string['verified_by'] = 'Verified by {$a}';
+$string['verified_recipient'] = 'Awarded to';
+$string['verified_subject'] = 'Academic Discipline / Subject';
+$string['verified_hours'] = 'Total Earned Hours';
+$string['verified_code'] = 'Credential ID';
+$string['verified_date'] = 'Date Verified';
+$string['verified_subcats'] = 'Earned In Courses & Disciplines';
+$string['invalid_verification'] = 'Invalid verification link or credential not found.';

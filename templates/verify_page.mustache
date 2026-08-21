@@ -1,0 +1,91 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_smartprofile/verify_page
+
+    Public verification page for academic credit hours and achievements.
+}}
+<div class="sp-verify-container my-5">
+    <div class="sp-verify-card card shadow-lg border-0 mx-auto">
+        <!-- Verification Banner / Seal -->
+        <div class="sp-verify-banner p-4 text-center text-white">
+            <div class="sp-verify-seal-icon mb-2">
+                <i class="fa fa-certificate fa-3x" aria-hidden="true"></i>
+            </div>
+            <h2 class="h4 fw-bold mb-1">{{#str}}verified_seal, local_smartprofile{{/str}}</h2>
+            <p class="small mb-0 opacity-75">{{#str}}verified_by, local_smartprofile, {{issuername}}{{/str}}</p>
+        </div>
+
+        <!-- Credential Body -->
+        <div class="card-body p-4 p-md-5">
+            <!-- Student Row -->
+            <div class="d-flex align-items-center gap-3 mb-4 pb-3 border-bottom">
+                <img src="{{avatarurl}}" alt="{{fullname}}" class="rounded-circle shadow-sm" width="70" height="70" />
+                <div>
+                    <div class="text-muted small fw-semibold text-uppercase">{{#str}}verified_recipient, local_smartprofile{{/str}}</div>
+                    <h3 class="h4 fw-bold mb-0">{{fullname}}</h3>
+                </div>
+            </div>
+
+            <!-- Discipline & Hours Highlight -->
+            <div class="sp-verify-highlight p-4 rounded-3 text-center mb-4">
+                <div class="text-muted small fw-semibold text-uppercase mb-1">{{#str}}verified_subject, local_smartprofile{{/str}}</div>
+                <h4 class="h3 fw-bold text-primary mb-2">{{subjectname}}</h4>
+                {{#has_hours}}
+                <div class="display-6 fw-bold text-dark mb-1">🎓 {{hours_display}}</div>
+                {{/has_hours}}
+                {{#has_trophies}}
+                <div class="h5 fw-bold text-warning mt-2">🏆 {{totaltrophies}} {{#str}}trophies, local_smartprofile{{/str}}</div>
+                {{/has_trophies}}
+            </div>
+
+            <!-- Subcategory Breakdown -->
+            {{#has_subcategories}}
+            <div class="mb-4">
+                <h5 class="h6 fw-bold text-muted text-uppercase mb-3">{{#str}}verified_subcats, local_smartprofile{{/str}}</h5>
+                <div class="list-group list-group-flush border rounded-3 overflow-hidden">
+                    {{#subcategories}}
+                    <div class="list-group-item d-flex align-items-center justify-content-between py-3">
+                        <span class="fw-semibold text-truncate"><i class="fa fa-folder-open text-primary me-2"></i> {{name}}</span>
+                        <span class="badge bg-primary rounded-pill px-3 py-2 fw-bold">{{hours}}</span>
+                    </div>
+                    {{/subcategories}}
+                </div>
+            </div>
+            {{/has_subcategories}}
+
+            <!-- Credential Metadata Footer -->
+            <div class="row g-3 pt-3 border-top text-muted small">
+                <div class="col-sm-6">
+                    <div class="fw-semibold">{{#str}}verified_code, local_smartprofile{{/str}}</div>
+                    <div class="font-monospace text-dark fw-bold">{{credentialid}}</div>
+                </div>
+                <div class="col-sm-6 text-sm-end">
+                    <div class="fw-semibold">{{#str}}verified_date, local_smartprofile{{/str}}</div>
+                    <div class="text-dark fw-bold">{{verifieddate}}</div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="text-center mt-5">
+                <a href="{{profileurl}}" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold">
+                    <i class="fa fa-user me-2"></i> {{#str}}learningjourney, local_smartprofile{{/str}}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
