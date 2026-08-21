@@ -142,6 +142,9 @@ $string['trophy_singular'] = '1 Trophy';
 $string['trophies_plural'] = '{$a} Trophies';
 $string['credithours'] = 'Credit Hours';
 $string['credithours_display'] = '{$a} Credit Hours';
+$string['credithours_breakdown'] = 'Academic Credit Hours Breakdown';
+$string['credithours_breakdown_desc'] = 'Earned credit hours organized by academic department & subject';
+$string['totalcredithours'] = 'Total Credit Hours';
 $string['wallet'] = 'View Wallet';
 
 // --- Privacy API ---

@@ -134,8 +134,9 @@ class profile_page implements renderable, templatable {
         $certificates = $this->get_certificates($allcourses);
         $certificatescount = count($certificates);
 
-        // 8. Gamification Level, XP, Streak.
+        // 8. Gamification Level, XP, Streak & Credit Hours Breakdown.
         $gamification = $this->get_gamification_stats($coursescount, $completedcoursescount, $badgescount);
+        $credithoursbreakdown = $this->get_credithours_category_breakdown();
 
         // 9. Learning Performance Stats.
         $showperformance = visibility_manager::is_field_visible('performance', $this->profileuser, $this->viewer, $this->usercontext);
@@ -259,6 +260,10 @@ class profile_page implements renderable, templatable {
             'showcertificates'        => visibility_manager::is_field_visible('certificates', $this->profileuser, $this->viewer, $this->usercontext),
             'certificates'            => $certificates,
             'has_certificates'        => !empty($certificates),
+
+            // Academic Credit Hours Category Breakdown
+            'credithours_breakdown'     => $credithoursbreakdown,
+            'has_credithours_breakdown' => !empty($credithoursbreakdown),
 
             // Learning Journey
             'showcourses'             => visibility_manager::is_field_visible('courses', $this->profileuser, $this->viewer, $this->usercontext),
@@ -594,6 +599,192 @@ class profile_page implements renderable, templatable {
             'streak'               => $streak,
             'walleturl'            => $walleturl,
         ];
+    }
+
+    /**
+     * Retrieves the hierarchical category breakdown of academic credit hours for the profile user.
+     *
+     * @return array List of top-level category objects with aggregated hours and subcategory items.
+     */
+    protected function get_credithours_category_breakdown(): array {
+        global $DB;
+
+        // Check if trophy tables exist.
+        if (
+            !$DB->get_manager()->table_exists('enrol_trophy_rewards') &&
+            !$DB->get_manager()->table_exists('enrol_trophy_balances')
+        ) {
+            return [];
+        }
+
+        // 1. Gather hours per exact categoryid.
+        $catcredits = [];
+
+        if ($DB->get_manager()->table_exists('enrol_trophy_rewards')) {
+            $rewards = $DB->get_records_sql(
+                "SELECT categoryid, SUM(credits) AS totalcredits
+                   FROM {enrol_trophy_rewards}
+                  WHERE userid = :uid AND rewardtype = 'credithours'
+               GROUP BY categoryid",
+                ['uid' => $this->profileuser->id]
+            );
+            foreach ($rewards as $rec) {
+                $cid = (int)$rec->categoryid;
+                $catcredits[$cid] = (float)$rec->totalcredits;
+            }
+        }
+
+        // Top-up or fallback with direct category balances.
+        if ($DB->get_manager()->table_exists('enrol_trophy_balances')) {
+            $balances = $DB->get_records_sql(
+                "SELECT categoryid, balance
+                   FROM {enrol_trophy_balances}
+                  WHERE userid = :uid AND currencytype = 'credithours'",
+                ['uid' => $this->profileuser->id]
+            );
+            foreach ($balances as $rec) {
+                $cid = (int)$rec->categoryid;
+                $bal = (float)$rec->balance;
+                if (!isset($catcredits[$cid])) {
+                    $catcredits[$cid] = $bal;
+                } else {
+                    $catcredits[$cid] = max($catcredits[$cid], $bal);
+                }
+            }
+        }
+
+        // Filter out zero or negative hours.
+        $catcredits = array_filter($catcredits, function ($amount) {
+            return $amount > 0;
+        });
+
+        if (empty($catcredits)) {
+            return [];
+        }
+
+        // 2. Map each category to its root (top-level) category in Moodle.
+        $parents = [];
+
+        foreach ($catcredits as $cid => $hours) {
+            if ($cid <= 0) {
+                // Universal / Global category.
+                $rootid = 0;
+                $rootname = get_string('general', 'core');
+                if (!isset($parents[$rootid])) {
+                    $parents[$rootid] = [
+                        'parent_id'   => $rootid,
+                        'parent_name' => $rootname,
+                        'total'       => 0.0,
+                        'subcats'     => [],
+                    ];
+                }
+                $parents[$rootid]['total'] += $hours;
+                $parents[$rootid]['subcats'][$cid] = [
+                    'name'  => $rootname,
+                    'hours' => $hours,
+                ];
+                continue;
+            }
+
+            $cat = \core_course_category::get($cid, IGNORE_MISSING);
+            if (!$cat) {
+                $rootid = $cid;
+                $rootname = get_string('category', 'core') . ' ' . $cid;
+                if (!isset($parents[$rootid])) {
+                    $parents[$rootid] = [
+                        'parent_id'   => $rootid,
+                        'parent_name' => $rootname,
+                        'total'       => 0.0,
+                        'subcats'     => [],
+                    ];
+                }
+                $parents[$rootid]['total'] += $hours;
+                $parents[$rootid]['subcats'][$cid] = [
+                    'name'  => $rootname,
+                    'hours' => $hours,
+                ];
+                continue;
+            }
+
+            // If category has parents, find the top-level root ancestor.
+            $ancestors = $cat->get_parents();
+            if (empty($ancestors)) {
+                // This category is already a root parent (parent == 0).
+                $rootid = $cat->id;
+                $rootname = format_string($cat->name);
+                if (!isset($parents[$rootid])) {
+                    $parents[$rootid] = [
+                        'parent_id'   => $rootid,
+                        'parent_name' => $rootname,
+                        'total'       => 0.0,
+                        'subcats'     => [],
+                    ];
+                }
+                $parents[$rootid]['total'] += $hours;
+                if (!isset($parents[$rootid]['subcats'][$cid])) {
+                    $parents[$rootid]['subcats'][$cid] = [
+                        'name'  => format_string($cat->name),
+                        'hours' => $hours,
+                    ];
+                } else {
+                    $parents[$rootid]['subcats'][$cid]['hours'] += $hours;
+                }
+            } else {
+                // First ancestor in $ancestors array is the top-most root category.
+                $rootancestorid = (int)reset($ancestors);
+                $rootcat = \core_course_category::get($rootancestorid, IGNORE_MISSING);
+                $rootname = $rootcat ? format_string($rootcat->name) : format_string($cat->name);
+                $rootid = $rootcat ? $rootcat->id : $cat->id;
+
+                if (!isset($parents[$rootid])) {
+                    $parents[$rootid] = [
+                        'parent_id'   => $rootid,
+                        'parent_name' => $rootname,
+                        'total'       => 0.0,
+                        'subcats'     => [],
+                    ];
+                }
+                $parents[$rootid]['total'] += $hours;
+                $parents[$rootid]['subcats'][$cid] = [
+                    'name'  => format_string($cat->name),
+                    'hours' => $hours,
+                ];
+            }
+        }
+
+        // 3. Format into template-friendly array.
+        $breakdown = [];
+        foreach ($parents as $pdata) {
+            $totalformatted = rtrim(rtrim(number_format($pdata['total'], 2, '.', ''), '0'), '.');
+            $subcatlist = [];
+            $showsubcats = false;
+
+            // If there are multiple subcategories, or the single subcategory is not identical to the root parent name.
+            if (count($pdata['subcats']) > 1 || (count($pdata['subcats']) === 1 && reset($pdata['subcats'])['name'] !== $pdata['parent_name'])) {
+                $showsubcats = true;
+                foreach ($pdata['subcats'] as $sub) {
+                    $subhoursformatted = rtrim(rtrim(number_format($sub['hours'], 2, '.', ''), '0'), '.');
+                    $pct = ($pdata['total'] > 0) ? round(($sub['hours'] / $pdata['total']) * 100) : 100;
+                    $subcatlist[] = [
+                        'name'       => $sub['name'],
+                        'hours'      => get_string('credithours_display', 'local_smartprofile', $subhoursformatted),
+                        'raw_hours'  => $subhoursformatted,
+                        'percentage' => $pct,
+                    ];
+                }
+            }
+
+            $breakdown[] = [
+                'parent_id'         => $pdata['parent_id'],
+                'parent_name'       => $pdata['parent_name'],
+                'total_hours'       => get_string('credithours_display', 'local_smartprofile', $totalformatted),
+                'raw_total'         => $totalformatted,
+                'has_subcategories' => $showsubcats,
+                'subcategories'     => $subcatlist,
+            ];
+        }
+
+        return $breakdown;
     }
 
     /**

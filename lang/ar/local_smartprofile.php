@@ -142,6 +142,9 @@ $string['trophy_singular'] = 'كأس واحد 🏆';
 $string['trophies_plural'] = '{$a} كؤوس وجوائز 🏆';
 $string['credithours'] = 'ساعات معتمدة';
 $string['credithours_display'] = '{$a} ساعة معتمدة';
+$string['credithours_breakdown'] = 'تفصيل الساعات المعتمدة الأكاديمية';
+$string['credithours_breakdown_desc'] = 'الساعات المعتمدة المكتسبة موزعة حسب الأقسام والتخصصات الأكاديمية';
+$string['totalcredithours'] = 'إجمالي الساعات المعتمدة';
 $string['wallet'] = 'عرض المحفظة';
 
 // --- Privacy API ---

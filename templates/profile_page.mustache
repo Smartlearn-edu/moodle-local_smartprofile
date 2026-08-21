@@ -117,6 +117,52 @@
         </div>
     </div>
 
+    {{#has_credithours_breakdown}}
+    <!-- Academic Credit Hours Category Breakdown Box -->
+    <div class="sp-credithours-box">
+        <div class="sp-credithours-header">
+            <div class="sp-credithours-title-group">
+                <div class="sp-ch-header-icon">🎓</div>
+                <div>
+                    <h3 class="sp-ch-main-title">{{#str}}credithours_breakdown, local_smartprofile{{/str}}</h3>
+                    <p class="sp-ch-subtitle">{{#str}}credithours_breakdown_desc, local_smartprofile{{/str}}</p>
+                </div>
+            </div>
+            <div class="sp-ch-total-badge">
+                <span class="sp-ch-total-label">{{#str}}totalcredithours, local_smartprofile{{/str}}</span>
+                <span class="sp-ch-total-value">{{gamification.credithours_display}}</span>
+            </div>
+        </div>
+
+        <div class="sp-credithours-grid">
+            {{#credithours_breakdown}}
+            <div class="sp-ch-cat-card">
+                <div class="sp-ch-cat-header">
+                    <div class="sp-ch-cat-name-box">
+                        <span class="sp-ch-cat-icon"><i class="fa fa-folder-open" aria-hidden="true"></i></span>
+                        <span class="sp-ch-cat-name">{{parent_name}}</span>
+                    </div>
+                    <span class="sp-ch-cat-total-pill">{{total_hours}}</span>
+                </div>
+                {{#has_subcategories}}
+                <div class="sp-ch-subcat-list">
+                    {{#subcategories}}
+                    <div class="sp-ch-subcat-item">
+                        <div class="sp-ch-subcat-info">
+                            <span class="sp-ch-subcat-bullet"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+                            <span class="sp-ch-subcat-title">{{name}}</span>
+                        </div>
+                        <span class="sp-ch-subcat-amount">{{hours}}</span>
+                    </div>
+                    {{/subcategories}}
+                </div>
+                {{/has_subcategories}}
+            </div>
+            {{/credithours_breakdown}}
+        </div>
+    </div>
+    {{/has_credithours_breakdown}}
+
     <!-- 2. Profile Facts Strip (Horizontal 6-Metric Ribbon) -->
     <div class="sp-facts-ribbon">
         <div class="sp-fact-item">
