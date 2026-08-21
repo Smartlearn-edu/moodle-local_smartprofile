@@ -164,6 +164,7 @@ $string['issuer_name'] = 'Issuing Organization Name';
 $string['issuer_name_desc'] = 'The organization name displayed on shared credentials (defaults to site name).';
 
 $string['share_achievements'] = 'Share Achievements';
+$string['add_to_linkedin'] = 'Add to LinkedIn';
 $string['share_on_linkedin'] = 'Add to LinkedIn Profile';
 $string['share_to_linkedin_feed'] = 'Share to LinkedIn Feed';
 $string['share_to_x'] = 'Share on X (Twitter)';

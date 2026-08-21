@@ -164,6 +164,7 @@ $string['issuer_name'] = 'اسم الجهة / الأكاديمية المصدر�
 $string['issuer_name_desc'] = 'اسم المؤسسة الذي يظهر على الشهادات المعتمدة (الافتراضي: اسم الموقع).';
 
 $string['share_achievements'] = 'مشاركة الإنجازات';
+$string['add_to_linkedin'] = 'إضافة إلى LinkedIn';
 $string['share_on_linkedin'] = 'إضافة إلى ملف LinkedIn الشخصي';
 $string['share_to_linkedin_feed'] = 'مشاركة كمنشور على LinkedIn';
 $string['share_to_x'] = 'مشاركة عبر منصة X (تويتر)';
