@@ -118,41 +118,48 @@
     </div>
 
     {{#has_credithours_breakdown}}
-    <!-- Academic Credit Hours Category Breakdown Box -->
-    <div class="sp-credithours-box">
-        <div class="sp-credithours-header">
-            <div class="sp-credithours-title-group">
-                <div class="sp-ch-header-icon">🎓</div>
+    <!-- Academic Credit Hours Category Breakdown Section -->
+    <div class="sp-credithours-box card border shadow-sm mb-4">
+        <div class="sp-credithours-header d-flex align-items-center justify-content-between flex-wrap gap-3 pb-3 mb-3 border-bottom">
+            <div class="sp-credithours-title-group d-flex align-items-center gap-3">
+                <div class="sp-ch-header-icon rounded-3 d-flex align-items-center justify-content-center">
+                    🎓
+                </div>
                 <div>
-                    <h3 class="sp-ch-main-title">{{#str}}credithours_breakdown, local_smartprofile{{/str}}</h3>
-                    <p class="sp-ch-subtitle">{{#str}}credithours_breakdown_desc, local_smartprofile{{/str}}</p>
+                    <h3 class="sp-ch-main-title h5 fw-bold mb-1">{{#str}}credithours_breakdown, local_smartprofile{{/str}}</h3>
+                    <p class="sp-ch-subtitle text-muted small mb-0">{{#str}}credithours_breakdown_desc, local_smartprofile{{/str}}</p>
                 </div>
             </div>
-            <div class="sp-ch-total-badge">
-                <span class="sp-ch-total-label">{{#str}}totalcredithours, local_smartprofile{{/str}}</span>
-                <span class="sp-ch-total-value">{{gamification.credithours_display}}</span>
+            <div class="sp-ch-total-badge badge rounded-pill d-inline-flex align-items-center gap-2 py-2 px-3">
+                <span class="sp-ch-total-label opacity-75">{{#str}}totalcredithours, local_smartprofile{{/str}}:</span>
+                <span class="sp-ch-total-value fw-bold">{{gamification.credithours_display}}</span>
             </div>
         </div>
 
         <div class="sp-credithours-grid">
             {{#credithours_breakdown}}
-            <div class="sp-ch-cat-card">
-                <div class="sp-ch-cat-header">
-                    <div class="sp-ch-cat-name-box">
-                        <span class="sp-ch-cat-icon"><i class="fa fa-folder-open" aria-hidden="true"></i></span>
-                        <span class="sp-ch-cat-name">{{parent_name}}</span>
+            <div class="sp-ch-cat-card card border rounded-3 p-3">
+                <div class="sp-ch-cat-header mb-2">
+                    <div class="sp-ch-cat-name-box d-flex align-items-center gap-2 mb-2">
+                        <span class="sp-ch-cat-icon d-inline-flex align-items-center justify-content-center rounded-circle">
+                            <i class="fa fa-folder-open" aria-hidden="true"></i>
+                        </span>
+                        <span class="sp-ch-cat-name fw-bold">{{parent_name}}</span>
                     </div>
-                    <span class="sp-ch-cat-total-pill">{{total_hours}}</span>
+                    <div class="sp-ch-cat-total-box">
+                        <span class="sp-ch-cat-total-pill badge rounded-pill px-3 py-2 fw-bold">{{total_hours}}</span>
+                    </div>
                 </div>
+
                 {{#has_subcategories}}
-                <div class="sp-ch-subcat-list">
+                <div class="sp-ch-subcat-list d-flex flex-column gap-2 pt-2 mt-1 border-top border-dashed">
                     {{#subcategories}}
-                    <div class="sp-ch-subcat-item">
-                        <div class="sp-ch-subcat-info">
-                            <span class="sp-ch-subcat-bullet"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
-                            <span class="sp-ch-subcat-title">{{name}}</span>
+                    <div class="sp-ch-subcat-item d-flex align-items-center justify-content-between p-2 rounded-2 gap-2">
+                        <div class="sp-ch-subcat-info d-flex align-items-center gap-2 text-truncate">
+                            <i class="fa fa-angle-right text-muted small" aria-hidden="true"></i>
+                            <span class="sp-ch-subcat-title small fw-medium text-truncate">{{name}}</span>
                         </div>
-                        <span class="sp-ch-subcat-amount">{{hours}}</span>
+                        <span class="sp-ch-subcat-amount badge bg-secondary bg-opacity-10 text-secondary fw-semibold small px-2 py-1">{{hours}}</span>
                     </div>
                     {{/subcategories}}
                 </div>
