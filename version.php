@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_smartprofile';
-$plugin->version   = 2026081703;
+$plugin->version   = 2026081704;
 $plugin->requires  = 2024100700; // Moodle 5.0+.
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->release   = '1.0.0';
