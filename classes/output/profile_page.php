@@ -130,7 +130,8 @@ class profile_page implements renderable, templatable {
         $badges_display = array_slice($allbadges, 0, 5);
         $badges_more_count = max(0, $badgescount - 5);
 
-        // 7. Certificates.
+        // 7. Completed Courses & Certificates.
+        $completedcourses = $this->get_completed_courses($allcourses);
         $certificates = $this->get_certificates($allcourses);
         $certificatescount = count($certificates);
 
@@ -256,7 +257,12 @@ class profile_page implements renderable, templatable {
             'has_more_badges'         => ($badges_more_count > 0),
             'badges_more_count'       => $badges_more_count,
 
-            // Certificates
+            // Completed Courses
+            'showcompletedcourses'    => visibility_manager::is_field_visible('completedcourses', $this->profileuser, $this->viewer, $this->usercontext),
+            'completedcourses'        => $completedcourses,
+            'has_completedcourses'    => !empty($completedcourses),
+
+            // Certificates (Empty box ready for certificate integration)
             'showcertificates'        => visibility_manager::is_field_visible('certificates', $this->profileuser, $this->viewer, $this->usercontext),
             'certificates'            => $certificates,
             'has_certificates'        => !empty($certificates),
@@ -452,27 +458,66 @@ class profile_page implements renderable, templatable {
     }
 
     /**
+     * Gets completed courses list for showcase.
+     *
+     * @param array $courses
+     * @return array
+     */
+    protected function get_completed_courses(array $courses): array {
+        global $DB;
+        $completedcourses = [];
+
+        // Pre-fetch course completion dates if available.
+        $completiontimes = [];
+        $courseids = [];
+        foreach ($courses as $c) {
+            if ($c['iscomplete']) {
+                $courseids[] = $c['id'];
+            }
+        }
+
+        if (!empty($courseids)) {
+            list($insql, $params) = $DB->get_in_or_equal($courseids, SQL_PARAMS_NAMED);
+            $params['userid'] = $this->profileuser->id;
+            $records = $DB->get_records_select(
+                'course_completions',
+                "userid = :userid AND course $insql AND timecompleted IS NOT NULL",
+                $params,
+                '',
+                'course, timecompleted'
+            );
+            foreach ($records as $rec) {
+                $completiontimes[$rec->course] = $rec->timecompleted;
+            }
+        }
+
+        foreach ($courses as $c) {
+            if ($c['iscomplete']) {
+                $timecompleted = $completiontimes[$c['id']] ?? time();
+                $completedcourses[] = [
+                    'id'           => $c['id'],
+                    'title'        => $c['fullname'],
+                    'shortname'    => $c['shortname'],
+                    'issued_date'  => userdate($timecompleted, '%b %d, %Y'),
+                    'url'          => $c['url'],
+                    'institution'  => $this->profileuser->institution ?: ($this->profileuser->department ?: 'SmartLearn Academy'),
+                    'colorclass'   => 'cert-color-gold',
+                ];
+            }
+        }
+
+        return $completedcourses;
+    }
+
+    /**
      * Gets certificates / credentials list.
      *
      * @param array $courses
      * @return array
      */
     protected function get_certificates(array $courses): array {
-        global $DB;
+        // Prepared for certificate integration (empty by default until configured).
         $certificates = [];
-
-        // 1. Completed courses act as certificates of achievement.
-        foreach ($courses as $c) {
-            if ($c['iscomplete']) {
-                $certificates[] = [
-                    'title'        => $c['fullname'],
-                    'issued_date'  => userdate(time(), '%b %d, %Y'),
-                    'url'          => $c['url'],
-                    'institution'  => 'SmartLearn Academy',
-                    'colorclass'   => 'cert-color-gold',
-                ];
-            }
-        }
 
         return $certificates;
     }

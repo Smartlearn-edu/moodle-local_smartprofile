@@ -96,6 +96,12 @@ class visibility_manager {
                 'icon'     => 'fa-book-open',
                 'title'    => 'field_courses',
             ],
+            'completedcourses' => [
+                'category' => 'academic',
+                'default'  => self::VISIBILITY_PUBLIC,
+                'icon'     => 'fa-graduation-cap',
+                'title'    => 'field_completedcourses',
+            ],
             'performance' => [
                 'category' => 'academic',
                 'default'  => self::VISIBILITY_PUBLIC,

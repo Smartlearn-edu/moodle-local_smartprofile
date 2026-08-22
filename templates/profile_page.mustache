@@ -355,9 +355,36 @@
             </div>
             {{/showbadges}}
 
+            <!-- Completed Courses Card -->
+            {{#showcompletedcourses}}
+            {{#has_completedcourses}}
+            <div class="sp-portfolio-card">
+                <div class="sp-card-title-row">
+                    <h2 class="sp-card-heading">
+                        <i class="fa fa-graduation-cap sp-head-icon" aria-hidden="true"></i> {{#str}}completedcourses, local_smartprofile, Completed Courses{{/str}}
+                    </h2>
+                </div>
+
+                <div class="sp-certificates-grid">
+                    {{#completedcourses}}
+                        <a href="{{url}}" class="sp-cert-card {{colorclass}}">
+                            <div class="sp-cert-border">
+                                <div class="sp-cert-seal"><i class="fa fa-circle-check" aria-hidden="true"></i></div>
+                                <div class="sp-cert-body">
+                                    <div class="sp-cert-institution">{{institution}}</div>
+                                    <h4 class="sp-cert-title">{{title}}</h4>
+                                    <div class="sp-cert-date">{{#str}}completedon, local_smartprofile, Completed{{/str}} {{issued_date}}</div>
+                                </div>
+                            </div>
+                        </a>
+                    {{/completedcourses}}
+                </div>
+            </div>
+            {{/has_completedcourses}}
+            {{/showcompletedcourses}}
+
             <!-- Certificates Card -->
             {{#showcertificates}}
-            {{#has_certificates}}
             <div class="sp-portfolio-card">
                 <div class="sp-card-title-row">
                     <h2 class="sp-card-heading">
@@ -365,6 +392,7 @@
                     </h2>
                 </div>
 
+                {{#has_certificates}}
                 <div class="sp-certificates-grid">
                     {{#certificates}}
                         <a href="{{url}}" class="sp-cert-card {{colorclass}}">
@@ -379,8 +407,15 @@
                         </a>
                     {{/certificates}}
                 </div>
+                {{/has_certificates}}
+
+                {{^has_certificates}}
+                <div class="sp-empty-notice">
+                    <i class="fa fa-certificate" aria-hidden="true"></i>
+                    <p>{{#str}}nocertificates, local_smartprofile{{/str}}</p>
+                </div>
+                {{/has_certificates}}
             </div>
-            {{/has_certificates}}
             {{/showcertificates}}
 
             <!-- Learning Journey (Courses) Card -->
