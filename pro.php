@@ -119,7 +119,7 @@ echo $OUTPUT->header();
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th class="py-3 px-4"><?php echo get_string('feature', 'core'); ?></th>
+                        <th class="py-3 px-4"><?php echo get_string('feature', 'local_smartprofile'); ?></th>
                         <th class="py-3 text-center" style="width: 22%;"><?php echo get_string('edition_free', 'local_smartprofile'); ?></th>
                         <th class="py-3 text-center text-primary fw-bold" style="width: 26%; background: #f8fafc;"><?php echo get_string('edition_pro', 'local_smartprofile'); ?></th>
                     </tr>

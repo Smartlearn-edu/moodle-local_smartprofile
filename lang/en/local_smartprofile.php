@@ -361,3 +361,5 @@ $string['comp_faculty_endorsements'] = 'Verified Faculty Endorsements & Recommen
 $string['comp_obv3'] = 'W3C Open Badges 3.0 (JSON-LD) Verifiable Credential API';
 $string['pro_cta_footer_title'] = 'Ready to Upgrade Your Institution?';
 $string['pro_cta_footer_desc'] = 'SmartProfile Pro is available as an instant in-place upgrade. Simply install the Pro ZIP over the Free edition with zero data loss.';
+
+$string['feature'] = 'Feature';

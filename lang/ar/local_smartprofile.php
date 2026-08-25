@@ -361,3 +361,5 @@ $string['comp_faculty_endorsements'] = 'توصيات وتزكيات أعضاء �
 $string['comp_obv3'] = 'واجهة الإثباتات الرقمية Open Badges 3.0 (JSON-LD)';
 $string['pro_cta_footer_title'] = 'هل أنت مستعد لترقية مؤسستك التعليمية؟';
 $string['pro_cta_footer_desc'] = 'تتوفر نسخة SmartProfile Pro كترقية مباشرة، فقط قم برفع حزمة Pro فوق النسخة المجانية دون فقدان أي بيانات.';
+
+$string['feature'] = 'الميزة';
