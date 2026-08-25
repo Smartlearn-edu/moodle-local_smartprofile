@@ -8,13 +8,13 @@ It empowers learners, researchers, and educators to showcase their academic prog
 
 ## ✨ Key Features (Community Edition)
 
-### 🎓 Academic Identity & Faculty Showcase
+### 🎓 Academic Identity & Student Showcase
 * **Identity-First Hero Card**:
   * Modern cover banner with stylish gradient overlay.
   * High-resolution avatar with online presence indicator.
   * Role Hierarchy display (`Admin > Manager > Teacher > Student > Parent`).
   * Status chips (*Active*, *Member since [date]*, *Location*).
-  * **Role-Adaptive Faculty Mode**: Automatically detects teachers and professors to display *Courses Instructed*, *Total Students Taught*, and academic links.
+  * Academic bio quote and customizable overview.
 
 ### 🛡️ 3-Layer Privacy & Visibility Control
 * **Student Privacy Autonomy**: Granular user privacy settings (Public vs. Private) for email, phone, city, timezone, courses, badges, and recent activity.
@@ -39,6 +39,7 @@ It empowers learners, researchers, and educators to showcase their academic prog
 Looking for institutional verifiable credentials, Apple Wallet passes, and faculty endorsements? Explore **SmartProfile Pro**:
 * 📱 **Apple Wallet Passes (`.pkpass`)**: Instant mobile wallet credentials with scannable QR verification.
 * 📜 **One-Click Dynamic PDF CV Builder**: Professional 1-page academic resumes generated via TCPDF with verification QR codes.
+* 👨‍🏫 **Role-Adaptive Faculty & Educator Showcase**: Automatically detects teachers and professors to display *Courses Instructed*, *Total Students Taught*, and academic research links.
 * 🌟 **Verified Faculty Endorsements**: Instructors can author verified recommendations with 5-star skill ratings.
 * 🛡️ **W3C / 1EdTech Open Badges 3.0 (OBv3)**: Cryptographic JSON-LD credential assertions endpoint.
 * 🎨 **Enterprise White-Labeling**: Multi-tenant custom brand logo, primary colors, footer taglines, and custom CSS injection.
@@ -69,7 +70,6 @@ Looking for institutional verifiable credentials, Apple Wallet passes, and facul
 | **Show Badges** | Master toggle for badges section | `Enabled` |
 | **Show Activity** | Master toggle for recent activity section | `Enabled` |
 | **Show Gamification** | Master toggle for gamification badge stats | `Enabled` |
-| **Enable Faculty Mode** | Enable adaptive instructor portfolio mode | `Enabled` |
 
 ---
 

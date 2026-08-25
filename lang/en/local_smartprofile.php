@@ -363,3 +363,6 @@ $string['pro_cta_footer_title'] = 'Ready to Upgrade Your Institution?';
 $string['pro_cta_footer_desc'] = 'SmartProfile Pro is available as an instant in-place upgrade. Simply install the Pro ZIP over the Free edition with zero data loss.';
 
 $string['feature'] = 'Feature';
+$string['pro_feat_faculty_title'] = 'Role-Adaptive Faculty & Educator Showcase';
+$string['pro_feat_faculty_desc'] = 'Smart adaptive profile detection for professors and teachers, displaying courses instructed, students taught, academic discipline metrics, and research links.';
+$string['comp_faculty_mode'] = 'Role-Adaptive Faculty & Educator Portfolio Mode';

@@ -134,20 +134,6 @@ if ($hassiteconfig) {
         1
     ));
 
-    // --- Role-Adaptive Faculty & Educator Settings ---
-    $settings->add(new admin_setting_heading(
-        'local_smartprofile/faculty_heading',
-        get_string('faculty_heading', 'local_smartprofile'),
-        get_string('faculty_desc', 'local_smartprofile')
-    ));
-
-    $settings->add(new admin_setting_configcheckbox(
-        'local_smartprofile/enable_faculty_mode',
-        get_string('enable_faculty_mode', 'local_smartprofile'),
-        get_string('enable_faculty_mode_desc', 'local_smartprofile'),
-        1
-    ));
-
     // --- SmartDashboard Ecosystem Interop ---
     $settings->add(new admin_setting_heading(
         'local_smartprofile/interop_heading',

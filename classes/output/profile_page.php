@@ -212,19 +212,10 @@ class profile_page implements renderable, templatable {
                 ];
             }
         }
-        // 14. Faculty / Educator Profile Detection & Data.
-        $facultymodeenabled = (bool)(get_config('local_smartprofile', 'enable_faculty_mode') ?? 1);
-        $isassignedfacultyrole = false;
-        foreach ($rolebadges as $rb) {
-            if (in_array($rb['class'], ['badge-teacher', 'badge-manager', 'badge-admin'])) {
-                $isassignedfacultyrole = true;
-                break;
-            }
-        }
-
-        $taughtcourses = $this->get_taught_courses();
-        $isfaculty = $facultymodeenabled && (!empty($taughtcourses) || $isassignedfacultyrole);
-        $facultydata = $isfaculty ? $this->get_faculty_profile_data($taughtcourses, $skills) : null;
+        // 14. Faculty / Educator Profile Detection (Pro Feature).
+        $isfaculty = false;
+        $facultydata = null;
+        $taughtcourses = [];
 
         // 15. Academic Endorsements & Faculty Recommendations.
         $endorsementsenabled = (bool)(get_config('local_smartprofile', 'enable_endorsements') ?? 1);

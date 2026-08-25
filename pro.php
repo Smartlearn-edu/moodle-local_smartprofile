@@ -87,6 +87,18 @@ echo $OUTPUT->header();
         <div class="col-md-6">
             <div class="card h-100 border-0 shadow-sm" style="border-radius: 14px; background: #ffffff;">
                 <div class="card-body p-4">
+                    <div class="d-inline-flex align-items-center justify-content-center mb-3 rounded-3" style="width: 48px; height: 48px; background: #ecfdf5; color: #059669; font-size: 1.3rem;">
+                        <i class="fa fa-chalkboard-user" aria-hidden="true"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2"><?php echo get_string('pro_feat_faculty_title', 'local_smartprofile'); ?></h5>
+                    <p class="text-muted mb-0"><?php echo get_string('pro_feat_faculty_desc', 'local_smartprofile'); ?></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm" style="border-radius: 14px; background: #ffffff;">
+                <div class="card-body p-4">
                     <div class="d-inline-flex align-items-center justify-content-center mb-3 rounded-3" style="width: 48px; height: 48px; background: #fef3c7; color: #d97706; font-size: 1.3rem;">
                         <i class="fa fa-award" aria-hidden="true"></i>
                     </div>
@@ -139,6 +151,11 @@ echo $OUTPUT->header();
                         <td class="px-4 py-3 fw-semibold"><?php echo get_string('comp_course_progress', 'local_smartprofile'); ?></td>
                         <td class="text-center text-success"><i class="fa fa-check-circle" aria-hidden="true"></i></td>
                         <td class="text-center text-success bg-light"><i class="fa fa-check-circle" aria-hidden="true"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-3 fw-semibold"><?php echo get_string('comp_faculty_mode', 'local_smartprofile'); ?></td>
+                        <td class="text-center text-muted"><i class="fa fa-minus" aria-hidden="true"></i></td>
+                        <td class="text-center text-success fw-bold bg-light"><i class="fa fa-check-circle text-primary" aria-hidden="true"></i></td>
                     </tr>
                     <tr>
                         <td class="px-4 py-3 fw-semibold"><?php echo get_string('comp_wallet_passes', 'local_smartprofile'); ?></td>
