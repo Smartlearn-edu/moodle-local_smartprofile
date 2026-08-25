@@ -58,8 +58,8 @@ echo $OUTPUT->header();
         </div>
     </div>
 
-    <!-- 2. Feature Highlights Grid -->
-    <div class="row g-4 mb-5">
+    <!-- 2. Feature Highlights Grid (6 Highlights) -->
+    <div class="row g-4 mb-4">
         <div class="col-md-6">
             <div class="card h-100 border-0 shadow-sm" style="border-radius: 14px; background: #ffffff;">
                 <div class="card-body p-4">
@@ -119,9 +119,57 @@ echo $OUTPUT->header();
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm" style="border-radius: 14px; background: #ffffff;">
+                <div class="card-body p-4">
+                    <div class="d-inline-flex align-items-center justify-content-center mb-3 rounded-3" style="width: 48px; height: 48px; background: #fef9c3; color: #ca8a04; font-size: 1.3rem;">
+                        <i class="fa fa-trophy" aria-hidden="true"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2"><?php echo get_string('pro_feat_trophy_title', 'local_smartprofile'); ?></h5>
+                    <p class="text-muted mb-0"><?php echo get_string('pro_feat_trophy_desc', 'local_smartprofile'); ?></p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- 3. Free vs Pro Comparison Table -->
+    <!-- 3. Special Academic Bundle Offer (SmartProfile Pro + Trophy / Credits) -->
+    <div class="card border-0 shadow-sm mb-5 text-white" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%); border-radius: 18px; border: 2px solid rgba(251, 191, 36, 0.4) !important;">
+        <div class="card-body p-4 p-md-5">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8">
+                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3" style="background: #fbbf24; color: #0f172a; font-size: 0.82rem; font-weight: 800; letter-spacing: 0.5px;">
+                        <i class="fa fa-gift" aria-hidden="true"></i> <?php echo get_string('pro_bundle_badge', 'local_smartprofile'); ?>
+                    </div>
+                    <h3 class="fw-bold text-white mb-2"><?php echo get_string('pro_bundle_title', 'local_smartprofile'); ?></h3>
+                    <p class="mb-3" style="color: #cbd5e1; font-size: 0.98rem; line-height: 1.6;">
+                        <?php echo get_string('pro_bundle_desc', 'local_smartprofile'); ?>
+                    </p>
+                    <ul class="list-unstyled mb-0 d-flex flex-column gap-2" style="color: #e2e8f0; font-size: 0.92rem;">
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="fa fa-check text-warning" aria-hidden="true"></i>
+                            <span><?php echo get_string('pro_bundle_item_sp', 'local_smartprofile'); ?></span>
+                        </li>
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="fa fa-check text-warning" aria-hidden="true"></i>
+                            <span><?php echo get_string('pro_bundle_item_trophy', 'local_smartprofile'); ?></span>
+                        </li>
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="fa fa-check text-warning" aria-hidden="true"></i>
+                            <span><?php echo get_string('pro_bundle_item_sync', 'local_smartprofile'); ?></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 text-lg-end text-center">
+                    <a href="https://services.smartlearn.education/services/plugins/local_smartprofile" target="_blank" rel="noopener" class="btn btn-warning btn-lg fw-bold px-4 py-3 shadow" style="color: #0f172a; border-radius: 12px; font-size: 1rem;">
+                        <i class="fa fa-tags me-2" aria-hidden="true"></i> <?php echo get_string('pro_bundle_btn', 'local_smartprofile'); ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Free vs Pro Comparison Table -->
     <div class="card border-0 shadow-sm mb-4" style="border-radius: 16px; overflow: hidden;">
         <div class="card-header bg-white p-4 border-bottom">
             <h4 class="fw-bold mb-1"><?php echo get_string('pro_compare_title', 'local_smartprofile'); ?></h4>
@@ -153,6 +201,11 @@ echo $OUTPUT->header();
                         <td class="text-center text-success bg-light"><i class="fa fa-check-circle" aria-hidden="true"></i></td>
                     </tr>
                     <tr>
+                        <td class="px-4 py-3 fw-semibold"><?php echo get_string('comp_trophy_shield', 'local_smartprofile'); ?></td>
+                        <td class="text-center text-muted"><i class="fa fa-minus" aria-hidden="true"></i></td>
+                        <td class="text-center text-success fw-bold bg-light"><i class="fa fa-check-circle text-primary" aria-hidden="true"></i></td>
+                    </tr>
+                    <tr>
                         <td class="px-4 py-3 fw-semibold"><?php echo get_string('comp_faculty_mode', 'local_smartprofile'); ?></td>
                         <td class="text-center text-muted"><i class="fa fa-minus" aria-hidden="true"></i></td>
                         <td class="text-center text-success fw-bold bg-light"><i class="fa fa-check-circle text-primary" aria-hidden="true"></i></td>
@@ -182,7 +235,7 @@ echo $OUTPUT->header();
         </div>
     </div>
 
-    <!-- 4. Footer CTA -->
+    <!-- 5. Footer CTA -->
     <div class="text-center p-4 bg-white rounded-3 shadow-sm border-0">
         <h5 class="fw-bold mb-2"><?php echo get_string('pro_cta_footer_title', 'local_smartprofile'); ?></h5>
         <p class="text-muted mb-3"><?php echo get_string('pro_cta_footer_desc', 'local_smartprofile'); ?></p>
