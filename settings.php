@@ -127,13 +127,6 @@ if ($hassiteconfig) {
         1
     ));
 
-    $settings->add(new admin_setting_configcheckbox(
-        'local_smartprofile/showgamification',
-        get_string('showgamification', 'local_smartprofile'),
-        get_string('showgamification_desc', 'local_smartprofile'),
-        1
-    ));
-
     // --- SmartDashboard Ecosystem Interop ---
     $settings->add(new admin_setting_heading(
         'local_smartprofile/interop_heading',

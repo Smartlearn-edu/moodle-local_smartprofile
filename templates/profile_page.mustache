@@ -151,68 +151,6 @@
                 </div>
             </div>
 
-            <!-- Hero Right: Gamification Shield (Students) OR Academic Faculty Seal (Teachers) -->
-            <div class="sp-hero-right">
-                {{#isfaculty}}
-                {{#faculty}}
-                <div class="sp-shield-widget sp-faculty-widget">
-                    <div class="sp-shield-emblem">
-                        <div class="sp-shield-bg sp-faculty-shield-bg">
-                            <div class="sp-shield-trophy-box">
-                                <span class="sp-shield-trophy-icon">🎓</span>
-                                <span class="sp-shield-digit">{{taughtcourses_count}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sp-shield-title">{{#str}}taught_courses, local_smartprofile{{/str}}</div>
-                    <div class="sp-shield-xp-text">👥 {{total_students_instructed}} {{#str}}students_instructed, local_smartprofile{{/str}}</div>
-                    <div class="sp-shield-subtext d-flex align-items-center justify-content-center gap-2 flex-wrap mt-2">
-                        {{#has_bookingurl}}
-                        <a href="{{bookingurl}}" target="_blank" rel="noopener noreferrer" class="sp-faculty-book-btn btn btn-sm rounded-pill px-3 py-1 fw-bold" title="{{#str}}book_consultation, local_smartprofile{{/str}}">
-                            <i class="fa fa-calendar-check me-1" aria-hidden="true"></i> {{#str}}book_consultation, local_smartprofile{{/str}}
-                        </a>
-                        {{/has_bookingurl}}
-                    </div>
-                </div>
-                {{/faculty}}
-                {{/isfaculty}}
-
-                {{^isfaculty}}
-                {{#showgamification}}
-                {{#gamification}}
-                <div class="sp-shield-widget">
-                    <div class="sp-shield-emblem">
-                        <div class="sp-shield-bg">
-                            <div class="sp-shield-trophy-box">
-                                <span class="sp-shield-trophy-icon">🏆</span>
-                                <span class="sp-shield-digit">{{totaltrophies}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sp-shield-title">{{trophies_label}}</div>
-                    <div class="sp-shield-xp-text">🪙 {{points_display}}</div>
-                    {{#hascredithours}}
-                    <div class="sp-shield-xp-text">🎓 {{credithours_display}}</div>
-                    {{/hascredithours}}
-                    <div class="sp-shield-subtext d-flex align-items-center justify-content-center gap-2 flex-wrap">
-                        {{#walleturl}}
-                        <a href="{{walleturl}}" class="sp-shield-wallet-link" title="{{#str}}wallet, local_smartprofile{{/str}}">
-                            <i class="fa fa-wallet" aria-hidden="true"></i> {{#str}}wallet, local_smartprofile{{/str}}
-                        </a>
-                        {{/walleturl}}
-                        {{#has_share}}
-                        {{#share}}
-                        <a href="{{linkedin_add_url}}" target="_blank" rel="noopener noreferrer" class="sp-shield-share-link" title="{{#str}}add_to_linkedin, local_smartprofile{{/str}}">
-                            <i class="fa-brands fa-linkedin" aria-hidden="true"></i> {{#str}}share_achievements, local_smartprofile{{/str}}
-                        </a>
-                        {{/share}}
-                        {{/has_share}}
-                    </div>
-                </div>
-                {{/gamification}}
-                {{/showgamification}}
-                {{/isfaculty}}
-            </div>
         </div>
     </div>
 
