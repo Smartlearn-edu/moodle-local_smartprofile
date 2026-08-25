@@ -389,6 +389,7 @@ class profile_page implements renderable, templatable {
             // Privacy Controls
             'toggles'                 => $toggles,
             'thememode'               => $thememode,
+            'showproupgrade'          => is_siteadmin($this->viewer),
         ];
     }
 

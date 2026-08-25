@@ -28,6 +28,13 @@ if ($hassiteconfig) {
     $settings = new admin_settingpage('local_smartprofile', get_string('pluginname', 'local_smartprofile'));
     $ADMIN->add('localplugins', $settings);
 
+    // --- SmartProfile Pro Enterprise Banner ---
+    $settings->add(new admin_setting_heading(
+        'local_smartprofile/pro_promo_heading',
+        get_string('pro_promo_heading', 'local_smartprofile'),
+        get_string('pro_promo_desc', 'local_smartprofile')
+    ));
+
     // --- Redirection Settings ---
     $settings->add(new admin_setting_heading(
         'local_smartprofile/redirect_heading',

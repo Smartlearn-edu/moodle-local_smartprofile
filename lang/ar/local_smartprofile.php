@@ -328,3 +328,9 @@ $string['website'] = 'الموقع الإلكتروني';
 $string['credithours_earned'] = 'الساعات المعتمدة المكتسبة';
 $string['activity_badge_earned'] = 'حصل على شارة "{$a}"';
 $string['activity_course_completed'] = 'أكمل مقرر "{$a}"';
+
+// --- Pro Upgrade Promo Strings ---
+$string['upgrade_to_pro'] = 'النسخة الاحترافية Pro';
+$string['upgrade_to_pro_title'] = 'استكشف المزايا الاحترافية لـ SmartProfile Pro';
+$string['pro_promo_heading'] = '⭐ النسخة الاحترافية والمؤسسية SmartProfile Pro';
+$string['pro_promo_desc'] = 'هل تبحث عن بطاقات Apple Wallet الرقمية، وشهادات Open Badges 3.0، وبناء السير الذاتية PDF، وتوصيات أعضاء هيئة التدريس؟ <a href="https://smartlearn.education" target="_blank" class="btn btn-sm btn-primary ms-2">استكشف مزايا Pro ↗</a>';

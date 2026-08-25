@@ -328,3 +328,9 @@ $string['website'] = 'Website';
 $string['credithours_earned'] = 'Credit Hours Earned';
 $string['activity_badge_earned'] = 'Earned the badge "{$a}"';
 $string['activity_course_completed'] = 'Completed the course "{$a}"';
+
+// --- Pro Upgrade Promo Strings ---
+$string['upgrade_to_pro'] = 'SmartProfile Pro';
+$string['upgrade_to_pro_title'] = 'Explore SmartProfile Pro Enterprise Features';
+$string['pro_promo_heading'] = '⭐ SmartProfile Pro / Enterprise Edition';
+$string['pro_promo_desc'] = 'Looking for Apple Wallet passes (.pkpass), 1EdTech/W3C Open Badges 3.0, dynamic PDF CV resumes, and verified faculty recommendations? <a href="https://smartlearn.education" target="_blank" class="btn btn-sm btn-primary ms-2">Explore SmartProfile Pro ↗</a>';
