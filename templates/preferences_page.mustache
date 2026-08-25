@@ -1,0 +1,88 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_smartprofile/preferences_page
+
+    User profile privacy and visibility preferences page.
+}}
+<div class="sp-prefs-container py-3">
+    <!-- Header Card -->
+    <div class="card border-0 shadow-sm rounded-4 mb-4 sp-prefs-header-card">
+        <div class="card-body p-4 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="sp-prefs-avatar">
+                    {{{user_avatar}}}
+                </div>
+                <div>
+                    <h2 class="h4 fw-bold mb-1">{{#str}}profile_visibility_settings, local_smartprofile{{/str}}</h2>
+                    <p class="text-muted small mb-0">{{#str}}profile_visibility_desc, local_smartprofile{{/str}}</p>
+                </div>
+            </div>
+            <a href="{{profile_url}}" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold d-inline-flex align-items-center gap-2">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> <span>{{#str}}back_to_profile, local_smartprofile{{/str}}</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Category Groups -->
+    <div class="sp-prefs-grid" id="sp-toggles-container">
+        {{#categories}}
+        <div class="card border-0 shadow-sm rounded-4 mb-4 sp-prefs-category-card">
+            <div class="card-header bg-transparent border-0 px-4 pt-4 pb-2 d-flex align-items-center gap-2">
+                <i class="fa {{category_icon}} text-primary fs-5" aria-hidden="true"></i>
+                <h3 class="h5 fw-bold mb-0">{{category_name}}</h3>
+            </div>
+            <div class="card-body px-4 py-2">
+                <div class="list-group list-group-flush">
+                    {{#fields}}
+                    <div class="list-group-item d-flex align-items-center justify-content-between py-3 px-0 border-bottom border-light">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="sp-prefs-field-icon text-muted">
+                                <i class="fa {{icon}} fs-5" aria-hidden="true"></i>
+                            </div>
+                            <div>
+                                <div class="fw-semibold">{{title}}</div>
+                            </div>
+                        </div>
+                        <div>
+                            {{#is_public}}
+                            <button type="button" class="sp-toggle-badge badge-public" data-action="toggle-visibility" data-field="{{field}}" data-status="public" title="{{#str}}click_to_toggle, local_smartprofile{{/str}}">
+                                <i class="fa fa-eye" aria-hidden="true"></i> {{#str}}status_public, local_smartprofile{{/str}}
+                            </button>
+                            {{/is_public}}
+                            {{#is_private}}
+                            <button type="button" class="sp-toggle-badge badge-private" data-action="toggle-visibility" data-field="{{field}}" data-status="private" title="{{#str}}click_to_toggle, local_smartprofile{{/str}}">
+                                <i class="fa fa-eye-slash" aria-hidden="true"></i> {{#str}}status_private, local_smartprofile{{/str}}
+                            </button>
+                            {{/is_private}}
+                        </div>
+                    </div>
+                    {{/fields}}
+                </div>
+            </div>
+        </div>
+        {{/categories}}
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="sp-toast" class="sp-toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="sp-toast-content">
+            <i class="fa fa-circle-check me-2" aria-hidden="true"></i>
+            <span id="sp-toast-msg">{{#str}}saved, local_smartprofile{{/str}}</span>
+        </div>
+    </div>
+</div>

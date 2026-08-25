@@ -1,58 +1,47 @@
-# Smart Profile (`local_smartprofile`)
+# Smart Profile (`local_smartprofile`) — Free Community Edition
 
-**SmartProfile** is an enterprise-grade Moodle local plugin that reimagines the default profile page (`/user/profile.php` and `/user/view.php`) into a **Modern Digital Learner Identity & Academic Portfolio Hub**.
+**SmartProfile** is an open-source Moodle local plugin that reimagines the default profile page (`/user/profile.php` and `/user/view.php`) into a **Modern Digital Learner Identity & Academic Portfolio Hub**.
 
-It empowers students, researchers, and educators to showcase their academic progress, verified micro-credentials, Apple Wallet passes, endorsements, certificates, gamification achievements, and skills in a responsive, LinkedIn-inspired portfolio format — backed by a **strict 3-layer privacy model**.
+It empowers learners, researchers, and educators to showcase their academic progress, earned badges, completed courses, and skills in a responsive, LinkedIn-inspired portfolio format — backed by a **strict 3-layer privacy model**.
 
 ---
 
-## ✨ Key Features
+## ✨ Key Features (Community Edition)
 
 ### 🎓 Academic Identity & Faculty Showcase
 * **Identity-First Hero Card**:
-  * Customizable cover banner with modern gradient overlay.
+  * Modern cover banner with stylish gradient overlay.
   * High-resolution avatar with online presence indicator.
   * Role Hierarchy display (`Admin > Manager > Teacher > Student > Parent`).
-  * Custom status chips (*Active*, *Member since [date]*, *Location*).
-  * **Role-Adaptive Faculty Mode**: Automatically detects teachers and professors to display *Courses Instructed*, *Total Students Taught*, *Office Hours Booking*, and academic research links (ORCID, Google Scholar, ResearchGate).
+  * Status chips (*Active*, *Member since [date]*, *Location*).
+  * **Role-Adaptive Faculty Mode**: Automatically detects teachers and professors to display *Courses Instructed*, *Total Students Taught*, and academic links.
 
-### 📄 One-Click Dynamic PDF CV Builder
-* **Instant Academic Resume Generator**:
-  * Generates professional 1-page PDF resumes directly in the browser via TCPDF.
-  * Embeds high-contrast vector QR code linking directly to the instant public verification portal.
-  * Lists academic background, courses completed, competencies, and verified instructor endorsements.
+### 🛡️ 3-Layer Privacy & Visibility Control
+* **Student Privacy Autonomy**: Granular user privacy settings (Public vs. Private) for email, phone, city, timezone, courses, badges, and recent activity.
+* **Core Capability Gate**: Fully respects core Moodle visibility rules and capability gates.
+* **Staff Override**: Allows managers and editing teachers to inspect complete student details when authorized.
 
-### 🌟 Verified Faculty Endorsements & Recommendations
-* **Peer & Instructor Endorsements Engine**:
-  * Instructors can write verified endorsements and rate learner competencies (1–5 stars).
-  * Students can highlight recommendations on their profile and include them in their downloadable CV.
-
-### 📱 Digital Credentials, Apple Wallet & Open Badges 3.0
-* **Apple Wallet Pass Generation (`.pkpass`)**:
-  * 1-click export of academic credit credentials into native Apple Wallet.
-* **W3C Open Badges 3.0 (OBv3)**:
-  * Interoperable JSON-LD credential endpoint conforming to global Open Badges v3 standards.
-* **1-Click LinkedIn Add-to-Profile**:
-  * Instant certificate sharing with prefilled certification IDs and direct verification URLs.
-
-### 🛡️ Public Verification Portal
-* Public verification endpoint (`/local/smartprofile/verify.php`) with tamper-proof security hash tokens for third-party institutional validation of credits, subjects, and badges.
-
-### 🎮 Gamification & Achievement Center
-* **Gamification Shield Widget**: Royal emblem displaying Level, Total XP, and progress bar to next level (integrates with `format_quest` with native fallback).
+### 📊 Academic Progress & Badges Showcase
+* **Course Progress Cards**: Enrolled courses showcase with completion progress bar and direct course links.
+* **Badges & Achievements Gallery**: Visual display of earned Open Badges with direct verification links.
 * **Profile Facts Strip (6-Metric Ribbon)**: Enrolled courses, Completed courses, Progress %, Certificates earned, Badges earned, Credit hours earned.
-* **Learning Performance Card**: Real metrics for computed average grade and completed activities with automatic clean empty state handling.
+* **Learning Performance Card**: Real metrics for computed average grade and completed activities with automatic empty state handling.
 
 ### 🌐 Interoperability & Clean URLs
 * **Custom Clean URL Harmony**: Integrates with `local_customcleanurl` for clean profile vanity URLs (`/user/profile/username`).
 * **SmartDashboard Companion**: One-click cockpit launcher linking directly to `local_smartdashboard`.
 * **Classic Moodle System Bridge**: Instant dropdown menu providing deep links to native Moodle reports, today's logs, forum posts, notes, and the default profile.
 
-### 🎨 Enterprise White-Labeling & Custom Styling
-* Customizable primary accent color (`custom_primary_color`).
-* Custom brand logo URL.
-* Custom footer tagline & custom CSS injection via site admin.
-* Adaptive theme modes (Auto, Light, Dark) with high-contrast readability.
+---
+
+## 💎 SmartProfile Pro / Enterprise Features
+
+Looking for institutional verifiable credentials, Apple Wallet passes, and faculty endorsements? Explore **SmartProfile Pro**:
+* 📱 **Apple Wallet Passes (`.pkpass`)**: Instant mobile wallet credentials with scannable QR verification.
+* 📜 **One-Click Dynamic PDF CV Builder**: Professional 1-page academic resumes generated via TCPDF with verification QR codes.
+* 🌟 **Verified Faculty Endorsements**: Instructors can author verified recommendations with 5-star skill ratings.
+* 🛡️ **W3C / 1EdTech Open Badges 3.0 (OBv3)**: Cryptographic JSON-LD credential assertions endpoint.
+* 🎨 **Enterprise White-Labeling**: Multi-tenant custom brand logo, primary colors, footer taglines, and custom CSS injection.
 
 ---
 
@@ -74,16 +63,13 @@ It empowers students, researchers, and educators to showcase their academic prog
 | :--- | :--- | :--- |
 | **Enable Redirection** | Seamlessly redirect `/user/profile.php` and `/user/view.php` to SmartProfile | `Enabled` |
 | **Redirect Roles** | Filter which user roles are redirected | `All roles` |
-| **Redirect Admins** | Whether administrators are redirected | `Enabled` |
+| **Redirect Admins** | Whether administrators are redirected | `Disabled` |
 | **Theme Mode** | Default color scheme (Auto, Dark, Light) | `Auto` |
-| **Enable CV Export** | Enable downloadable dynamic PDF CV builder | `Enabled` |
-| **Enable Endorsements** | Allow teachers to write verified student recommendations | `Enabled` |
-| **Enable Wallet Passes** | Enable Apple Wallet .pkpass credential downloads | `Enabled` |
-| **Enable Open Badges 3.0** | Enable W3C / 1EdTech JSON-LD verification endpoint | `Enabled` |
-| **Custom Primary Color** | Hex code for enterprise brand accent color | *(Empty/Theme default)* |
-| **Custom Logo URL** | URL to custom brand logo | *(Empty)* |
-| **Custom Footer Tagline** | Custom footer copyright or accreditation tagline | *(Empty)* |
-| **Custom CSS** | Inject custom SCSS/CSS rules directly | *(Empty)* |
+| **Show Courses** | Master toggle for courses section | `Enabled` |
+| **Show Badges** | Master toggle for badges section | `Enabled` |
+| **Show Activity** | Master toggle for recent activity section | `Enabled` |
+| **Show Gamification** | Master toggle for gamification badge stats | `Enabled` |
+| **Enable Faculty Mode** | Enable adaptive instructor portfolio mode | `Enabled` |
 
 ---
 
@@ -91,7 +77,6 @@ It empowers students, researchers, and educators to showcase their academic prog
 
 * `local/smartprofile:view`: Allows a user to access SmartProfile (default: Authenticated users).
 * `local/smartprofile:viewallfields`: Allows managers and editing teachers to view all profile fields, bypassing individual privacy toggles.
-* `local/smartprofile:endorse`: Allows teachers and managers to write verified endorsements for students.
 
 ---
 
@@ -100,7 +85,7 @@ It empowers students, researchers, and educators to showcase their academic prog
 * **Moodle Version Support**: Moodle 4.5 / 5.0+ (Tested up to Moodle 5.2).
 * **PHP Support**: PHP 8.1 / 8.2 / 8.3 / 8.4+.
 * **Redirection Hook**: Implements Moodle's `\core\hook\output\before_http_headers` for instant, zero-flicker server-side interception with `classic=1` bypass.
-* **Privacy & GDPR Compliance**: Full implementation of Moodle Privacy API (`\core_privacy\local\metadata\provider`, `\core_privacy\local\request\data_provider`, `\core_privacy\local\request\userlist_provider`, `user_preference_provider`).
+* **Privacy & GDPR Compliance**: Full implementation of Moodle Privacy API (`\core_privacy\local\metadata\provider`, `user_preference_provider`).
 
 ---
 
