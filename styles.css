@@ -1813,3 +1813,131 @@
     color: var(--sp-text) !important;
     border-color: var(--sp-card-border) !important;
 }
+
+/* ==========================================================================
+   SmartProfile Pro Showcase Page (pro.php)
+   ========================================================================== */
+.sp-pro-showcase-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.sp-pro-hero-card {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+    color: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.sp-pro-badge {
+    background: rgba(253, 224, 71, 0.2);
+    border: 1px solid rgba(253, 224, 71, 0.4);
+    color: #fef08a;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.sp-pro-lead {
+    color: #e2e8f0;
+    max-width: 780px;
+}
+
+.sp-pro-btn-gold {
+    color: #0f172a !important;
+    border-radius: 10px;
+}
+
+.sp-pro-btn-outline {
+    border-radius: 10px;
+}
+
+.sp-pro-feat-card {
+    border-radius: 14px;
+    background: #ffffff;
+}
+
+.sp-pro-feat-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.3rem;
+}
+
+.sp-pro-icon-purple {
+    background: #ede9fe;
+    color: #7c3aed;
+}
+
+.sp-pro-icon-red {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.sp-pro-icon-green {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.sp-pro-icon-amber {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.sp-pro-icon-blue {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.sp-pro-icon-yellow {
+    background: #fef9c3;
+    color: #ca8a04;
+}
+
+.sp-pro-bundle-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+    border-radius: 18px;
+    border: 2px solid rgba(251, 191, 36, 0.4) !important;
+}
+
+.sp-pro-bundle-badge {
+    background: #fbbf24;
+    color: #0f172a;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.sp-pro-bundle-desc {
+    color: #cbd5e1;
+    font-size: 0.98rem;
+    line-height: 1.6;
+}
+
+.sp-pro-bundle-list {
+    color: #e2e8f0;
+    font-size: 0.92rem;
+}
+
+.sp-pro-bundle-btn {
+    color: #0f172a !important;
+    border-radius: 12px;
+    font-size: 1rem;
+}
+
+.sp-pro-table-card {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.sp-pro-col-free {
+    width: 22%;
+}
+
+.sp-pro-col-pro {
+    width: 26%;
+    background: #f8fafc;
+}
+
+.sp-pro-cta-card {
+    border-radius: 14px;
+}
