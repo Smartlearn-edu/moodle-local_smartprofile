@@ -28,7 +28,15 @@ if ($hassiteconfig) {
     $settings = new admin_settingpage('local_smartprofile', get_string('pluginname', 'local_smartprofile'));
     $ADMIN->add('localplugins', $settings);
 
-    // --- SmartProfile Pro Enterprise Banner ---
+    // --- SmartProfile Pro Showcase Page in Admin Tree ---
+    $ADMIN->add('localplugins', new admin_externalpage(
+        'local_smartprofile_pro',
+        '⭐ ' . get_string('pro_menu_item', 'local_smartprofile'),
+        new moodle_url('/local/smartprofile/pro.php'),
+        'moodle/site:config'
+    ));
+
+    // --- SmartProfile Pro Enterprise Banner in Settings ---
     $settings->add(new admin_setting_heading(
         'local_smartprofile/pro_promo_heading',
         get_string('pro_promo_heading', 'local_smartprofile'),

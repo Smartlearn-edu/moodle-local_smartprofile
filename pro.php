@@ -48,7 +48,7 @@ echo $OUTPUT->header();
                 <?php echo get_string('pro_hero_desc', 'local_smartprofile'); ?>
             </p>
             <div class="d-flex flex-wrap gap-3">
-                <a href="https://smartlearn.education" target="_blank" rel="noopener" class="btn btn-warning btn-lg fw-bold px-4 shadow-sm" style="color: #0f172a; border-radius: 10px;">
+                <a href="https://services.smartlearn.education/services/plugins/local_smartprofile" target="_blank" rel="noopener" class="btn btn-warning btn-lg fw-bold px-4 shadow-sm" style="color: #0f172a; border-radius: 10px;">
                     <i class="fa fa-arrow-up-right-from-square me-2" aria-hidden="true"></i> <?php echo get_string('pro_get_btn', 'local_smartprofile'); ?>
                 </a>
                 <a href="<?php echo (new moodle_url('/admin/settings.php', ['section' => 'local_smartprofile']))->out(false); ?>" class="btn btn-outline-light btn-lg px-4" style="border-radius: 10px;">
@@ -169,7 +169,7 @@ echo $OUTPUT->header();
     <div class="text-center p-4 bg-white rounded-3 shadow-sm border-0">
         <h5 class="fw-bold mb-2"><?php echo get_string('pro_cta_footer_title', 'local_smartprofile'); ?></h5>
         <p class="text-muted mb-3"><?php echo get_string('pro_cta_footer_desc', 'local_smartprofile'); ?></p>
-        <a href="https://smartlearn.education" target="_blank" rel="noopener" class="btn btn-primary btn-lg fw-bold px-5" style="border-radius: 10px;">
+        <a href="https://services.smartlearn.education/services/plugins/local_smartprofile" target="_blank" rel="noopener" class="btn btn-primary btn-lg fw-bold px-5" style="border-radius: 10px;">
             <i class="fa fa-arrow-up-right-from-square me-2" aria-hidden="true"></i> <?php echo get_string('pro_get_btn', 'local_smartprofile'); ?>
         </a>
     </div>
