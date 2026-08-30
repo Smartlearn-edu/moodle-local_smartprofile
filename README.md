@@ -30,7 +30,7 @@ It empowers learners, researchers, and educators to showcase their academic prog
 ### 🌐 Interoperability & Clean URLs
 * **Custom Clean URL Harmony**: Integrates with `local_customcleanurl` for clean profile vanity URLs (`/user/profile/username`).
 * **SmartDashboard Companion**: One-click cockpit launcher linking directly to `local_smartdashboard`.
-* **Classic Moodle System Bridge**: Instant dropdown menu providing deep links to native Moodle reports, today's logs, forum posts, notes, and the default profile.
+* **Classic Profile System Bridge**: Instant dropdown menu providing deep links to native Moodle reports, today's logs, forum posts, notes, and the default profile.
 
 ---
 
