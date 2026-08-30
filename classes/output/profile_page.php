@@ -600,14 +600,157 @@ class profile_page implements renderable, templatable {
     }
 
     /**
-     * Gets certificates / credentials list.
+     * Gets certificates / credentials list from available Moodle certificate engines.
+     * Supports:
+     * - mod_customcert (Custom Certificate)
+     * - tool_certificate (Moodle Workplace / Certificate Manager)
+     * - mod_certificate (Legacy Certificate)
      *
      * @param array $courses
      * @return array
      */
     protected function get_certificates(array $courses): array {
-        // Prepared for certificate integration (empty by default until configured).
+        global $DB, $SITE;
+
         $certificates = [];
+        $dbman = $DB->get_manager();
+        $userid = (int)$this->profileuser->id;
+        $isown = ($this->viewer->id == $this->profileuser->id);
+        $colorpalette = ['sp-cert-emerald', 'sp-cert-cyan', 'sp-cert-violet', 'sp-cert-amber', 'sp-cert-rose', 'sp-cert-blue'];
+        $coloridx = 0;
+
+        // 1. Check mod_customcert (Custom Certificate).
+        if ($dbman->table_exists('customcert') && $dbman->table_exists('customcert_issues')) {
+            try {
+                $sql = "SELECT ci.id AS issueid, ci.code, ci.timecreated, c.id AS certid, c.name AS certname,
+                               c.course AS courseid, co.fullname AS coursename
+                          FROM {customcert_issues} ci
+                          JOIN {customcert} c ON c.id = ci.customcertid
+                     LEFT JOIN {course} co ON co.id = c.course
+                         WHERE ci.userid = :userid
+                      ORDER BY ci.timecreated DESC";
+                $customcertissues = $DB->get_records_sql($sql, ['userid' => $userid]);
+
+                foreach ($customcertissues as $ci) {
+                    $canviewcert = $isown || has_capability('mod/customcert:viewallcertificates', \context_system::instance());
+                    if ($canviewcert) {
+                        $certurl = (new \moodle_url('/mod/customcert/my_certificates.php', [
+                            'userid'        => $userid,
+                            'certificateid' => $ci->certid,
+                            'downloadcert'  => 1,
+                        ]))->out(false);
+                    } else if (!empty($ci->code)) {
+                        $certurl = (new \moodle_url('/mod/customcert/verify_certificate.php', ['code' => $ci->code]))->out(false);
+                    } else {
+                        $certurl = (new \moodle_url('/mod/customcert/my_certificates.php', ['userid' => $userid]))->out(false);
+                    }
+
+                    $institution = !empty($ci->coursename) ? format_string($ci->coursename) : ($this->profileuser->institution ?: ($this->profileuser->department ?: $SITE->fullname));
+                    $colorclass = $colorpalette[$coloridx % count($colorpalette)];
+                    $coloridx++;
+
+                    $certificates[] = [
+                        'id'           => 'customcert_' . $ci->issueid,
+                        'title'        => format_string($ci->certname ?: get_string('certificate', 'local_smartprofile')),
+                        'institution'  => $institution,
+                        'issued_date'  => userdate($ci->timecreated, '%b %d, %Y'),
+                        'timecreated'  => (int)$ci->timecreated,
+                        'url'          => $certurl,
+                        'code'         => $ci->code ?? '',
+                        'has_code'     => !empty($ci->code),
+                        'colorclass'   => $colorclass,
+                        'type'         => 'customcert',
+                    ];
+                }
+            } catch (\Throwable $e) {
+                debugging('SmartProfile: Error retrieving mod_customcert certificates: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            }
+        }
+
+        // 2. Check tool_certificate (Moodle Workplace / Certificate Manager).
+        if ($dbman->table_exists('tool_certificate_issues')) {
+            try {
+                if ($dbman->table_exists('tool_certificate_templates')) {
+                    $sql = "SELECT ci.id AS issueid, ci.code, ci.timecreated, t.name AS templatename
+                              FROM {tool_certificate_issues} ci
+                         LEFT JOIN {tool_certificate_templates} t ON t.id = ci.templateid
+                             WHERE ci.userid = :userid
+                          ORDER BY ci.timecreated DESC";
+                    $toolissues = $DB->get_records_sql($sql, ['userid' => $userid]);
+                } else {
+                    $toolissues = $DB->get_records('tool_certificate_issues', ['userid' => $userid], 'timecreated DESC');
+                }
+
+                foreach ($toolissues as $ti) {
+                    $certname = !empty($ti->templatename) ? format_string($ti->templatename) : get_string('certificate', 'local_smartprofile');
+                    if (!empty($ti->code)) {
+                        $certurl = (new \moodle_url('/admin/tool/certificate/view.php', ['code' => $ti->code]))->out(false);
+                    } else {
+                        $certurl = (new \moodle_url('/admin/tool/certificate/my.php'))->out(false);
+                    }
+
+                    $institution = $this->profileuser->institution ?: ($this->profileuser->department ?: $SITE->fullname);
+                    $colorclass = $colorpalette[$coloridx % count($colorpalette)];
+                    $coloridx++;
+
+                    $certificates[] = [
+                        'id'           => 'tool_cert_' . $ti->issueid,
+                        'title'        => $certname,
+                        'institution'  => $institution,
+                        'issued_date'  => userdate($ti->timecreated, '%b %d, %Y'),
+                        'timecreated'  => (int)$ti->timecreated,
+                        'url'          => $certurl,
+                        'code'         => $ti->code ?? '',
+                        'has_code'     => !empty($ti->code),
+                        'colorclass'   => $colorclass,
+                        'type'         => 'tool_certificate',
+                    ];
+                }
+            } catch (\Throwable $e) {
+                debugging('SmartProfile: Error retrieving tool_certificate: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            }
+        }
+
+        // 3. Check mod_certificate (Legacy Certificate).
+        if ($dbman->table_exists('certificate') && $dbman->table_exists('certificate_issues')) {
+            try {
+                $sql = "SELECT ci.id AS issueid, ci.code, ci.timecreated, c.id AS certid, c.name AS certname,
+                               c.course AS courseid, co.fullname AS coursename
+                          FROM {certificate_issues} ci
+                          JOIN {certificate} c ON c.id = ci.certificateid
+                     LEFT JOIN {course} co ON co.id = c.course
+                         WHERE ci.userid = :userid
+                      ORDER BY ci.timecreated DESC";
+                $legacissues = $DB->get_records_sql($sql, ['userid' => $userid]);
+
+                foreach ($legacissues as $li) {
+                    $certurl = (new \moodle_url('/course/view.php', ['id' => $li->courseid]))->out(false);
+                    $institution = !empty($li->coursename) ? format_string($li->coursename) : ($this->profileuser->institution ?: ($this->profileuser->department ?: $SITE->fullname));
+                    $colorclass = $colorpalette[$coloridx % count($colorpalette)];
+                    $coloridx++;
+
+                    $certificates[] = [
+                        'id'           => 'mod_cert_' . $li->issueid,
+                        'title'        => format_string($li->certname ?: get_string('certificate', 'local_smartprofile')),
+                        'institution'  => $institution,
+                        'issued_date'  => userdate($li->timecreated, '%b %d, %Y'),
+                        'timecreated'  => (int)$li->timecreated,
+                        'url'          => $certurl,
+                        'code'         => $li->code ?? '',
+                        'has_code'     => !empty($li->code),
+                        'colorclass'   => $colorclass,
+                        'type'         => 'mod_certificate',
+                    ];
+                }
+            } catch (\Throwable $e) {
+                debugging('SmartProfile: Error retrieving mod_certificate: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            }
+        }
+
+        // Sort all aggregated certificates chronologically (newest first).
+        usort($certificates, function ($a, $b) {
+            return ($b['timecreated'] ?? 0) <=> ($a['timecreated'] ?? 0);
+        });
 
         return $certificates;
     }

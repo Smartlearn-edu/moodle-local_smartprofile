@@ -615,13 +615,16 @@
                 {{#has_certificates}}
                 <div class="sp-certificates-grid">
                     {{#certificates}}
-                        <a href="{{url}}" class="sp-cert-card {{colorclass}}">
+                        <a href="{{url}}" class="sp-cert-card {{colorclass}}" target="_blank" rel="noopener noreferrer">
                             <div class="sp-cert-border">
                                 <div class="sp-cert-seal"><i class="fa fa-stamp" aria-hidden="true"></i></div>
                                 <div class="sp-cert-body">
                                     <div class="sp-cert-institution">{{institution}}</div>
                                     <h4 class="sp-cert-title">{{title}}</h4>
                                     <div class="sp-cert-date">{{#str}}issued, local_smartprofile, Issued{{/str}} {{issued_date}}</div>
+                                    {{#has_code}}
+                                        <div class="sp-cert-code small font-monospace mt-1 text-muted"><i class="fa fa-barcode me-1" aria-hidden="true"></i>{{code}}</div>
+                                    {{/has_code}}
                                 </div>
                             </div>
                         </a>

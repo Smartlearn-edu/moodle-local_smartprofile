@@ -74,6 +74,7 @@ $string['coursesenrolled'] = 'المقررات المسجلة';
 $string['coursescompleted'] = 'المقررات المكتملة';
 $string['overallprogress'] = 'نسبة الإنجاز الكلية';
 $string['certificates'] = 'الشهادات المكتسبة';
+$string['certificate'] = 'شهادة';
 $string['badgesearned'] = 'الأوسمة المكتسبة';
 $string['currentstreak'] = 'سلسلة النشاط المستمر';
 

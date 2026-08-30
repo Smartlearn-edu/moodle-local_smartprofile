@@ -1131,6 +1131,19 @@
     color: var(--sp-text-muted);
 }
 
+.sp-cert-card.sp-cert-emerald .sp-cert-seal { color: #10b981; }
+.sp-cert-card.sp-cert-cyan .sp-cert-seal { color: #06b6d4; }
+.sp-cert-card.sp-cert-violet .sp-cert-seal { color: #8b5cf6; }
+.sp-cert-card.sp-cert-amber .sp-cert-seal { color: #f59e0b; }
+.sp-cert-card.sp-cert-rose .sp-cert-seal { color: #f43f5e; }
+.sp-cert-card.sp-cert-blue .sp-cert-seal { color: #3b82f6; }
+
+.sp-cert-code {
+    font-size: 0.72rem;
+    opacity: 0.85;
+    word-break: break-all;
+}
+
 /* ==========================================================================
    Learning Journey (Courses) List Rows
    ========================================================================== */

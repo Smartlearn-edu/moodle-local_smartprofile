@@ -74,6 +74,7 @@ $string['coursesenrolled'] = 'Courses Enrolled';
 $string['coursescompleted'] = 'Courses Completed';
 $string['overallprogress'] = 'Overall Progress';
 $string['certificates'] = 'Certificates';
+$string['certificate'] = 'Certificate';
 $string['badgesearned'] = 'Badges Earned';
 $string['currentstreak'] = 'Current Streak';
 
