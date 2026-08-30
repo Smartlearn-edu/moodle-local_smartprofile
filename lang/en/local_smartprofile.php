@@ -277,10 +277,10 @@ $string['custom_footer_tagline_desc'] = 'Custom statement or copyright notice re
 $string['custom_css'] = 'Custom Enterprise CSS Overrides';
 $string['custom_css_desc'] = 'Additional CSS rules to inject directly into SmartProfile pages for bespoke institutional styling.';
 
-// --- Classic Moodle System Profile & Report Links ---
-$string['classic_profile'] = 'Classic Moodle';
-$string['moodle_system_profile'] = 'Moodle System Profile & Reports';
-$string['view_classic_profile'] = 'Open Default Moodle Profile';
+// --- Classic Profile & Report Links ---
+$string['classic_profile'] = 'Classic Profile';
+$string['moodle_system_profile'] = 'Classic Profile & Reports';
+$string['view_classic_profile'] = 'Open Default Classic Profile';
 $string['course_profile'] = 'Course Profile View';
 $string['reports_and_logs'] = 'Reports & Activity Logs';
 $string['todays_logs'] = 'Today\'s Activity Logs';

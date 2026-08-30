@@ -277,10 +277,10 @@ $string['custom_footer_tagline_desc'] = 'نص حقوق الملكية أو ال�
 $string['custom_css'] = 'تنسيقات CSS مخصصة (Custom CSS)';
 $string['custom_css_desc'] = 'أكواد CSS إضافية تُحقن مباشرة في صفحات SmartProfile لتطبيق الهوية البصرية الخاصة بمؤسستك بدقة.';
 
-// --- Classic Moodle System Profile & Report Links ---
-$string['classic_profile'] = 'ملف مودل الأصلي';
-$string['moodle_system_profile'] = 'ملف مودل والتقارير الأكاديمية';
-$string['view_classic_profile'] = 'فتح ملف مودل الافتراضي للنظام';
+// --- Classic Profile & Report Links ---
+$string['classic_profile'] = 'الملف التقليدي';
+$string['moodle_system_profile'] = 'الملف التقليدي والتقارير الأكاديمية';
+$string['view_classic_profile'] = 'فتح الملف التقليدي الافتراضي';
 $string['course_profile'] = 'عرض ملف المقرر الافتراضي';
 $string['reports_and_logs'] = 'التقارير وسجلات النشاط';
 $string['todays_logs'] = 'سجلات نشاط اليوم';
