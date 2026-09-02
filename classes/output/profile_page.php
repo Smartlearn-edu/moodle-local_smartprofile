@@ -85,9 +85,11 @@ class profile_page implements renderable, templatable {
         // 2. Roles & Headlines.
         $rolebadges = $this->get_user_roles();
         $primaryrole = !empty($rolebadges) ? $rolebadges[0]['name'] : get_string('student', 'core');
-        $institution = $this->profileuser->institution ?: ($SITE->shortname ?? get_string('pluginname', 'local_smartprofile'));
-        $department = $this->profileuser->department ?: '';
-        $headline = $this->profileuser->department ? ($this->profileuser->department . ' • ' . $institution) : ($primaryrole . ' at ' . $institution);
+        $rawinstitution = $this->profileuser->institution ?: ($SITE->shortname ?? get_string('pluginname', 'local_smartprofile'));
+        $institution = format_string($rawinstitution);
+        $rawdepartment = $this->profileuser->department ?: '';
+        $department = !empty($rawdepartment) ? format_string($rawdepartment) : '';
+        $headline = $department ? ($department . ' • ' . $institution) : ($primaryrole . ' at ' . $institution);
 
         // 3. Status & Location.
         $countries = get_string_manager()->get_list_of_countries();

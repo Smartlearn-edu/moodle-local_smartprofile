@@ -86,11 +86,110 @@ define(['core/ajax', 'core/str', 'core/notification'], function(ajax, str, notif
     }
 
     /**
-     * Initializes the Smart Profile interactions.
+     * Initializes UI dropdown and modal interactions across Bootstrap 4 (Moodle 4.x)
+     * and Bootstrap 5 (Moodle 5.x), with reliable vanilla JS fallbacks.
+     */
+    function initUIInteractions() {
+        // 1. Classic Moodle Dropdown Toggle
+        document.addEventListener('click', function(e) {
+            var toggleBtn = e.target.closest('#spClassicProfileMenu, [data-toggle="dropdown"], [data-bs-toggle="dropdown"]');
+            var dropdownContainer = toggleBtn ? toggleBtn.closest('.dropdown') : null;
+            var dropdownMenu = dropdownContainer ? dropdownContainer.querySelector('.dropdown-menu') : null;
+
+            // If a dropdown toggle button in smartprofile was clicked:
+            if (toggleBtn && dropdownContainer && dropdownMenu) {
+                // Give Bootstrap a micro-tick to see if it handled the click.
+                setTimeout(function() {
+                    var isShown = dropdownMenu.classList.contains('show') || dropdownContainer.classList.contains('show');
+                    // If Bootstrap did not open it, toggle it manually.
+                    if (!isShown) {
+                        dropdownContainer.classList.add('show');
+                        dropdownMenu.classList.add('show');
+                        toggleBtn.setAttribute('aria-expanded', 'true');
+                    }
+                }, 10);
+                return;
+            }
+
+            // Clicked outside or on a dropdown item: close the dropdown
+            var allDropdowns = document.querySelectorAll('.sp-banner-actions .dropdown');
+            allDropdowns.forEach(function(dd) {
+                var menu = dd.querySelector('.dropdown-menu');
+                var btn = dd.querySelector('.dropdown-toggle');
+                if (menu && menu.classList.contains('show')) {
+                    var clickedInsideMenu = menu.contains(e.target);
+                    var clickedItem = e.target.closest('.dropdown-item');
+                    if (!clickedInsideMenu || clickedItem) {
+                        dd.classList.remove('show');
+                        menu.classList.remove('show');
+                        if (btn) {
+                            btn.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                }
+            });
+
+            // 2. Endorse Modal Triggers (Fallback if Bootstrap data-api is inactive)
+            var modalTrigger = e.target.closest('[data-toggle="modal"], [data-bs-toggle="modal"]');
+            if (modalTrigger) {
+                var targetSelector = modalTrigger.getAttribute('data-bs-target') || modalTrigger.getAttribute('data-target') || modalTrigger.getAttribute('href');
+                if (targetSelector && targetSelector.startsWith('#')) {
+                    var modalEl = document.querySelector(targetSelector);
+                    if (modalEl) {
+                        setTimeout(function() {
+                            if (!modalEl.classList.contains('show') && modalEl.style.display !== 'block') {
+                                modalEl.classList.add('show');
+                                modalEl.style.display = 'block';
+                                modalEl.removeAttribute('aria-hidden');
+                                modalEl.setAttribute('aria-modal', 'true');
+                                document.body.classList.add('modal-open');
+                                var backdrop = document.createElement('div');
+                                backdrop.className = 'modal-backdrop fade show sp-modal-backdrop';
+                                document.body.appendChild(backdrop);
+                            }
+                        }, 20);
+                    }
+                }
+            }
+
+            // 3. Modal Dismiss Buttons (Close / Cancel / Backdrop)
+            var modalDismiss = e.target.closest('[data-dismiss="modal"], [data-bs-dismiss="modal"]');
+            if (modalDismiss) {
+                var openModal = modalDismiss.closest('.modal');
+                if (openModal) {
+                    openModal.classList.remove('show');
+                    openModal.style.display = 'none';
+                    openModal.setAttribute('aria-hidden', 'true');
+                    document.body.classList.remove('modal-open');
+                    var backdrops = document.querySelectorAll('.sp-modal-backdrop');
+                    backdrops.forEach(function(b) {
+                        b.remove();
+                    });
+                }
+            }
+        });
+
+        // Close on Escape key press
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' || e.keyCode === 27) {
+                var openMenus = document.querySelectorAll('.sp-banner-actions .dropdown.show, .sp-banner-actions .dropdown-menu.show');
+                openMenus.forEach(function(el) {
+                    el.classList.remove('show');
+                });
+                var activeToggle = document.getElementById('spClassicProfileMenu');
+                if (activeToggle) {
+                    activeToggle.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+    }
+
+    /**
+     * Initializes the privacy toggles for the profile owner.
      *
      * @param {Object} config Configuration object passed from PHP
      */
-    function init(config) {
+    function initPrivacyToggles(config) {
         if (!config || !config.isown) {
             return;
         }
@@ -170,6 +269,16 @@ define(['core/ajax', 'core/str', 'core/notification'], function(ajax, str, notif
                 notification.exception(err);
             });
         });
+    }
+
+    /**
+     * Initializes the Smart Profile interactions.
+     *
+     * @param {Object} config Configuration object passed from PHP
+     */
+    function init(config) {
+        initUIInteractions();
+        initPrivacyToggles(config);
     }
 
     return {

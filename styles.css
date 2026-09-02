@@ -86,6 +86,7 @@
     border-radius: var(--sp-radius) var(--sp-radius) 0 0;
     background: linear-gradient(135deg, color-mix(in srgb, var(--sp-primary) 35%, #0f172a) 0%, #0f172a 45%, color-mix(in srgb, var(--sp-secondary) 30%, #1e1b4b) 100%);
     position: relative;
+    z-index: 5;
     background-image: 
         radial-gradient(at 80% 20%, color-mix(in srgb, var(--sp-primary) 40%, transparent) 0px, transparent 50%),
         radial-gradient(at 20% 80%, color-mix(in srgb, var(--sp-secondary) 35%, transparent) 0px, transparent 50%),
@@ -102,6 +103,7 @@
     bottom: 0;
     border-radius: var(--sp-radius) var(--sp-radius) 0 0;
     background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.4) 100%);
+    pointer-events: none;
 }
 
 .sp-banner-actions {
@@ -110,7 +112,8 @@
     right: 24px;
     display: flex;
     gap: 10px;
-    z-index: 100;
+    z-index: 1050;
+    pointer-events: auto;
 }
 
 .sp-hero-btn {
@@ -133,9 +136,19 @@
     box-shadow: 0 4px 14px color-mix(in srgb, var(--sp-primary) 40%, transparent);
 }
 
+.sp-hero-btn-primary i,
+.sp-hero-btn-primary span {
+    color: #ffffff !important;
+}
+
 .sp-hero-btn-primary:hover {
     background: var(--sp-primary-hover);
     transform: translateY(-1px);
+    color: #ffffff !important;
+}
+
+.sp-hero-btn-primary:hover i,
+.sp-hero-btn-primary:hover span {
     color: #ffffff !important;
 }
 
@@ -1770,7 +1783,11 @@
     max-height: 400px;
     overflow-y: auto;
     scrollbar-width: thin;
-    z-index: 1050 !important;
+    z-index: 1055 !important;
+}
+
+.sp-classic-dropdown.show {
+    display: block !important;
 }
 
 .sp-classic-dropdown .dropdown-item {

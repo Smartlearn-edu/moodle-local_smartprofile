@@ -36,10 +36,10 @@
             <div class="sp-banner-actions">
                 {{#showclassiclinks}}
                     <div class="dropdown d-inline-block">
-                        <button class="sp-hero-btn sp-hero-btn-light dropdown-toggle" type="button" id="spClassicProfileMenu" data-bs-toggle="dropdown" aria-expanded="false" title="{{#str}}moodle_system_profile, local_smartprofile{{/str}}">
+                        <button class="sp-hero-btn sp-hero-btn-light dropdown-toggle" type="button" id="spClassicProfileMenu" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="{{#str}}moodle_system_profile, local_smartprofile{{/str}}">
                             <i class="fa fa-cubes text-info" aria-hidden="true"></i> <span>{{#str}}classic_profile, local_smartprofile{{/str}}</span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3 p-2 sp-classic-dropdown" aria-labelledby="spClassicProfileMenu" style="min-width: 260px; z-index: 1050;">
+                        <ul class="dropdown-menu dropdown-menu-right dropdown-menu-end shadow-lg border-0 rounded-3 p-2 sp-classic-dropdown" aria-labelledby="spClassicProfileMenu" style="min-width: 260px; z-index: 1050;">
                             <li>
                                 <a class="dropdown-item rounded-2 py-2 fw-bold text-primary" href="{{classic_profile_url}}">
                                     <i class="fa fa-arrow-up-right-from-square me-2" aria-hidden="true"></i> {{#str}}view_classic_profile, local_smartprofile{{/str}}
@@ -89,7 +89,7 @@
                 {{/cvurl}}
                 {{#showmessage}}
                     <a href="{{messageurl}}" class="sp-hero-btn sp-hero-btn-primary">
-                        <i class="fa fa-comment" aria-hidden="true"></i> <span>{{#str}}message, core_message, Message{{/str}}</span>
+                        <i class="fa fa-comment" aria-hidden="true"></i> <span>{{#str}}message, message, Message{{/str}}</span>
                     </a>
                 {{/showmessage}}
                 {{#canedit}}
@@ -124,7 +124,7 @@
                     </div>
 
                     <div class="sp-headline-text">
-                        <i class="fa fa-graduation-cap" aria-hidden="true"></i> {{headline}}
+                        <i class="fa fa-graduation-cap" aria-hidden="true"></i> {{{headline}}}
                     </div>
 
                     {{#bio_quote}}
@@ -697,7 +697,7 @@
                         {{/has_endorsements}}
                     </h2>
                     {{#can_write_endorsement}}
-                        <button type="button" class="sp-card-action-btn btn btn-sm btn-primary rounded-pill px-3 py-1 fw-bold" data-bs-toggle="modal" data-bs-target="#spEndorseModal">
+                        <button type="button" class="sp-card-action-btn btn btn-sm btn-primary rounded-pill px-3 py-1 fw-bold" data-toggle="modal" data-bs-toggle="modal" data-target="#spEndorseModal" data-bs-target="#spEndorseModal">
                             <i class="fa fa-plus me-1" aria-hidden="true"></i> {{#str}}write_endorsement, local_smartprofile{{/str}}
                         </button>
                     {{/can_write_endorsement}}
@@ -761,7 +761,7 @@
                     <i class="fa fa-stamp" aria-hidden="true"></i>
                     <p class="mb-2">{{#str}}no_endorsements_yet, local_smartprofile{{/str}}</p>
                     {{#can_write_endorsement}}
-                        <button type="button" class="btn btn-outline-primary rounded-pill btn-sm px-3 mt-1" data-bs-toggle="modal" data-bs-target="#spEndorseModal">
+                        <button type="button" class="btn btn-outline-primary rounded-pill btn-sm px-3 mt-1" data-toggle="modal" data-bs-toggle="modal" data-target="#spEndorseModal" data-bs-target="#spEndorseModal">
                             <i class="fa fa-pen me-1" aria-hidden="true"></i> {{#str}}be_first_to_endorse, local_smartprofile{{/str}}
                         </button>
                     {{/can_write_endorsement}}
@@ -944,7 +944,9 @@
                     <h5 class="modal-title fw-bold" id="spEndorseModalLabel">
                         <i class="fa fa-stamp text-primary me-2" aria-hidden="true"></i> {{#str}}write_endorsement, local_smartprofile{{/str}}
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="close btn-close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
 
                 <div class="modal-body py-3">
@@ -981,7 +983,7 @@
                 </div>
 
                 <div class="modal-footer border-top-0 pt-0">
-                    <button type="button" class="btn btn-outline-secondary rounded-pill px-3" data-bs-dismiss="modal">{{#str}}cancel, moodle, Cancel{{/str}}</button>
+                    <button type="button" class="btn btn-outline-secondary rounded-pill px-3" data-dismiss="modal" data-bs-dismiss="modal">{{#str}}cancel, moodle, Cancel{{/str}}</button>
                     <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">{{#str}}submit_endorsement, local_smartprofile{{/str}}</button>
                 </div>
             </form>
