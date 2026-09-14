@@ -1,0 +1,135 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_smartprofile/pro_page
+
+    SmartProfile Pro feature showcase and promotion page.
+}}
+<div class="sp-pro-showcase-wrap">
+
+    <!-- 1. Hero Promo Header -->
+    <div class="card border-0 shadow-sm mb-4 sp-pro-hero-card">
+        <div class="card-body p-4 p-md-5">
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3 sp-pro-badge">
+                <i class="fa fa-star" aria-hidden="true"></i> {{#str}}pro_badge, local_smartprofile{{/str}}
+            </div>
+            <h1 class="display-6 fw-bold mb-3 text-white">{{#str}}pro_hero_title, local_smartprofile{{/str}}</h1>
+            <p class="lead mb-4 sp-pro-lead">
+                {{#str}}pro_hero_desc, local_smartprofile{{/str}}
+            </p>
+            <div class="d-flex flex-wrap gap-3">
+                <a href="{{pro_url}}" target="_blank" rel="noopener" class="btn btn-warning btn-lg fw-bold px-4 shadow-sm sp-pro-btn-gold">
+                    <i class="fa fa-arrow-up-right-from-square me-2" aria-hidden="true"></i> {{#str}}pro_get_btn, local_smartprofile{{/str}}
+                </a>
+                <a href="{{settings_url}}" class="btn btn-outline-light btn-lg px-4 sp-pro-btn-outline">
+                    <i class="fa fa-cog me-2" aria-hidden="true"></i> {{#str}}settings{{/str}}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Feature Highlights Grid -->
+    <div class="row g-4 mb-4">
+        {{#features}}
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm sp-pro-feat-card">
+                <div class="card-body p-4">
+                    <div class="d-inline-flex align-items-center justify-content-center mb-3 rounded-3 sp-pro-feat-icon {{iconclass}}">
+                        <i class="fa {{icon}}" aria-hidden="true"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2">{{title}}</h5>
+                    <p class="text-muted mb-0">{{desc}}</p>
+                </div>
+            </div>
+        </div>
+        {{/features}}
+    </div>
+
+    <!-- 3. Special Academic Bundle Offer (SmartProfile Pro + Trophy / Credits) -->
+    <div class="card border-0 shadow-sm mb-5 text-white sp-pro-bundle-card">
+        <div class="card-body p-4 p-md-5">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8">
+                    <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-3 sp-pro-bundle-badge">
+                        <i class="fa fa-gift" aria-hidden="true"></i> {{#str}}pro_bundle_badge, local_smartprofile{{/str}}
+                    </div>
+                    <h3 class="fw-bold text-white mb-2">{{#str}}pro_bundle_title, local_smartprofile{{/str}}</h3>
+                    <p class="mb-3 sp-pro-bundle-desc">
+                        {{#str}}pro_bundle_desc, local_smartprofile{{/str}}
+                    </p>
+                    <ul class="list-unstyled mb-0 d-flex flex-column gap-2 sp-pro-bundle-list">
+                        {{#bundle_items}}
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="fa fa-check text-warning" aria-hidden="true"></i>
+                            <span>{{text}}</span>
+                        </li>
+                        {{/bundle_items}}
+                    </ul>
+                </div>
+                <div class="col-lg-4 text-lg-end text-center">
+                    <a href="{{pro_url}}" target="_blank" rel="noopener" class="btn btn-warning btn-lg fw-bold px-4 py-3 shadow sp-pro-bundle-btn">
+                        <i class="fa fa-tags me-2" aria-hidden="true"></i> {{#str}}pro_bundle_btn, local_smartprofile{{/str}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Free vs Pro Comparison Table -->
+    <div class="card border-0 shadow-sm mb-4 sp-pro-table-card">
+        <div class="card-header bg-white p-4 border-bottom">
+            <h4 class="fw-bold mb-1">{{#str}}pro_compare_title, local_smartprofile{{/str}}</h4>
+            <p class="text-muted mb-0">{{#str}}pro_compare_subtitle, local_smartprofile{{/str}}</p>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="py-3 px-4">{{#str}}feature, local_smartprofile{{/str}}</th>
+                        <th class="py-3 text-center sp-pro-col-free">{{#str}}edition_free, local_smartprofile{{/str}}</th>
+                        <th class="py-3 text-center text-primary fw-bold sp-pro-col-pro">{{#str}}edition_pro, local_smartprofile{{/str}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#comparison_rows}}
+                    <tr>
+                        <td class="px-4 py-3 fw-semibold">{{feature}}</td>
+                        <td class="text-center {{#free}}text-success{{/free}}{{^free}}text-muted{{/free}}">
+                            {{#free}}<i class="fa fa-check-circle" aria-hidden="true"></i>{{/free}}
+                            {{^free}}<i class="fa fa-minus" aria-hidden="true"></i>{{/free}}
+                        </td>
+                        <td class="text-center text-success {{#pro}}fw-bold bg-light{{/pro}}">
+                            {{#pro}}<i class="fa fa-check-circle text-primary" aria-hidden="true"></i>{{/pro}}
+                            {{^pro}}<i class="fa fa-minus" aria-hidden="true"></i>{{/pro}}
+                        </td>
+                    </tr>
+                    {{/comparison_rows}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 5. Footer CTA -->
+    <div class="text-center p-4 bg-white shadow-sm border-0 sp-pro-cta-card">
+        <h5 class="fw-bold mb-2">{{#str}}pro_cta_footer_title, local_smartprofile{{/str}}</h5>
+        <p class="text-muted mb-3">{{#str}}pro_cta_footer_desc, local_smartprofile{{/str}}</p>
+        <a href="{{pro_url}}" target="_blank" rel="noopener" class="btn btn-primary btn-lg fw-bold px-5 sp-pro-btn-gold">
+            <i class="fa fa-arrow-up-right-from-square me-2" aria-hidden="true"></i> {{#str}}pro_get_btn, local_smartprofile{{/str}}
+        </a>
+    </div>
+
+</div>
