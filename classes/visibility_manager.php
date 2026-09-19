@@ -235,7 +235,6 @@ class visibility_manager {
         // ==========================================
         // LAYER 1: Core Moodle Capability Gate
         // ==========================================
-        global $DB;
         $systemcontext = context_system::instance();
         $canviewdetails = $usercontext && has_capability('moodle/user:viewdetails', $usercontext, $viewer);
         $isadmin = is_siteadmin($viewer);
@@ -312,7 +311,7 @@ class visibility_manager {
             case 'description':
                 if (
                     !empty($CFG->profilesforenrolledusersonly) &&
-                    !$DB->record_exists('role_assignments', ['userid' => $profileuser->id])
+                    empty(enrol_get_users_courses($profileuser->id, true, 'id'))
                 ) {
                     return false;
                 }
