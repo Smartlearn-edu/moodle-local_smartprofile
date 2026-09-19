@@ -150,8 +150,22 @@ class profile_page implements renderable, templatable {
         $credithoursbreakdown = $this->get_credithours_category_breakdown();
 
         // 9. Learning Performance Stats.
-        $showperformance = visibility_manager::is_field_visible('performance', $this->profileuser, $this->viewer, $this->usercontext);
-        $performancedata = $showperformance ? $this->get_learning_performance($overallprogress, $coursescount, $completedcoursescount) : null;
+        // Require ownership or Moodle's grade-view permission before retrieving or displaying this data.
+        $cangrades = $isown || $isadmin ||
+            has_capability('moodle/grade:viewall', $systemcontext, $this->viewer) ||
+            ($this->usercontext && has_capability('moodle/grade:viewall', $this->usercontext, $this->viewer));
+
+        $showperformance = $cangrades && visibility_manager::is_field_visible(
+            'performance',
+            $this->profileuser,
+            $this->viewer,
+            $this->usercontext
+        );
+        $performancedata = $showperformance ? $this->get_learning_performance(
+            $overallprogress,
+            $coursescount,
+            $completedcoursescount
+        ) : null;
 
         // 10. Skills / Interests.
         $showskills = visibility_manager::is_field_visible('skills', $this->profileuser, $this->viewer, $this->usercontext);
@@ -1183,6 +1197,17 @@ class profile_page implements renderable, templatable {
      */
     protected function get_learning_performance(int $overallprogress, int $coursescount, int $completedcourses): ?array {
         global $DB;
+
+        $isown = ($this->viewer->id == $this->profileuser->id);
+        $systemcontext = \context_system::instance();
+        $isadmin = is_siteadmin($this->viewer);
+        $cangrades = $isown || $isadmin ||
+            has_capability('moodle/grade:viewall', $systemcontext, $this->viewer) ||
+            ($this->usercontext && has_capability('moodle/grade:viewall', $this->usercontext, $this->viewer));
+
+        if (!$cangrades) {
+            return null;
+        }
 
         // Average Grade (real grades only).
         $sql = "SELECT AVG(gg.finalgrade / gi.grademax * 100) as avggrade

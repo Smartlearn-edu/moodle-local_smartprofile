@@ -104,7 +104,7 @@ class visibility_manager {
             ],
             'performance' => [
                 'category' => 'academic',
-                'default'  => self::VISIBILITY_PUBLIC,
+                'default'  => self::VISIBILITY_PRIVATE,
                 'icon'     => 'fa-chart-pie',
                 'title'    => 'field_performance',
             ],
@@ -270,6 +270,17 @@ class visibility_manager {
             case 'activity':
                 // Activity history is private by core nature unless teacher/admin.
                 if (!$isadmin && !$canviewdetails) {
+                    return false;
+                }
+                break;
+
+            case 'performance':
+                // Performance calculates course grade average and completion count.
+                // Require grade-view capability or system administration before allowing visibility.
+                $cangrade = $isadmin ||
+                    has_capability('moodle/grade:viewall', $systemcontext, $viewer) ||
+                    ($usercontext && has_capability('moodle/grade:viewall', $usercontext, $viewer));
+                if (!$cangrade) {
                     return false;
                 }
                 break;
