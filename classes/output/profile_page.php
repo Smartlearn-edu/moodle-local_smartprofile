@@ -241,21 +241,11 @@ class profile_page implements renderable, templatable {
         $facultydata = null;
         $taughtcourses = [];
 
-        // 15. Academic Endorsements & Faculty Recommendations.
-        $endorsementsenabled = (bool)(get_config('local_smartprofile', 'enable_endorsements') ?? 1);
+        // 15. Academic Endorsements (Pro Feature - disabled in Free Community Edition).
+        $endorsementsenabled = false;
         $endorsements = [];
         $canendorse = false;
         $sharedcourses = [];
-        if ($endorsementsenabled) {
-            $endorsements = \local_smartprofile\endorsement_manager::get_endorsements($this->profileuser->id, true);
-            $viewerid = (int)($this->viewer->id ?? ($USER->id ?? 0));
-            if ($viewerid > 0) {
-                $canendorse = \local_smartprofile\endorsement_manager::can_endorse($viewerid, $this->profileuser->id);
-                if ($canendorse) {
-                    $sharedcourses = \local_smartprofile\endorsement_manager::get_shared_courses($viewerid, $this->profileuser->id);
-                }
-            }
-        }
 
         // 16. SmartDashboard Ecosystem Interoperability.
         $dashboardenabled = (bool)(get_config('local_smartprofile', 'enable_smartdashboard_interop') ?? 1);
@@ -1118,6 +1108,9 @@ class profile_page implements renderable, templatable {
     /**
      * Generates social and LinkedIn sharing payloads for academic achievements.
      *
+     * Note: Verifiable credential sharing, Apple Wallet passes, and LinkedIn
+     * credential verification are features of the Pro edition.
+     *
      * @param string $scope 'total' or 'category'
      * @param int $categoryid Course category ID (0 for total)
      * @param string $hours Formatted credit hours string
@@ -1125,92 +1118,14 @@ class profile_page implements renderable, templatable {
      * @param int $trophies Number of trophies earned
      * @return array|null Sharing URLs and modal payload or null if sharing disabled.
      */
-    protected function generate_share_links(string $scope, int $categoryid, string $hours, string $categoryname = '', int $trophies = 0): ?array {
-        global $SITE;
-
-        $showshare = (int)(get_config('local_smartprofile', 'show_shareonlinkedin') ?? 1);
-        if ($showshare === 0) {
-            return null;
-        }
-
-        $issuername = get_config('local_smartprofile', 'issuer_name') ?: $SITE->fullname;
-        $hash = substr(sha1($this->profileuser->id . '_' . $categoryid . '_' . get_site_identifier()), 0, 16);
-
-        if ($showshare === 2) {
-            $verifyurl = (new moodle_url('/local/smartprofile/index.php', ['id' => $this->profileuser->id]))->out(false);
-        } else {
-            $verifyurl = (new moodle_url('/local/smartprofile/verify.php', [
-                'id'  => $this->profileuser->id,
-                'cat' => $categoryid,
-                'h'   => $hash,
-            ]))->out(false);
-        }
-
-        $credentialid = 'SL-CH-' . $this->profileuser->id . '-' . $categoryid . '-' . strtoupper(substr($hash, 0, 8));
-
-        if ($scope === 'total') {
-            $certname = $issuername . ' - ' . get_string('overallprogress', 'local_smartprofile') . ' (' . $hours . ' ' . get_string('credithours', 'local_smartprofile') . ')';
-            $posta = (object)[
-                'credits'  => $hours . ' ' . get_string('credithours', 'local_smartprofile'),
-                'trophies' => $trophies . ' ' . get_string('trophies', 'local_smartprofile'),
-                'site'     => $issuername,
-                'url'      => $verifyurl,
-            ];
-            $posttext = get_string('share_total_msg', 'local_smartprofile', $posta);
-        } else {
-            $certname = $issuername . ' - ' . $categoryname . ' (' . $hours . ' ' . get_string('credithours', 'local_smartprofile') . ')';
-            $posta = (object)[
-                'credits'  => $hours . ' ' . get_string('credithours', 'local_smartprofile'),
-                'category' => $categoryname,
-                'site'     => $issuername,
-                'url'      => $verifyurl,
-            ];
-            $posttext = get_string('share_cat_msg', 'local_smartprofile', $posta);
-        }
-
-        // LinkedIn Add to Profile URL params.
-        $linkedinparams = [
-            'startTask'  => 'CERTIFICATION_NAME',
-            'name'       => $certname,
-            'issueYear'  => date('Y'),
-            'issueMonth' => date('n'),
-            'certId'     => $credentialid,
-            'certUrl'    => $verifyurl,
-        ];
-
-        $orgid = get_config('local_smartprofile', 'linkedin_org_id');
-        if (empty($orgid)) {
-            $orgid = get_config('tool_certificate', 'linkedinorganizationid');
-        }
-        if (!empty($orgid)) {
-            $linkedinparams['organizationId'] = $orgid;
-        } else {
-            $linkedinparams['organizationName'] = $issuername;
-        }
-
-        $linkedinaddurl = (new moodle_url('https://www.linkedin.com/profile/add', $linkedinparams))->out(false);
-        $linkedinposturl = 'https://www.linkedin.com/sharing/share-offsite/?url=' . urlencode($verifyurl);
-        $xurl = 'https://twitter.com/intent/tweet?text=' . urlencode($posttext);
-        $whatsappurl = 'https://api.whatsapp.com/send?text=' . urlencode($posttext);
-        $facebookurl = 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode($verifyurl);
-
-        $walletpassurl = '';
-        $obv3url = '';
-
-        return [
-            'can_share'         => true,
-            'verify_url'        => $verifyurl,
-            'credential_id'     => $credentialid,
-            'wallet_pass_url'   => $walletpassurl,
-            'obv3_url'          => $obv3url,
-            'linkedin_add_url'  => $linkedinaddurl,
-            'linkedin_post_url' => $linkedinposturl,
-            'x_url'             => $xurl,
-            'whatsapp_url'      => $whatsappurl,
-            'facebook_url'      => $facebookurl,
-            'post_text'         => $posttext,
-            'share_title'       => $certname,
-        ];
+    protected function generate_share_links(
+        string $scope,
+        int $categoryid,
+        string $hours,
+        string $categoryname = '',
+        int $trophies = 0
+    ): ?array {
+        return null;
     }
 
     /**

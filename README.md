@@ -104,36 +104,18 @@ Give learners complete autonomy over their public presence while maintaining cor
 
 ---
 
-## 💎 SmartProfile Pro / Enterprise Features
+## 💎 Optional Commercial Upgrade (SmartProfile Pro)
 
-Looking for institutional verifiable credentials, Apple Wallet passes, and faculty endorsements? Explore **SmartProfile Pro**:
-
-<table>
-  <tr>
-    <td width="33%" align="center" valign="top">
-      <img src=".github/screenshots/5-%20generated%20pf.png" alt="Dynamic PDF CV Builder" width="100%"><br>
-      <strong>Dynamic PDF CV Builder</strong><br>
-      <em>Instant 1-page academic resume with vector QR verification code.</em>
-    </td>
-    <td width="33%" align="center" valign="top">
-      <img src=".github/screenshots/4-%20academic%20endorsment.png" alt="Faculty Endorsements" width="100%"><br>
-      <strong>Verified Faculty Endorsements</strong><br>
-      <em>Instructor-written recommendations with 5-star competency ratings.</em>
-    </td>
-    <td width="33%" align="center" valign="top">
-      <img src=".github/screenshots/6-%20linkedin%20share.png" alt="LinkedIn Add to Profile" width="100%"><br>
-      <strong>1-Click LinkedIn Sharing</strong><br>
-      <em>Pre-filled certification IDs and direct credential verification links.</em>
-    </td>
-  </tr>
-</table>
+Looking for institutional verifiable credentials, Apple Wallet passes, dynamic resumes, and faculty endorsements? An optional commercial version (**SmartProfile Pro**) is available from [SmartLearn Education](https://smartlearn.education) with advanced capabilities:
 
 * 📱 **Apple Wallet Passes (`.pkpass`)**: Instant mobile wallet credentials with scannable QR verification.
 * 📜 **One-Click Dynamic PDF CV Builder**: Professional 1-page academic resumes generated via TCPDF with verification QR codes.
 * 👨‍🏫 **Role-Adaptive Faculty & Educator Showcase**: Automatically detects teachers and professors to display *Courses Instructed*, *Total Students Taught*, and academic research links.
 * 🌟 **Verified Faculty Endorsements**: Instructors can author verified recommendations with 5-star skill ratings.
-* 🛡️ **W3C / 1EdTech Open Badges 3.0 (OBv3)**: Cryptographic JSON-LD credential assertions endpoint.
+* 🛡️ **W3C / 1EdTech Open Badges 3.0 (OBv3) & Verification**: Cryptographic JSON-LD credential assertions and verification endpoint.
 * 🎨 **Enterprise White-Labeling**: Multi-tenant custom brand logo, primary colors, footer taglines, and custom CSS injection.
+
+For licensing and details, visit [SmartLearn Education](https://smartlearn.education).
 
 ---
 

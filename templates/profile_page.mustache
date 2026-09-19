@@ -175,10 +175,12 @@
                 </div>
                 {{#gamification.has_share}}
                 {{#gamification.share}}
+                {{#wallet_pass_url}}
                 <a href="{{wallet_pass_url}}" class="sp-header-apple-btn btn btn-sm btn-dark rounded-pill d-inline-flex align-items-center gap-2 px-3 py-2 fw-semibold" title="{{#str}}add_to_apple_wallet, local_smartprofile{{/str}}">
                     <i class="fa-brands fa-apple" aria-hidden="true"></i>
                     <span>{{#str}}add_to_apple_wallet, local_smartprofile{{/str}}</span>
                 </a>
+                {{/wallet_pass_url}}
                 <a href="{{linkedin_add_url}}" target="_blank" rel="noopener noreferrer" class="sp-header-linkedin-btn btn btn-sm rounded-pill d-inline-flex align-items-center gap-2 px-3 py-2 fw-semibold" title="{{#str}}add_to_linkedin, local_smartprofile{{/str}}">
                     <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
                     <span>{{#str}}add_to_linkedin, local_smartprofile{{/str}}</span>
@@ -203,9 +205,11 @@
                         {{#has_share}}
                         {{#share}}
                         <div class="sp-ch-card-share-actions d-flex align-items-center gap-1">
+                            {{#wallet_pass_url}}
                             <a href="{{wallet_pass_url}}" class="sp-ch-share-icon-btn sp-share-apple" title="{{#str}}add_to_apple_wallet, local_smartprofile{{/str}}">
                                 <i class="fa-brands fa-apple" aria-hidden="true"></i>
                             </a>
+                            {{/wallet_pass_url}}
                             <a href="{{linkedin_add_url}}" target="_blank" rel="noopener noreferrer" class="sp-ch-share-icon-btn sp-share-linkedin" title="{{#str}}add_to_linkedin, local_smartprofile{{/str}}">
                                 <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
                             </a>
