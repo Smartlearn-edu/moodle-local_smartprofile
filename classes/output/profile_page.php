@@ -168,7 +168,8 @@ class profile_page implements renderable, templatable {
         ) : null;
 
         // 10. Skills / Interests.
-        $showskills = visibility_manager::is_field_visible('skills', $this->profileuser, $this->viewer, $this->usercontext);
+        $showskills = visibility_manager::is_field_visible('skills', $this->profileuser, $this->viewer, $this->usercontext)
+            && visibility_manager::is_field_visible('interests', $this->profileuser, $this->viewer, $this->usercontext);
         $skills = $showskills ? $this->get_user_skills() : [];
 
         // 11. Recent Activity (STRICT PRIVACY: Only visible to Owner and Staff with capability).
@@ -207,6 +208,13 @@ class profile_page implements renderable, templatable {
         $showemail = visibility_manager::is_field_visible('email', $this->profileuser, $this->viewer, $this->usercontext) && !empty($this->profileuser->email);
         $showphone = visibility_manager::is_field_visible('phone1', $this->profileuser, $this->viewer, $this->usercontext) && !empty($this->profileuser->phone1);
         $showlocation = visibility_manager::is_field_visible('city', $this->profileuser, $this->viewer, $this->usercontext);
+        $showwebsite = visibility_manager::is_field_visible('website', $this->profileuser, $this->viewer, $this->usercontext)
+            && !empty($this->profileuser->url);
+
+        $canviewhiddendetails = $isadmin ||
+            ($this->usercontext && has_capability('moodle/user:viewhiddendetails', $this->usercontext, $this->viewer)) ||
+            has_capability('moodle/user:viewhiddendetails', $systemcontext, $this->viewer);
+        $showlastaccess = $isown || $canviewhiddendetails || !in_array('lastaccess', explode(',', $CFG->hiddenuserfields ?? ''));
 
         // Social Links.
         $sociallinks = $this->get_social_links();
@@ -326,8 +334,8 @@ class profile_page implements renderable, templatable {
             'showemail'               => $showemail,
             'phone'                   => $showphone ? $this->profileuser->phone1 : '',
             'showphone'               => $showphone,
-            'website'                 => !empty($this->profileuser->url) ? $this->profileuser->url : '',
-            'has_website'             => !empty($this->profileuser->url),
+            'website'                 => $showwebsite ? $this->profileuser->url : '',
+            'has_website'             => $showwebsite,
             'isownprofile'            => $isown,
             'canedit'                 => $canedit,
             'editurl'                 => $editurl,
@@ -337,7 +345,8 @@ class profile_page implements renderable, templatable {
             'messageurl'              => $messageurl,
             'cvurl'                   => $cvurl,
             'showcvexport'            => $showcvexport,
-            'lastaccess'              => $this->format_time_ago($this->profileuser->lastaccess),
+            'lastaccess'              => ($showlastaccess && !empty($this->profileuser->lastaccess))
+                ? $this->format_time_ago($this->profileuser->lastaccess) : '',
 
             // Profile Facts Ribbon (6 stats)
             'courses_count'           => $coursescount,
@@ -356,7 +365,9 @@ class profile_page implements renderable, templatable {
 
             // Badges & Achievements (global admin switch: showbadges).
             'showbadges'              => (bool)(get_config('local_smartprofile', 'showbadges') ?? 1)
-                && !empty($CFG->enablebadges) && visibility_manager::is_field_visible('badges', $this->profileuser, $this->viewer, $this->usercontext),
+                && !empty($CFG->enablebadges)
+                && ($isown || $isadmin || ($this->usercontext && has_capability('moodle/badges:viewotherbadges', $this->usercontext, $this->viewer)))
+                && visibility_manager::is_field_visible('badges', $this->profileuser, $this->viewer, $this->usercontext),
             'badges'                  => $badgesdisplay,
             'has_badges'              => !empty($badgesdisplay),
             'has_more_badges'         => ($badgesmorecount > 0),
@@ -471,6 +482,9 @@ class profile_page implements renderable, templatable {
         require_once($CFG->libdir . '/enrollib.php');
 
         $isown = ($this->viewer->id == $this->profileuser->id);
+        if (!$isown && !visibility_manager::is_field_visible('courses', $this->profileuser, $this->viewer, $this->usercontext)) {
+            return [];
+        }
         $allcourses = enrol_get_all_users_courses($this->profileuser->id, true, 'id, fullname, shortname, summary, visible');
 
         $courses = [];
@@ -532,6 +546,15 @@ class profile_page implements renderable, templatable {
             return [];
         }
 
+        $isown = ($this->viewer->id == $this->profileuser->id);
+        $isadmin = is_siteadmin($this->viewer);
+        if (!$isown && !$isadmin && (!$this->usercontext || !has_capability('moodle/badges:viewotherbadges', $this->usercontext, $this->viewer))) {
+            return [];
+        }
+        if (!$isown && !visibility_manager::is_field_visible('badges', $this->profileuser, $this->viewer, $this->usercontext)) {
+            return [];
+        }
+
         $userbadges = badges_get_user_badges($this->profileuser->id);
         $badges = [];
         $colors = ['badge-color-gold', 'badge-color-purple', 'badge-color-blue', 'badge-color-bronze', 'badge-color-amber'];
@@ -571,6 +594,12 @@ class profile_page implements renderable, templatable {
      */
     protected function get_completed_courses(array $courses): array {
         global $DB, $SITE;
+
+        $isown = ($this->viewer->id == $this->profileuser->id);
+        if (!$isown && !visibility_manager::is_field_visible('completedcourses', $this->profileuser, $this->viewer, $this->usercontext)) {
+            return [];
+        }
+
         $completedcourses = [];
 
         // Pre-fetch course completion dates if available.
@@ -1249,6 +1278,14 @@ class profile_page implements renderable, templatable {
      */
     protected function get_user_skills(): array {
         $skills = [];
+        $isown = ($this->viewer->id == $this->profileuser->id);
+        if (!$isown) {
+            $hasskills = visibility_manager::is_field_visible('skills', $this->profileuser, $this->viewer, $this->usercontext);
+            $hasinterests = visibility_manager::is_field_visible('interests', $this->profileuser, $this->viewer, $this->usercontext);
+            if (!$hasskills || !$hasinterests) {
+                return [];
+            }
+        }
         if (core_tag_tag::is_enabled('core', 'user')) {
             $tags = core_tag_tag::get_item_tags('core', 'user', $this->profileuser->id);
             foreach ($tags as $tag) {
@@ -1342,8 +1379,17 @@ class profile_page implements renderable, templatable {
      */
     protected function get_social_links(): array {
         $links = [];
-        if (!empty($this->profileuser->url)) {
-            $links[] = ['icon' => 'fa-globe', 'url' => $this->profileuser->url, 'name' => get_string('website', 'local_smartprofile')];
+        $isown = ($this->viewer->id == $this->profileuser->id);
+        $showwebsite = $isown || (
+            visibility_manager::is_field_visible('website', $this->profileuser, $this->viewer, $this->usercontext) &&
+            visibility_manager::is_field_visible('social', $this->profileuser, $this->viewer, $this->usercontext)
+        );
+        if ($showwebsite && !empty($this->profileuser->url)) {
+            $links[] = [
+                'icon' => 'fa-globe',
+                'url'  => $this->profileuser->url,
+                'name' => get_string('website', 'local_smartprofile'),
+            ];
         }
 
         return $links;

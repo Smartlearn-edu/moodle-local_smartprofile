@@ -78,6 +78,12 @@ class visibility_manager {
                 'icon'     => 'fa-clock',
                 'title'    => 'field_timezone',
             ],
+            'website' => [
+                'category' => 'contact',
+                'default'  => self::VISIBILITY_PUBLIC,
+                'icon'     => 'fa-globe',
+                'title'    => 'website',
+            ],
             'description' => [
                 'category' => 'about',
                 'default'  => self::VISIBILITY_PUBLIC,
@@ -229,9 +235,40 @@ class visibility_manager {
         // ==========================================
         // LAYER 1: Core Moodle Capability Gate
         // ==========================================
+        global $DB;
         $systemcontext = context_system::instance();
         $canviewdetails = $usercontext && has_capability('moodle/user:viewdetails', $usercontext, $viewer);
         $isadmin = is_siteadmin($viewer);
+        $canviewhiddendetails = $isadmin ||
+            ($usercontext && has_capability('moodle/user:viewhiddendetails', $usercontext, $viewer)) ||
+            has_capability('moodle/user:viewhiddendetails', $systemcontext, $viewer);
+
+        // Enforce Moodle core $CFG->hiddenuserfields policy.
+        if (!$canviewhiddendetails && !empty($CFG->hiddenuserfields)) {
+            $hiddenfields = array_flip(explode(',', $CFG->hiddenuserfields));
+
+            $fieldmap = [
+                'description'      => 'description',
+                'email'            => 'email',
+                'city'             => 'city',
+                'country'          => 'country',
+                'timezone'         => 'timezone',
+                'courses'          => 'mycourses',
+                'completedcourses' => 'mycourses',
+                'interests'        => 'interests',
+                'skills'           => 'interests',
+                'website'          => 'webpage',
+                'social'           => 'webpage',
+            ];
+
+            $corefield = $fieldmap[$fieldname] ?? $fieldname;
+            if (isset($hiddenfields[$corefield])) {
+                return false;
+            }
+            if ($corefield === 'webpage' && isset($hiddenfields['url'])) {
+                return false;
+            }
+        }
 
         switch ($fieldname) {
             case 'email':
@@ -252,10 +289,11 @@ class visibility_manager {
             case 'city':
             case 'country':
             case 'timezone':
+            case 'website':
                 // Respect site identity policy unless viewer has capability.
                 if (!$isadmin && !$canviewdetails && !has_capability('moodle/site:viewuseridentity', $systemcontext, $viewer)) {
                     $identityfields = explode(',', $CFG->showuseridentity ?? '');
-                    if (!in_array($fieldname, $identityfields)) {
+                    if (!in_array($fieldname, $identityfields) && !in_array('url', $identityfields)) {
                         return false;
                     }
                 }
@@ -263,6 +301,19 @@ class visibility_manager {
 
             case 'badges':
                 if (empty($CFG->enablebadges)) {
+                    return false;
+                }
+                // In core Moodle, viewing another user's badges requires moodle/badges:viewotherbadges.
+                if (!$isadmin && (!$usercontext || !has_capability('moodle/badges:viewotherbadges', $usercontext, $viewer))) {
+                    return false;
+                }
+                break;
+
+            case 'description':
+                if (
+                    !empty($CFG->profilesforenrolledusersonly) &&
+                    !$DB->record_exists('role_assignments', ['userid' => $profileuser->id])
+                ) {
                     return false;
                 }
                 break;
