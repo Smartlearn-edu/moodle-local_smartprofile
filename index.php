@@ -27,9 +27,9 @@ require_once($CFG->dirroot . '/user/lib.php');
 require_once($CFG->dirroot . '/user/profile/lib.php');
 
 $userid = optional_param('id', 0, PARAM_INT);
-$username = optional_param('username', '', PARAM_RAW);
+$username = optional_param('username', '', PARAM_USERNAME);
 if (empty($username)) {
-    $username = optional_param('u', '', PARAM_RAW);
+    $username = optional_param('u', '', PARAM_USERNAME);
 }
 
 // Check slasharguments (e.g. /local/smartprofile/index.php/username or /local/smartprofile/index.php/7).
@@ -40,7 +40,7 @@ if (empty($userid) && empty($username)) {
         if (is_numeric($patharg)) {
             $userid = (int)$patharg;
         } else if (!empty($patharg)) {
-            $username = $patharg;
+            $username = clean_param($patharg, PARAM_USERNAME);
         }
     }
 }
@@ -68,15 +68,7 @@ $profileuser = null;
 if (!empty($userid)) {
     $profileuser = $DB->get_record('user', ['id' => $userid, 'deleted' => 0]);
 } else if (!empty($username)) {
-    $decodedusername = urldecode($username);
-    // Prefer the URL-decoded username, then the raw value, then a case-insensitive match.
-    $profileuser = $DB->get_record('user', ['username' => $decodedusername, 'deleted' => 0]);
-    if (!$profileuser && $decodedusername !== $username) {
-        $profileuser = $DB->get_record('user', ['username' => $username, 'deleted' => 0]);
-    }
-    if (!$profileuser) {
-        $profileuser = $DB->get_record_select('user', 'LOWER(username) = ? AND deleted = 0', [strtolower($decodedusername)]);
-    }
+    $profileuser = $DB->get_record('user', ['username' => $username, 'deleted' => 0]);
 } else if (isloggedin() && !isguestuser()) {
     $profileuser = $DB->get_record('user', ['id' => $USER->id, 'deleted' => 0]);
 }

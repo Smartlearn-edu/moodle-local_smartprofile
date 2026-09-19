@@ -55,9 +55,9 @@ class hook_callbacks {
                 if (empty($userid)) {
                     $userid = optional_param('userid', 0, PARAM_INT);
                 }
-                $username = optional_param('username', '', PARAM_RAW);
+                $username = optional_param('username', '', PARAM_USERNAME);
                 if (empty($username)) {
-                    $username = optional_param('u', '', PARAM_RAW);
+                    $username = optional_param('u', '', PARAM_USERNAME);
                 }
                 $courseid = optional_param('course', 0, PARAM_INT);
                 if (empty($courseid)) {
