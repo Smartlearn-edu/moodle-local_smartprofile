@@ -143,6 +143,8 @@ $string['error_access_denied'] = 'Access denied.';
 $string['privacy_readonly_notice'] = 'You are viewing this user\'s visibility settings in read-only mode.';
 $string['privacy_readonly_tooltip'] = 'Visibility settings can only be altered by the profile owner.';
 $string['readonly_view'] = 'Read-only';
+$string['status_active'] = 'Active';
+$string['verified_learner'] = 'Verified Learner';
 
 // --- Rewards & Trophies ---
 $string['points_label'] = 'Points';

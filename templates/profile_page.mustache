@@ -114,13 +114,13 @@
             <div class="sp-hero-left">
                 <div class="sp-avatar-holder">
                     <img src="{{avatarurl}}" alt="{{fullname}}" class="sp-hero-avatar" />
-                    <span class="sp-status-indicator" title="Active"></span>
+                    <span class="sp-status-indicator" title="{{#str}}status_active, local_smartprofile{{/str}}"></span>
                 </div>
 
                 <div class="sp-identity-details">
                     <div class="sp-name-row">
                         <h1 class="sp-hero-name">{{fullname}}</h1>
-                        <span class="sp-verified-badge" title="Verified Learner"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                        <span class="sp-verified-badge" title="{{#str}}verified_learner, local_smartprofile{{/str}}"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                     </div>
 
                     <div class="sp-headline-text">
@@ -944,7 +944,7 @@
                     <h5 class="modal-title fw-bold" id="spEndorseModalLabel">
                         <i class="fa fa-stamp text-primary me-2" aria-hidden="true"></i> {{#str}}write_endorsement, local_smartprofile{{/str}}
                     </h5>
-                    <button type="button" class="close btn-close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close btn-close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="{{#str}}closebuttontitle, moodle, Close{{/str}}">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
