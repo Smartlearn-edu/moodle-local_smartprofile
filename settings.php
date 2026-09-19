@@ -54,7 +54,7 @@ if ($hassiteconfig) {
         'local_smartprofile/enableredirect',
         get_string('enableredirect', 'local_smartprofile'),
         get_string('enableredirect_desc', 'local_smartprofile'),
-        1
+        0
     ));
 
     $roleoptions = [];

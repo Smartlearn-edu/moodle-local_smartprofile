@@ -135,8 +135,8 @@ For licensing and details, visit [SmartLearn Education](https://smartlearn.educa
 
 | Setting | Description | Default |
 | :--- | :--- | :--- |
-| **Enable Redirection** | Seamlessly redirect `/user/profile.php` and `/user/view.php` to SmartProfile | `Enabled` |
-| **Redirect Roles** | Filter which user roles are redirected | `All roles` |
+| **Enable Redirection** | Seamlessly redirect `/user/profile.php` and `/user/view.php` to SmartProfile | `Disabled (Opt-in)` |
+| **Redirect Roles** | Filter which user roles are redirected (requires `local/smartprofile:view`) | `None (Disabled until selected)` |
 | **Redirect Admins** | Whether administrators are redirected | `Disabled` |
 | **Theme Mode** | Default color scheme (Auto, Dark, Light) | `Auto` |
 | **Show Courses** | Master toggle for courses section | `Enabled` |

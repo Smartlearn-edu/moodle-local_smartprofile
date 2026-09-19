@@ -86,14 +86,20 @@ function local_smartprofile_should_redirect(): bool {
         return false;
     }
 
+    // Enforce declared capability local/smartprofile:view.
+    $systemcontext = context_system::instance();
+    if (!has_capability('local/smartprofile:view', $systemcontext, $USER)) {
+        return false;
+    }
+
     if (is_siteadmin()) {
         return (bool) get_config('local_smartprofile', 'redirectadmins');
     }
 
     $roles = get_config('local_smartprofile', 'redirectroles');
     if (empty($roles)) {
-        // If no specific roles are configured, redirect all authenticated users.
-        return true;
+        // Treat an empty role list as no redirect.
+        return false;
     }
 
     $roleids = explode(',', $roles);
@@ -123,6 +129,11 @@ function local_smartprofile_myprofile_navigation(\core_user\output\myprofile\tre
     global $USER;
 
     if (!isloggedin() || isguestuser()) {
+        return false;
+    }
+
+    $systemcontext = context_system::instance();
+    if (!has_capability('local/smartprofile:view', $systemcontext)) {
         return false;
     }
 

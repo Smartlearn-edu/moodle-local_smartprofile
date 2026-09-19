@@ -34,7 +34,7 @@ $string['redirect_desc'] = 'Control how users are redirected to the Smart Profil
 $string['enableredirect'] = 'Enable Profile Redirection';
 $string['enableredirect_desc'] = 'When enabled, visits to the standard Moodle profile (/user/profile.php) will be seamlessly redirected to Smart Profile.';
 $string['redirectroles'] = 'Redirect Roles';
-$string['redirectroles_desc'] = 'Select which roles should be redirected. If none are selected, all authenticated users will be redirected.';
+$string['redirectroles_desc'] = 'Select which roles should be redirected. Only users with the selected roles and the local/smartprofile:view capability will be redirected. If none are selected, redirection is disabled.';
 $string['redirectadmins'] = 'Redirect Administrators';
 $string['redirectadmins_desc'] = 'Whether site administrators should also be redirected to Smart Profile.';
 

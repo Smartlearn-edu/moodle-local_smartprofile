@@ -83,6 +83,10 @@ if (!$profileuser) {
 }
 
 $usercontext = context_user::instance($profileuser->id, MUST_EXIST);
+$systemcontext = context_system::instance();
+
+// Enforce declared capability local/smartprofile:view.
+require_capability('local/smartprofile:view', $systemcontext);
 
 // Core profile access check (respects all Moodle access rules).
 if (!user_can_view_profile($profileuser, null, $usercontext)) {
