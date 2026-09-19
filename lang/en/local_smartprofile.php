@@ -140,6 +140,9 @@ $string['field_activity'] = 'Activity Stats';
 $string['pref_saved'] = 'Privacy preference updated successfully.';
 $string['pref_error'] = 'Could not save privacy preference.';
 $string['error_access_denied'] = 'Access denied.';
+$string['privacy_readonly_notice'] = 'You are viewing this user\'s visibility settings in read-only mode.';
+$string['privacy_readonly_tooltip'] = 'Visibility settings can only be altered by the profile owner.';
+$string['readonly_view'] = 'Read-only';
 
 // --- Rewards & Trophies ---
 $string['points_label'] = 'Points';

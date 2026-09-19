@@ -1416,6 +1416,19 @@
     background: color-mix(in srgb, var(--sp-danger) 22%, transparent);
 }
 
+.sp-toggle-badge.sp-readonly {
+    cursor: default;
+    user-select: none;
+}
+
+.sp-toggle-badge.badge-public.sp-readonly:hover {
+    background: color-mix(in srgb, var(--sp-success) 14%, transparent);
+}
+
+.sp-toggle-badge.badge-private.sp-readonly:hover {
+    background: color-mix(in srgb, var(--sp-danger) 14%, transparent);
+}
+
 /* ==========================================================================
    Sidebar: Skills & Social
    ========================================================================== */

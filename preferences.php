@@ -101,6 +101,7 @@ foreach ($registry as $fieldname => $fieldmeta) {
         "is_private"     => !$ispublic,
         "status"         => $currentval,
         "status_label"   => $ispublic ? get_string("status_public", "local_smartprofile") : get_string("status_private", "local_smartprofile"),
+        "isown"          => $isown,
     ];
 }
 
@@ -113,7 +114,7 @@ $templatecontext = [
     "isown"             => $isown,
 ];
 
-$PAGE->requires->js_call_amd("local_smartprofile/profile", "init", [["isown" => true]]);
+$PAGE->requires->js_call_amd("local_smartprofile/profile", "init", [["isown" => $isown]]);
 
 echo $OUTPUT->header();
 echo $OUTPUT->render_from_template("local_smartprofile/preferences_page", $templatecontext);

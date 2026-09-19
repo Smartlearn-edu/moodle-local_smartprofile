@@ -64,15 +64,15 @@ class profile_data extends external_api {
             'preferences' => $preferences,
         ]);
 
-        $context = context_system::instance();
-        self::validate_context($context);
-
         if (!isloggedin() || isguestuser()) {
             return [
                 'status'  => false,
                 'message' => get_string('error_access_denied', 'local_smartprofile'),
             ];
         }
+
+        $context = context_user::instance($USER->id);
+        self::validate_context($context);
 
         $prefsmap = [];
         foreach ($params['preferences'] as $item) {

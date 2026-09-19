@@ -38,6 +38,15 @@
         </div>
     </div>
 
+    {{^isown}}
+    <div class="alert alert-info border-0 rounded-4 shadow-sm mb-4 d-flex align-items-center gap-2" role="alert">
+        <i class="fa fa-circle-info fs-5 text-primary" aria-hidden="true"></i>
+        <div>
+            <strong>{{#str}}readonly_view, local_smartprofile{{/str}}:</strong> {{#str}}privacy_readonly_notice, local_smartprofile{{/str}}
+        </div>
+    </div>
+    {{/isown}}
+
     <!-- Category Groups -->
     <div class="sp-prefs-grid" id="sp-toggles-container">
         {{#categories}}
@@ -59,16 +68,30 @@
                             </div>
                         </div>
                         <div>
-                            {{#is_public}}
-                            <button type="button" class="sp-toggle-badge badge-public" data-action="toggle-visibility" data-field="{{field}}" data-status="public" title="{{#str}}click_to_toggle, local_smartprofile{{/str}}">
-                                <i class="fa fa-eye" aria-hidden="true"></i> {{#str}}status_public, local_smartprofile{{/str}}
-                            </button>
-                            {{/is_public}}
-                            {{#is_private}}
-                            <button type="button" class="sp-toggle-badge badge-private" data-action="toggle-visibility" data-field="{{field}}" data-status="private" title="{{#str}}click_to_toggle, local_smartprofile{{/str}}">
-                                <i class="fa fa-eye-slash" aria-hidden="true"></i> {{#str}}status_private, local_smartprofile{{/str}}
-                            </button>
-                            {{/is_private}}
+                            {{#isown}}
+                                {{#is_public}}
+                                <button type="button" class="sp-toggle-badge badge-public" data-action="toggle-visibility" data-field="{{field}}" data-status="public" title="{{#str}}click_to_toggle, local_smartprofile{{/str}}">
+                                    <i class="fa fa-eye" aria-hidden="true"></i> {{#str}}status_public, local_smartprofile{{/str}}
+                                </button>
+                                {{/is_public}}
+                                {{#is_private}}
+                                <button type="button" class="sp-toggle-badge badge-private" data-action="toggle-visibility" data-field="{{field}}" data-status="private" title="{{#str}}click_to_toggle, local_smartprofile{{/str}}">
+                                    <i class="fa fa-eye-slash" aria-hidden="true"></i> {{#str}}status_private, local_smartprofile{{/str}}
+                                </button>
+                                {{/is_private}}
+                            {{/isown}}
+                            {{^isown}}
+                                {{#is_public}}
+                                <span class="sp-toggle-badge badge-public sp-readonly" title="{{#str}}privacy_readonly_tooltip, local_smartprofile{{/str}}">
+                                    <i class="fa fa-eye" aria-hidden="true"></i> {{#str}}status_public, local_smartprofile{{/str}}
+                                </span>
+                                {{/is_public}}
+                                {{#is_private}}
+                                <span class="sp-toggle-badge badge-private sp-readonly" title="{{#str}}privacy_readonly_tooltip, local_smartprofile{{/str}}">
+                                    <i class="fa fa-eye-slash" aria-hidden="true"></i> {{#str}}status_private, local_smartprofile{{/str}}
+                                </span>
+                                {{/is_private}}
+                            {{/isown}}
                         </div>
                     </div>
                     {{/fields}}
